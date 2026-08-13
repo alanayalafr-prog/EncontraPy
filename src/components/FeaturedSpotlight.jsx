@@ -63,8 +63,7 @@ export default function FeaturedSpotlight({ businesses = [], onSelectDetail }) {
 
         {/* Showcase Horizontal Carousel */}
         <div ref={carouselRef} className="flex overflow-x-auto gap-4 pt-4 pb-4 relative z-10 snap-x snap-mandatory items-stretch scroll-smooth">
-        {/* DUPLICATED FOR TESTING */}
-        {[...premiumBusinesses, ...premiumBusinesses].map((business, index) => {
+        {premiumBusinesses.map((business, index) => {
           const waUrl = `https://wa.me/${business.whatsappNumber}?text=${encodeURIComponent(business.whatsappDefaultMessage)}`;
 
           return (
