@@ -7,6 +7,7 @@ export default function AdminDashboard({ businesses }) {
 
   // Filter only free businesses (or 'gratis' if we used that initially)
   const freeBusinesses = businesses.filter(b => b.plan === 'free' || b.plan === 'gratis');
+  const premiumBusinesses = businesses.filter(b => b.plan === 'pro' || b.plan === 'premium');
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -115,6 +116,75 @@ export default function AdminDashboard({ businesses }) {
             No hay comercios gratuitos para contactar. ¡Excelente trabajo de ventas!
           </div>
         )}
+      </div>
+
+      {/* Historial VIP */}
+      <div className="pt-12 border-t border-[#27354D]">
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-white">Historial de Clientes VIP</h2>
+          <p className="text-slate-400 mt-1">
+            Comercios que ya tienen un plan Premium o Pro. Total: {premiumBusinesses.length}
+          </p>
+        </div>
+
+        <div className="bg-[#151F32] rounded-2xl border border-[#27354D] overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm text-slate-300">
+              <thead className="bg-[#1E293B] text-slate-400 uppercase text-xs">
+                <tr>
+                  <th className="px-6 py-4 font-bold">Comercio</th>
+                  <th className="px-6 py-4 font-bold">Plan</th>
+                  <th className="px-6 py-4 font-bold">Fecha Registro / Compra</th>
+                  <th className="px-6 py-4 font-bold">Contacto</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#27354D]">
+                {premiumBusinesses.map((b) => (
+                  <tr key={b.id} className="hover:bg-[#1E293B]/50 transition-colors">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <img src={b.image} alt={b.name} className="w-10 h-10 rounded-full object-cover border border-[#27354D]" />
+                        <div>
+                          <p className="text-white font-bold">{b.name}</p>
+                          <p className="text-xs text-slate-500">{b.cityName}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${b.plan === 'premium' ? 'bg-amber-500/20 text-amber-400' : 'bg-blue-500/20 text-blue-400'}`}>
+                        {b.plan}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-slate-400">
+                      {new Date(b.created_at).toLocaleDateString('es-PY', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                      })}
+                    </td>
+                    <td className="px-6 py-4">
+                      <a 
+                        href={`https://wa.me/${b.whatsappNumber}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-green-400 hover:text-green-300 flex items-center gap-1 font-semibold"
+                      >
+                        <WhatsAppIcon className="w-4 h-4" /> WhatsApp
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+                {premiumBusinesses.length === 0 && (
+                  <tr>
+                    <td colSpan="4" className="px-6 py-8 text-center text-slate-500">
+                      Aún no hay clientes con planes pagos.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );
