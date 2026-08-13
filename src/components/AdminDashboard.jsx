@@ -18,7 +18,7 @@ export default function AdminDashboard({ businesses }) {
   };
 
   const getMarketingMessage = (b) => {
-    return `Hola ${b.name}, vimos que su perfil en DirectorioPY está activo y recibiendo visitas. Nos gustaría ofrecerle nuestro Plan Premium para destacarlo en la página principal y aumentar sus clientes. ¿Le interesaría conocer los beneficios?`;
+    return `Hola ${b.name}, vimos su perfil activo en DirectorioPY. Si desea destacar su negocio para recibir más clientes, le invitamos a ver nuestros planes en directoriopy.com/`;
   };
 
   if (!isAuthenticated) {
