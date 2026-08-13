@@ -80,7 +80,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       encarnacion: 'Encarnación'
     };
 
-    const cleanWhatsapp = formData.whatsapp ? formData.whatsapp.replace(/\D/g, '') : '595981100200';
+    const cleanWhatsapp = formData.whatsapp ? formData.whatsapp.replace(/\D/g, '') : '595981747679';
     const formattedWa = cleanWhatsapp.startsWith('595') ? cleanWhatsapp : `595${cleanWhatsapp.replace(/^0/, '')}`;
 
     // Si es Plan Gratuito, se asigna obligatoriamente la imagen genérica del rubro

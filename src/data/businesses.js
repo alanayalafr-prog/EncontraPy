@@ -316,5 +316,5 @@ export const BANK_TRANSFER_DETAILS = {
   accountNumber: '619450001',
   accountType: 'Caja de Ahorro en Guaraníes',
   aliasSIPAP: '4318506',
-  contactWhatsApp: '595981100200'
+  contactWhatsApp: '595981747679'
 };

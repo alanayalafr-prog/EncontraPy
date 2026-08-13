@@ -95,7 +95,7 @@ export default function Footer({ onSelectCategory, onSelectCity }) {
               ¿Querés registrar tu negocio o activar tu plan por transferencia SIPAP? Contactanos:
             </p>
             <a
-              href="https://wa.me/595981100200?text=Hola%20DirectorioPY,%20quisiera%20consultar%20sobre%20el%20directorio."
+              href="https://wa.me/595981747679?text=Hola%20DirectorioPY,%20quisiera%20consultar%20sobre%20el%20directorio."
               target="_blank"
               rel="noopener noreferrer"
               className="btn-whatsapp-official w-full py-3 text-xs rounded-xl flex items-center justify-center gap-2 font-bold shadow-md hover:scale-[1.01] transition-transform mt-2"
