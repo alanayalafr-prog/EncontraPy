@@ -92,8 +92,13 @@ export default function App() {
             whatsappNumber: newBusiness.whatsappNumber,
             whatsappDefaultMessage: newBusiness.whatsappDefaultMessage,
             isVerified: newBusiness.isVerified,
-            // Agregamos algunos campos extras como JSONB si fueran necesarios, pero 
-            // la tabla actual solo requiere los definidos en SQL.
+            address: newBusiness.address,
+            phone: newBusiness.phone,
+            workingHours: newBusiness.workingHours,
+            gallery: newBusiness.gallery,
+            instagram: newBusiness.instagram,
+            facebook: newBusiness.facebook,
+            website: newBusiness.website
           }
         ])
         .select();
