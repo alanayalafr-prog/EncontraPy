@@ -3,14 +3,13 @@ import { XIcon, CreditCardIcon, WhatsAppIcon, CheckCircleIcon, UploadIcon, Spark
 import { PRICING_PLANS, BANK_TRANSFER_DETAILS } from '../data/businesses';
 
 export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'pro' }) {
-  const [activePlanId, setActivePlanId] = useState(selectedPlanId);
   const [copiedField, setCopiedField] = useState(null);
   const [receiptFile, setReceiptFile] = useState(null);
   const [receiptSent, setReceiptSent] = useState(false);
 
   if (!isOpen) return null;
 
-  const currentPlan = PRICING_PLANS.find(p => p.id === activePlanId) || PRICING_PLANS[1];
+  const currentPlan = PRICING_PLANS.find(p => p.id === selectedPlanId) || PRICING_PLANS[1];
 
   const handleCopy = (text, fieldName) => {
     navigator.clipboard.writeText(text);
@@ -64,7 +63,7 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
 
 
         {/* Selected Plan Details & Bank Transfer Details */}
-        {activePlanId !== 'gratuito' ? (
+        {selectedPlanId !== 'gratuito' ? (
           <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-6">
             
             {/* Plan Header */}

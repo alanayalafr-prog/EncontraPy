@@ -3,7 +3,7 @@ import { CrownIcon, StarIcon, WhatsAppIcon, ShieldCheckIcon, MapPinIcon } from '
 
 export default function FeaturedSpotlight({ businesses = [], onSelectDetail }) {
   const carouselRef = useRef(null);
-  const premiumBusinesses = businesses.filter(b => b.plan === 'premium');
+  const premiumBusinesses = businesses.filter(b => b.plan === 'premium' && b.isVerified);
 
   const scrollLeft = () => {
     if (carouselRef.current) {
