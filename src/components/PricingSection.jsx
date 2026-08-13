@@ -123,7 +123,7 @@ export default function PricingSection({ onOpenPaymentModal }) {
             </div>
 
             <span className="bg-blue-950 text-blue-300 font-bold text-xs px-3 py-1.5 rounded-lg border border-blue-800 shrink-0">
-              🇵🇾 Banco Continental S.A.
+              🇵🇾 {BANK_TRANSFER_DETAILS.bankName}
             </span>
           </div>
 
@@ -136,7 +136,7 @@ export default function PricingSection({ onOpenPaymentModal }) {
             </div>
 
             <div className="p-4 sm:p-5 rounded-xl bg-[#151F32] border border-[#27354D] space-y-1.5">
-              <span className="text-slate-400 text-[11px] font-medium uppercase tracking-wider block">RUC Comercial:</span>
+              <span className="text-slate-400 text-[11px] font-medium uppercase tracking-wider block">C.I. / RUC:</span>
               <div className="font-mono font-bold text-amber-400 text-sm leading-snug">{BANK_TRANSFER_DETAILS.ruc}</div>
             </div>
 
