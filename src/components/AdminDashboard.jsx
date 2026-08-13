@@ -10,7 +10,7 @@ export default function AdminDashboard({ businesses }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (password === 'ventas2026') {
+    if (password === 'Ventas238899') {
       setIsAuthenticated(true);
     } else {
       alert('Contraseña incorrecta');
