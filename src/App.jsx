@@ -175,17 +175,24 @@ export default function App() {
     setIsPricingModalOpen(true);
   };
 
+  const handleOpenAddModal = (planId = 'gratuito') => {
+    setInitialPlanForAdd(planId);
+    setIsAddModalOpen(true);
+  };
+
   const hasActiveFilters = selectedCategory !== 'todos' || selectedService !== 'todos' || selectedCity !== 'todas' || searchQuery !== '';
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0B1120] text-slate-100 selection:bg-amber-400 selection:text-black overflow-x-hidden">
+    <div className={`min-h-screen font-sans flex flex-col ${theme === 'dark' ? 'bg-[#060B14] text-slate-200' : 'bg-slate-50 text-slate-900'}`}>
       
-      {/* Header Fijo con Botón de Registrar Comercio */}
+      {/* Navigation */}
       <Header
         theme={theme}
         toggleTheme={toggleTheme}
-        onOpenAddModal={() => setIsAddModalOpen(true)}
-        onOpenPricingModal={() => handleOpenPlanPayment('premium')}
+        onOpenAddModal={() => handleOpenAddModal('gratuito')}
+        onOpenPricingModal={() => {
+          document.getElementById('planes-sipap')?.scrollIntoView({ behavior: 'smooth' });
+        }}
       />
 
       {/* Hero Section con Desplegable de Servicios y Ciudad */}
@@ -357,7 +364,7 @@ export default function App() {
         )}
 
         {/* Monetization Pricing Section */}
-        <PricingSection onOpenPaymentModal={handleOpenPlanPayment} />
+        <PricingSection onOpenPaymentModal={handleOpenAddModal} />
 
       </main>
 
@@ -379,6 +386,7 @@ export default function App() {
         onClose={() => setIsAddModalOpen(false)}
         onSelectPlanForPayment={handleOpenPlanPayment}
         onAddBusiness={handleAddBusiness}
+        initialPlan={initialPlanForAdd}
       />
 
       <SipapPaymentModal

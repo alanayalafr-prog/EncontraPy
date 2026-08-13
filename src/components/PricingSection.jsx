@@ -4,7 +4,7 @@ import { PRICING_PLANS, BANK_TRANSFER_DETAILS } from '../data/businesses';
 
 export default function PricingSection({ onOpenPaymentModal }) {
   return (
-    <section className="pt-6 pb-8 border-t border-[#27354D] mt-6">
+    <section id="planes-sipap" className="pt-6 pb-8 border-t border-[#27354D] mt-6">
       <div className="container-clean flex flex-col items-center justify-center">
         
         {/* Section Header centrado con margen cercano y equilibrado de 22px abajo */}

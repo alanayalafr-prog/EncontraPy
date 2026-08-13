@@ -16,7 +16,7 @@ import {
 } from './Icons';
 import { SERVICES } from '../data/businesses';
 
-export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, onAddBusiness }) {
+export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, onAddBusiness, initialPlan = 'gratuito' }) {
   const availableServices = SERVICES.filter(s => s.id !== 'todos');
 
   const [formData, setFormData] = useState({
@@ -31,11 +31,17 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
     workingHours: 'Lun a Vie: 08:00 - 18:00',
     instagram: '',
     website: '',
-    plan: 'premium',
+    plan: initialPlan,
     description: '',
     imageUrl: '',
     galleryUrls: ['', '']
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      setFormData(prev => ({ ...prev, plan: initialPlan }));
+    }
+  }, [isOpen, initialPlan]);
 
   const [submitted, setSubmitted] = useState(false);
 
