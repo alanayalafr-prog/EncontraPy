@@ -94,8 +94,8 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       : [];
 
     const newBusinessObj = {
-      id: 'sim_' + Date.now(),
-      name: formData.name || 'Comercio Simulado de Prueba',
+      id: 'emp_' + Date.now(),
+      name: formData.name || 'Comercio Nuevo',
       category: formData.category,
       categoryLabel: categoryLabelMap[formData.category] || 'Oficios y Servicios',
       niche: finalNiche || 'Servicios Generales',
@@ -103,7 +103,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       cityName: cityNameMap[formData.city] || 'Asunción',
       zone: formData.zone || 'Zona Centro',
       address: formData.zone || 'Av. Principal del Comercio',
-      description: formData.description || 'Comercio de prueba registrado para simulacro en DirectorioPY.',
+      description: formData.description || 'Comercio registrado en DirectorioPY.',
       phone: formData.phone || '+595 981 100 200',
       whatsappNumber: formattedWa,
       whatsappDefaultMessage: `Hola ${formData.name || 'Comercio'}, los encontré en el directorio DirectorioPY y quisiera información.`,
@@ -114,7 +114,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       workingHours: formData.workingHours || 'Lun a Vie: 08:00 - 18:00',
       image: mainImage,
       gallery: finalGallery,
-      tags: [formData.category, formData.city, 'simulacro', 'nuevo'],
+      tags: [formData.category, formData.city, 'nuevo'],
       instagram: formData.plan !== 'gratuito' ? formattedInstagram : '',
       website: formData.plan !== 'gratuito' ? formattedWebsite : ''
     };
@@ -673,7 +673,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
             </div>
 
             <div className="space-y-2.5">
-              <h3 className="text-2xl sm:text-3xl font-black text-white leading-snug">¡Registro Simulado Exitoso!</h3>
+              <h3 className="text-2xl sm:text-3xl font-black text-white leading-snug">¡Registro Exitoso!</h3>
               <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
                 {formData.plan === 'gratuito'
                   ? `Publicamos a "${formData.name}" en el Plan Gratuito con imagen genérica de rubro. Ya podés buscarlo en el catálogo.`
@@ -690,14 +690,14 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
             {formData.plan !== 'gratuito' ? (
               <div className="p-4 rounded-2xl bg-amber-950/40 border border-amber-400/60 space-y-3">
                 <div className="text-xs text-amber-300 font-bold">
-                  Siguiente paso opcional (Simulacro de Pago SIPAP):
+                  Siguiente paso para activar tu plan:
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <button
                     onClick={handleProceedToPayment}
                     className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-black font-extrabold text-xs shadow-xl hover:scale-[1.01] transition-all uppercase tracking-wide"
                   >
-                    Simular Pago SIPAP →
+                    PROCEDER AL PAGO SIPAP →
                   </button>
                   <button
                     onClick={() => {
