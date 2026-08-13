@@ -61,6 +61,7 @@ export default function App() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
   const [selectedPlanForPayment, setSelectedPlanForPayment] = useState('pro');
+  const [initialPlanForAdd, setInitialPlanForAdd] = useState('gratuito');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
