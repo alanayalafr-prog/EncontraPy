@@ -7,14 +7,12 @@ export default function BusinessCard({ business, onSelectDetail }) {
   
   const isPremium = business.plan === 'premium';
   const isPro = business.plan === 'pro';
-  const isFree = !isPremium && !isPro;
   
-  // Dummy images array for visual effect if business doesn't have an images array
-  const images = business.images || [
-    business.image,
-    "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400&q=80",
-    "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80"
-  ];
+  // Solo los planes Pro y Premium pueden tener galería en la tarjeta.
+  // El plan gratuito solo muestra la imagen principal.
+  const images = (isPremium || isPro) && business.gallery && business.gallery.length > 0
+    ? business.gallery 
+    : [business.image];
 
   // Visual Star Rating Generator (e.g. 4.9 -> ★★★★★)
   const renderVisualStars = (rating) => {
