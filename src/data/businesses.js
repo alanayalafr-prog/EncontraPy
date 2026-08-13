@@ -310,11 +310,11 @@ export const PRICING_PLANS = [
 ];
 
 export const BANK_TRANSFER_DETAILS = {
-  bankName: 'Banco Continental S.A.E.C.A.',
-  accountHolder: 'DirectorioPY S.A. - Directorio Web',
-  ruc: '80099887-4',
-  accountNumber: '01-23-456789-01',
-  accountType: 'Cuenta Corriente en Guaraníes (PYG)',
-  aliasSIPAP: 'directoriopy.com@pagos.com.py',
+  bankName: 'Ueno Bank',
+  accountHolder: 'Alan Ayala Fernandez',
+  ruc: '4318506',
+  accountNumber: '4318506',
+  accountType: 'Caja de Ahorro en Guaraníes',
+  aliasSIPAP: '4318506',
   contactWhatsApp: '595981100200'
 };
