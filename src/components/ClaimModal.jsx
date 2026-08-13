@@ -112,7 +112,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       description: formData.description || 'Comercio registrado en DirectorioPY.',
       phone: formData.phone || '+595 981 100 200',
       whatsappNumber: formattedWa,
-      whatsappDefaultMessage: `Hola ${formData.name || 'Comercio'}, los encontré en el directorio DirectorioPY y quisiera información.`,
+      whatsappDefaultMessage: `Hola ${formData.name || 'Comercio'}, los encontré en DirectorioPY. Me gustaría hacerles una consulta sobre sus servicios, por favor.`,
       rating: 5.0,
       reviewCount: 1,
       isVerified: false,
