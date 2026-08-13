@@ -61,9 +61,24 @@ export default function BusinessDetailModal({ business, onClose }) {
       script.text = JSON.stringify(schemaData);
       document.head.appendChild(script);
 
+      // Level 1: Google JS SEO (document.title & description)
+      const previousTitle = document.title;
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const previousDescription = metaDescription ? metaDescription.getAttribute('content') : '';
+
+      document.title = `${business.name} - DirectorioPY`;
+      if (metaDescription) {
+        metaDescription.setAttribute('content', `Encuentra a ${business.name} en DirectorioPY. ${business.description ? business.description.substring(0, 120) + '...' : ''}`);
+      }
+
       return () => {
         const oldScript = document.getElementById('dynamic-localbusiness-schema');
         if (oldScript) oldScript.remove();
+        
+        document.title = previousTitle;
+        if (metaDescription) {
+          metaDescription.setAttribute('content', previousDescription);
+        }
       };
     }
   }, [business]);
