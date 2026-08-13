@@ -25,7 +25,7 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
   };
 
   const handleConfirmTransfer = () => {
-    const message = `Hola EncontraPY 🇵🇾, acabo de realizar la transferencia bancaria por SIPAP para activar el ${currentPlan.name} (${currentPlan.priceGs}). Adjunto mi comprobante para la verificación.`;
+    const message = `Hola DirectorioPY 🇵🇾, acabo de realizar la transferencia bancaria por SIPAP para activar el ${currentPlan.name} (${currentPlan.priceGs}). Adjunto mi comprobante para la verificación.`;
     const waUrl = `https://wa.me/${BANK_TRANSFER_DETAILS.contactWhatsApp}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
     setReceiptSent(true);
@@ -58,7 +58,7 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
             Suscripción & Transferencia SIPAP
           </h2>
           <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto">
-            Activá tu perfil destacado en EncontraPY abonando vía transferencia bancaria directa (SIPAP) en Guaraníes sin comisiones de plataforma.
+            Activá tu perfil destacado en DirectorioPY abonando vía transferencia bancaria directa (SIPAP) en Guaraníes sin comisiones de plataforma.
           </p>
         </div>
 
@@ -122,7 +122,7 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
               <div className="md:col-span-1 p-4 rounded-2xl bg-slate-950 border border-amber-500/30 text-center space-y-2">
                 <div className="text-xs font-bold text-amber-400 uppercase tracking-wider">QR SIPAP Express</div>
                 <div className="p-2 bg-slate-900 rounded-xl inline-block border border-slate-800">
-                  <img src={qrSvgDataUri} alt="QR SIPAP EncontraPY" className="w-32 h-32 rounded mx-auto" />
+                  <img src={qrSvgDataUri} alt="QR SIPAP DirectorioPY" className="w-32 h-32 rounded mx-auto" />
                 </div>
                 <p className="text-[11px] text-slate-400">
                   Escaneá desde tu App bancaria en Paraguay (Continental, Sudameris, Itaú, Ueno)

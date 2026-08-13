@@ -15,7 +15,7 @@ export default function Footer({ onSelectCategory, onSelectCity }) {
               <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center font-black text-white text-lg shadow-md">
                 E<span className="text-amber-400">PY</span>
               </div>
-              <span>Encontra<span className="text-amber-400 font-extrabold">PY</span></span>
+              <span>Directorio<span className="text-amber-400 font-extrabold">PY</span></span>
               <span className="text-xs px-2 py-0.5 rounded bg-blue-950 text-blue-300 font-bold border border-blue-800">
                 🇵🇾
               </span>
@@ -95,13 +95,13 @@ export default function Footer({ onSelectCategory, onSelectCity }) {
               ¿Querés registrar tu negocio o activar tu plan por transferencia SIPAP? Contactanos:
             </p>
             <a
-              href="https://wa.me/595981100200?text=Hola%20EncontraPY,%20quisiera%20consultar%20sobre%20el%20directorio."
+              href="https://wa.me/595981100200?text=Hola%20DirectorioPY,%20quisiera%20consultar%20sobre%20el%20directorio."
               target="_blank"
               rel="noopener noreferrer"
               className="btn-whatsapp-official w-full py-3 text-xs rounded-xl flex items-center justify-center gap-2 font-bold shadow-md hover:scale-[1.01] transition-transform mt-2"
             >
               <WhatsAppIcon className="w-4 h-4 shrink-0" />
-              <span>Contactar Soporte EncontraPY</span>
+              <span>Contactar Soporte DirectorioPY</span>
             </a>
           </div>
 
@@ -109,7 +109,7 @@ export default function Footer({ onSelectCategory, onSelectCity }) {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-[#27354D]/70 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4 mt-8">
-          <p>© 2026 EncontraPY — Directorio Web de Paraguay 🇵🇾. Todos los derechos reservados.</p>
+          <p>© 2026 DirectorioPY — Directorio Web de Paraguay 🇵🇾. Todos los derechos reservados.</p>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-sm"></span>
             <span className="text-emerald-400 font-semibold text-xs">Servicio Activo en Paraguay</span>

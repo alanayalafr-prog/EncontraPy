@@ -103,10 +103,10 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       cityName: cityNameMap[formData.city] || 'Asunción',
       zone: formData.zone || 'Zona Centro',
       address: formData.zone || 'Av. Principal del Comercio',
-      description: formData.description || 'Comercio de prueba registrado para simulacro en EncontraPY.',
+      description: formData.description || 'Comercio de prueba registrado para simulacro en DirectorioPY.',
       phone: formData.phone || '+595 981 100 200',
       whatsappNumber: formattedWa,
-      whatsappDefaultMessage: `Hola ${formData.name || 'Comercio'}, los encontré en el directorio EncontraPY y quisiera información.`,
+      whatsappDefaultMessage: `Hola ${formData.name || 'Comercio'}, los encontré en el directorio DirectorioPY y quisiera información.`,
       rating: 5.0,
       reviewCount: 1,
       isVerified: formData.plan === 'pro' || formData.plan === 'premium',
@@ -199,7 +199,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
             <div className="space-y-2.5 text-center">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-950/80 border border-blue-800/60 text-blue-400 text-xs font-semibold">
                 <SparklesIcon className="w-3.5 h-3.5 text-amber-400" />
-                Registrá tu comercio en EncontraPY
+                Registrá tu comercio en DirectorioPY
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-snug">
                 Recibí clientes directo a tu WhatsApp 🇵🇾

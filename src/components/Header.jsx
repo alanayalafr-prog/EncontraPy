@@ -16,7 +16,7 @@ export default function Header({ theme, toggleTheme, onOpenAddModal, onOpenPrici
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5 font-bold text-lg sm:text-xl text-white leading-none">
-              Encontra<span className="text-amber-400 font-extrabold">PY</span>
+              Directorio<span className="text-amber-400 font-extrabold">PY</span>
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-950 text-blue-300 font-bold border border-blue-800">
                 🇵🇾
               </span>
