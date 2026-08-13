@@ -313,7 +313,7 @@ export const BANK_TRANSFER_DETAILS = {
   bankName: 'Ueno Bank',
   accountHolder: 'Alan Ayala Fernandez',
   ruc: '4318506',
-  accountNumber: '4318506',
+  accountNumber: '619450001',
   accountType: 'Caja de Ahorro en Guaraníes',
   aliasSIPAP: '4318506',
   contactWhatsApp: '595981100200'
