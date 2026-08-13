@@ -12,7 +12,7 @@ export default function Header({ theme, toggleTheme, onOpenAddModal, onOpenPrici
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center font-black text-white text-xl shadow-md">
-            E<span className="text-amber-400">PY</span>
+            D<span className="text-amber-400">PY</span>
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5 font-bold text-lg sm:text-xl text-white leading-none">

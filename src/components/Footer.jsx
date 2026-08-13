@@ -13,7 +13,7 @@ export default function Footer({ onSelectCategory, onSelectCity }) {
           <div className="space-y-4">
             <div className="flex items-center gap-2.5 font-bold text-2xl tracking-tight text-white">
               <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center font-black text-white text-lg shadow-md">
-                E<span className="text-amber-400">PY</span>
+                D<span className="text-amber-400">PY</span>
               </div>
               <span>Directorio<span className="text-amber-400 font-extrabold">PY</span></span>
               <span className="text-xs px-2 py-0.5 rounded bg-blue-950 text-blue-300 font-bold border border-blue-800">
