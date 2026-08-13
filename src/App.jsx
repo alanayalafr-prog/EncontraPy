@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import { Routes, Route, useNavigate, useParams, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import SearchBar from './components/SearchBar';
@@ -183,11 +183,15 @@ export default function App() {
   };
 
   const hasActiveFilters = selectedCategory !== 'todos' || selectedService !== 'todos' || selectedCity !== 'todas' || searchQuery !== '';
+  const location = useLocation();
+  const isAdminRoute = location.pathname === '/admin';
 
   return (
     <div className={`min-h-screen font-sans flex flex-col ${theme === 'dark' ? 'bg-[#060B14] text-slate-200' : 'bg-slate-50 text-slate-900'}`}>
       
-      {/* Navigation */}
+      {!isAdminRoute && (
+        <>
+          {/* Navigation */}
       <Header
         theme={theme}
         toggleTheme={toggleTheme}
@@ -375,6 +379,8 @@ export default function App() {
         onSelectCategory={(cat) => setSelectedCategory(cat)}
         onSelectCity={(city) => setSelectedCity(city)}
       />
+        </>
+      )}
 
       {/* Modals */}
       <Routes>
