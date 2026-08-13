@@ -109,7 +109,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       whatsappDefaultMessage: `Hola ${formData.name || 'Comercio'}, los encontré en el directorio DirectorioPY y quisiera información.`,
       rating: 5.0,
       reviewCount: 1,
-      isVerified: formData.plan === 'pro' || formData.plan === 'premium',
+      isVerified: false,
       plan: formData.plan === 'gratuito' ? 'free' : formData.plan,
       workingHours: formData.workingHours || 'Lun a Vie: 08:00 - 18:00',
       image: mainImage,

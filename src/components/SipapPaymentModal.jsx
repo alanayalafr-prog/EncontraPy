@@ -62,43 +62,6 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
           </p>
         </div>
 
-        {/* Plan Selector Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {PRICING_PLANS.map((plan) => {
-            const isSelected = activePlanId === plan.id;
-            return (
-              <div
-                key={plan.id}
-                onClick={() => setActivePlanId(plan.id)}
-                className={`p-4 rounded-2xl cursor-pointer transition-all duration-300 flex flex-col justify-between border relative ${
-                  isSelected
-                    ? 'bg-gradient-to-b from-blue-900/60 via-indigo-950/80 to-slate-900 border-amber-500 shadow-xl shadow-amber-500/20 scale-[1.03]'
-                    : 'bg-slate-900/60 hover:bg-slate-800/80 border-slate-800 opacity-80'
-                }`}
-              >
-                {plan.highlighted && (
-                  <span className="absolute -top-2.5 right-3 bg-amber-500 text-black text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                    MÁS POPULAR
-                  </span>
-                )}
-                <div>
-                  <div className="text-xs font-bold text-amber-400">{plan.badge}</div>
-                  <div className="text-base font-bold text-white mt-1">{plan.name}</div>
-                  <div className="mt-2 flex items-baseline gap-1">
-                    <span className="text-xl font-extrabold text-amber-400">{plan.priceGs}</span>
-                    <span className="text-[10px] text-slate-400">{plan.period}</span>
-                  </div>
-                </div>
-
-                <div className="mt-4 pt-2 border-t border-slate-800">
-                  <span className={`text-xs font-bold ${isSelected ? 'text-amber-400' : 'text-slate-500'}`}>
-                    {isSelected ? '✓ Seleccionado' : 'Elegir Plan'}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
 
         {/* Selected Plan Details & Bank Transfer Details */}
         {activePlanId !== 'gratuito' ? (

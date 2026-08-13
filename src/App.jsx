@@ -125,7 +125,16 @@ export default function App() {
   const filteredBusinesses = useMemo(() => {
     const planWeight = { premium: 3, pro: 2, free: 1 };
 
-    return businesses.filter((b) => {
+    return businesses
+      .map(b => {
+        const isPending = (b.plan === 'premium' || b.plan === 'pro') && !b.isVerified;
+        return {
+          ...b,
+          plan: isPending ? 'free' : (b.plan || 'free'),
+          originalPlan: b.plan
+        };
+      })
+      .filter((b) => {
       if (selectedCategory !== 'todos' && b.category !== selectedCategory) {
         return false;
       }
