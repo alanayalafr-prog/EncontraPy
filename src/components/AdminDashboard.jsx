@@ -18,7 +18,7 @@ export default function AdminDashboard({ businesses }) {
   };
 
   const getMarketingMessage = (b) => {
-    return `Hola ${b.name}, vimos su perfil activo en DirectorioPY. Si desea destacar su negocio para recibir más clientes, le invitamos a ver nuestros planes en directoriopy.com/`;
+    return `Hola ${b.name}, vimos su perfil activo en DirectorioPY. Si desea destacar su negocio para recibir más clientes, le invitamos a ver nuestros planes en www.DirectorioPy.com`;
   };
 
   if (!isAuthenticated) {
