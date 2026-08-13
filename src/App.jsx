@@ -9,6 +9,7 @@ import BusinessCard from './components/BusinessCard';
 import BusinessDetailModal from './components/BusinessDetailModal';
 import ClaimModal from './components/ClaimModal';
 import SipapPaymentModal from './components/SipapPaymentModal';
+import AdminDashboard from './components/AdminDashboard';
 import PricingSection from './components/PricingSection';
 import Footer from './components/Footer';
 import MapView from './components/MapView';
@@ -380,6 +381,7 @@ export default function App() {
         <Route path="/publicacion/:id" element={
           <BusinessModalRoute businesses={businesses} onClose={() => navigate('/')} />
         } />
+        <Route path="/admin" element={<AdminDashboard businesses={businesses} />} />
       </Routes>
 
       <ClaimModal
