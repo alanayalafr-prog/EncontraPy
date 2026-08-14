@@ -74,6 +74,20 @@ export default function HomePageContent({ initialBusinesses }) {
 
   const hasActiveFilters = selectedCategory !== 'todos' || selectedService !== 'todos' || selectedCity !== 'todas' || searchQuery !== '';
 
+  const getSeoText = () => {
+    let text = "DirectorioPY es la guía comercial líder en Paraguay para encontrar profesionales, servicios y negocios locales.";
+    if (selectedCity !== 'todas') {
+      const cityName = CITIES.find(c => c.id === selectedCity)?.label || '';
+      text += ` Encuentra las mejores opciones en ${cityName}.`;
+    }
+    if (selectedCategory !== 'todos') {
+      const catName = CATEGORIES.find(c => c.id === selectedCategory)?.label || '';
+      text += ` Especializados en ${catName.toLowerCase()}.`;
+    }
+    text += " Apoya el comercio local y contacta directo por WhatsApp sin intermediarios.";
+    return text;
+  };
+
   return (
     <>
       <Hero />
