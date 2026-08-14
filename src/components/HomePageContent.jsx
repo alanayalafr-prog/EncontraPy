@@ -116,6 +116,11 @@ export default function HomePageContent({ initialBusinesses }) {
             </div>
           </div>
           
+          {/* Dynamic SEO Content Block */}
+          <div className="bg-[#151F32]/50 border border-[#27354D]/50 rounded-xl p-4 sm:p-5 text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+            <p>{getSeoText()}</p>
+          </div>
+
           <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#27354D] pb-3 gap-3">
             <h2 className="text-sm font-extrabold text-white flex items-center gap-2 tracking-wide uppercase">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
