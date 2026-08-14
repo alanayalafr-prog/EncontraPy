@@ -25,7 +25,10 @@ export const CITIES = [
   { id: 'san_lorenzo', label: 'San Lorenzo' },
   { id: 'lambare', label: 'Lambaré' },
   { id: 'cde', label: 'Ciudad del Este' },
-  { id: 'encarnacion', label: 'Encarnación' }
+  { id: 'encarnacion', label: 'Encarnación' },
+  { id: 'nemby', label: 'Ñemby' },
+  { id: 'villa_elisa', label: 'Villa Elisa' },
+  { id: 'fernando_de_la_mora', label: 'Fernando de la Mora' }
 ];
 
 export const INITIAL_BUSINESSES = [
