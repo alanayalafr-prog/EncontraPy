@@ -106,35 +106,35 @@ export default function BusinessDetailModal({ business, onClose }) {
         </button>
 
         {/* Hero Photo Viewer */}
-        <div className="relative w-full min-h-[20rem] sm:min-h-[24rem] flex flex-col justify-end overflow-hidden bg-slate-900 pt-24 pb-6 px-6 sm:px-10">
+        <div className="relative w-full h-[45vh] min-h-[24rem] sm:h-[50vh] sm:min-h-[28rem] flex flex-col justify-end overflow-hidden bg-slate-900 pt-24 pb-5 px-5 sm:px-10">
           <img
             src={activeImage}
             alt={business.name}
             className="absolute inset-0 w-full h-full object-cover transition-all duration-300 z-0"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120]/70 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] from-10% via-[#0B1120]/70 via-45% to-transparent z-10" />
           
-          <div className="relative z-20 space-y-2.5">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-blue-600/90 backdrop-blur-md text-white text-xs font-semibold">
+          <div className="relative z-20 space-y-2">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="px-2.5 py-0.5 rounded-full bg-blue-600/90 backdrop-blur-md text-white text-[11px] font-semibold">
                 {business.categoryLabel} • {business.niche}
               </span>
               
               {isPremium && (
-                <span className="bg-amber-400 text-black text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
+                <span className="bg-amber-400 text-black text-[11px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow">
                   ⭐️ Destacado Premium VIP
                 </span>
               )}
 
               {business.isVerified && (
-                <span className="bg-emerald-950/90 text-emerald-400 text-xs font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/40 backdrop-blur-md flex items-center gap-1">
+                <span className="bg-emerald-950/90 text-emerald-400 text-[11px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/40 backdrop-blur-md flex items-center gap-1">
                   <ShieldCheckIcon className="w-3.5 h-3.5" />
                   <span>Comercio Verificado</span>
                 </span>
               )}
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight drop-shadow-md">
+            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight drop-shadow-md leading-tight">
               {business.name}
             </h2>
           </div>
