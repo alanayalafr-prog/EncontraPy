@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import { WhatsAppIcon, ShieldCheckIcon, SparklesIcon, MapPinIcon } from './Icons';
 
@@ -50,3 +51,4 @@ export default function LiveTicker() {
     </div>
   );
 }
+

@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import { ShieldCheckIcon, WhatsAppIcon, MapPinIcon, PhoneIcon } from './Icons';
 import { formatWhatsAppNumber } from '../utils/phoneUtils';
+import { supabase } from '../config/supabase';
 
-export default function AdminDashboard({ businesses }) {
+export default function AdminDashboard() {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [businesses, setBusinesses] = useState([]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      supabase.from('businesses').select('*').then(({ data }) => {
+        if (data) setBusinesses(data);
+      });
+    }
+  }, [isAuthenticated]);
 
   // Filter only free businesses (or 'gratis' if we used that initially)
   const freeBusinesses = businesses.filter(b => b.plan === 'free' || b.plan === 'gratis');
@@ -190,3 +201,4 @@ export default function AdminDashboard({ businesses }) {
     </div>
   );
 }
+

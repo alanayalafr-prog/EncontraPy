@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
+'use client';
+import React from 'react';
 import { ShieldCheckIcon } from './Icons';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 export default function TermsConditions() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4 md:px-8 container-clean max-w-4xl mx-auto">
-      <Link to="/" className="text-amber-400 text-sm font-bold hover:underline mb-6 inline-block">
+      <Link href="/" className="text-amber-400 text-sm font-bold hover:underline mb-6 inline-block">
         ← Volver al Inicio
       </Link>
       
@@ -57,7 +55,7 @@ export default function TermsConditions() {
 
           <h2 className="text-xl font-bold text-white pt-4">6. Contacto Legal</h2>
           <p>
-            Para consultas relacionadas con estos términos, puedes comunicarte con nosotros desde la sección de <Link to="/contacto" className="text-blue-400 hover:underline">Contacto</Link>.
+            Para consultas relacionadas con estos términos, puedes comunicarte con nosotros desde la sección de <Link href="/contacto" className="text-blue-400 hover:underline">Contacto</Link>.
           </p>
 
           <div className="pt-8 text-xs text-slate-500">
@@ -68,3 +66,4 @@ export default function TermsConditions() {
     </div>
   );
 }
+

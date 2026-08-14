@@ -1,0 +1,278 @@
+[
+  {
+    "name": "Old Germany",
+    "phone": "+59521602262",
+    "cat": "bakery",
+    "street": "Procer José Tomás Isasi"
+  },
+  {
+    "name": "Ferretería A.C. Comercial",
+    "phone": "+595 21 444461;+595 961 690 238",
+    "cat": "hardware",
+    "street": "Jose de Antequera y Castro"
+  },
+  {
+    "name": "Yacyreta Electricidad",
+    "phone": "+595 21 444727",
+    "cat": "hardware",
+    "street": "general Jose Eduvigis Diaz"
+  },
+  {
+    "name": "A Dona Torta Artesanales",
+    "phone": "+595 21 614112",
+    "cat": "bakery",
+    "street": "Avenida España"
+  },
+  {
+    "name": "Veterinaria Internacional",
+    "phone": "+595 21 210934",
+    "cat": "veterinary",
+    "street": "Sgto. José León Gauto"
+  },
+  {
+    "name": "Refrimaster",
+    "phone": "+59521452177",
+    "cat": "hardware",
+    "street": "Dr. Gaspar Rodríguez de Francia"
+  },
+  {
+    "name": "Panadería Donato",
+    "phone": "+595 21 311 011",
+    "cat": "bakery",
+    "street": "18 de Julio"
+  },
+  {
+    "name": "Cooltural",
+    "phone": "+59521663969",
+    "cat": "cafe",
+    "street": "Profesor Manuel Riquelme"
+  },
+  {
+    "name": "FERREGAR",
+    "phone": "+59521604561",
+    "cat": "hardware",
+    "street": "Chóferes del Chaco"
+  },
+  {
+    "name": "Provindus S.A.",
+    "phone": "+59521606343",
+    "cat": "hardware",
+    "street": "Av. Dr. Eusebio Aala"
+  },
+  {
+    "name": "Sajonia",
+    "phone": "424 322",
+    "cat": "veterinary",
+    "street": "Avenida Carlos Antonio López"
+  },
+  {
+    "name": "Nani Belleza",
+    "phone": "+595981465089",
+    "cat": "hairdresser",
+    "street": "Paz del Chaco"
+  },
+  {
+    "name": "Consultorio Odontológico",
+    "phone": "229 609",
+    "cat": "dentist",
+    "street": "Capitán Aparicio Figari"
+  },
+  {
+    "name": "Urbano",
+    "phone": "+595 972 811800",
+    "cat": "cafe",
+    "street": "Papa Juan XXIII"
+  },
+  {
+    "name": "Dental Crown",
+    "phone": "+595 961 916321",
+    "cat": "dentist",
+    "street": ""
+  },
+  {
+    "name": "El rincón del ferretero",
+    "phone": "+595 21 494 767",
+    "cat": "hardware",
+    "street": ""
+  },
+  {
+    "name": "Joseph Coiffure",
+    "phone": "+595 21 203 392",
+    "cat": "hairdresser",
+    "street": ""
+  },
+  {
+    "name": "Unique Dental",
+    "phone": "+595 21 202 931",
+    "cat": "dentist",
+    "street": "Avenida Pozo Favorito"
+  },
+  {
+    "name": "Consultorio odontológico",
+    "phone": "+595 961 641514",
+    "cat": "dentist",
+    "street": "Usher Ríos"
+  },
+  {
+    "name": "Coffee Bean",
+    "phone": "+595 21 291 295",
+    "cat": "cafe",
+    "street": "General Charles de Gaulle"
+  },
+  {
+    "name": "Café Martinez",
+    "phone": "+595213249038",
+    "cat": "cafe",
+    "street": "Fulgencio Yegros y Franco de Torres"
+  },
+  {
+    "name": "Salón Masculino Carlos",
+    "phone": "+595 981 297424",
+    "cat": "hairdresser",
+    "street": "Teniente Alberto Ettiene"
+  },
+  {
+    "name": "Green Vet",
+    "phone": "+595 21 503 251",
+    "cat": "veterinary",
+    "street": "Mayor Jose Lamas Carisimo"
+  },
+  {
+    "name": "Oveja Negra Panadería",
+    "phone": "+595 983 345745",
+    "cat": "bakery",
+    "street": "Federación Rusa"
+  },
+  {
+    "name": "Oveja Negra Panadería Suc. Las Mercedes",
+    "phone": "+595 971 778286",
+    "cat": "bakery",
+    "street": "Padre Egidio Cardozo y Tte. Genaro Ruiz"
+  },
+  {
+    "name": "Karu",
+    "phone": "+595 981 222672",
+    "cat": "bakery",
+    "street": "Doctor Guillermo Enciso Velloso"
+  },
+  {
+    "name": "El Cafetero",
+    "phone": "+595 974 844500",
+    "cat": "cafe",
+    "street": "Teniente Coronel Eugenio Ayala Velázquez"
+  },
+  {
+    "name": "Chaval",
+    "phone": "+595 976 890359",
+    "cat": "bakery",
+    "street": "Cruz del Chaco"
+  },
+  {
+    "name": "Barbería & Peluquería Masculina",
+    "phone": "+595 992 371 225",
+    "cat": "hairdresser",
+    "street": "Doctor Eusebio Lillo Robles"
+  },
+  {
+    "name": "Clínica Odontológica Carvalho",
+    "phone": "+595 604 635",
+    "cat": "dentist",
+    "street": "Nicanor Torales"
+  },
+  {
+    "name": "Consultorio Odontológico",
+    "phone": "+595 991 961 886",
+    "cat": "dentist",
+    "street": "Doctor Eusebio Lillo Robles"
+  },
+  {
+    "name": "Amanecer Ferretería San josé",
+    "phone": "+595 21 683 474",
+    "cat": "hardware",
+    "street": "Doctor Bernardino Caballero"
+  },
+  {
+    "name": "Naocni Colffure",
+    "phone": "+595 992 382 278",
+    "cat": "hairdresser",
+    "street": "Bruselas"
+  },
+  {
+    "name": "Madeksa Fernando de la Mora",
+    "phone": "+595 971 424306",
+    "cat": "hardware",
+    "street": "Teniente Rojas Silva"
+  },
+  {
+    "name": "Odontologia 3",
+    "phone": "+595 992 734 275",
+    "cat": "dentist",
+    "street": "Mariscal José Félix Estigarribia"
+  },
+  {
+    "name": "GA Beauty Salón & Spa",
+    "phone": "+595 983 022 446",
+    "cat": "hairdresser",
+    "street": ""
+  },
+  {
+    "name": "El Café del San Miguel",
+    "phone": "+595 21 200 555",
+    "cat": "cafe",
+    "street": "Avenida España"
+  },
+  {
+    "name": "Jhosi Barber Shop",
+    "phone": "+595 983408831",
+    "cat": "hairdresser",
+    "street": ""
+  },
+  {
+    "name": "Ferretería Paseo",
+    "phone": "+595 985 316621",
+    "cat": "hardware",
+    "street": ""
+  },
+  {
+    "name": "Ferrex",
+    "phone": "+595974443443",
+    "cat": "hardware",
+    "street": "Avenida Santísima Trinidad"
+  },
+  {
+    "name": "Manuel portillo",
+    "phone": "+595981889884",
+    "cat": "hairdresser",
+    "street": "Sargento José León Gauto"
+  },
+  {
+    "name": "God's Pan",
+    "phone": "+595 21 600 823",
+    "cat": "bakery",
+    "street": "Avenida República Argentina"
+  },
+  {
+    "name": "ACE",
+    "phone": "+595 21 2386700",
+    "cat": "hardware",
+    "street": "Avenida España"
+  },
+  {
+    "name": "DZ Erlis Zeballos",
+    "phone": "+595 983 846 906",
+    "cat": "hairdresser",
+    "street": "Profesor Cesar Vasconcellos"
+  },
+  {
+    "name": "Casa Bento",
+    "phone": "+595 981 500 350;+595 984 870 222",
+    "cat": "hardware",
+    "street": "Avenida Aviadores del Chaco"
+  },
+  {
+    "name": "Portas Barber Shop",
+    "phone": "+595994 215627",
+    "cat": "hairdresser",
+    "street": "Avenida Santa Teresa"
+  }
+]

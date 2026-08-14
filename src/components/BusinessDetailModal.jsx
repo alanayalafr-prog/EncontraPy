@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import { 
   XIcon, 
@@ -24,62 +25,10 @@ export default function BusinessDetailModal({ business, onClose, onClaimClick })
   useEffect(() => {
     if (business) {
       setActiveImage(business.image);
-
-      // Dynamic Google SEO Schema.org LocalBusiness JSON-LD Injection
-      const schemaData = {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": business.name,
-        "image": business.image,
-        "telephone": business.phone,
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": business.address,
-          "addressLocality": business.cityName,
-          "addressCountry": "PY"
-        },
-        "geo": business.geo ? {
-          "@type": "GeoCoordinates",
-          "latitude": business.geo.latitude,
-          "longitude": business.geo.longitude
-        } : undefined,
-        "openingHours": business.workingHours,
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": business.rating,
-          "reviewCount": business.reviewCount
-        },
-        "sameAs": [
-          business.website,
-          business.facebook ? `https://${business.facebook}` : undefined,
-          business.instagram ? `https://instagram.com/${business.instagram.replace('@', '')}` : undefined
-        ].filter(Boolean)
-      };
-
-      const script = document.createElement('script');
-      script.id = 'dynamic-localbusiness-schema';
-      script.type = 'application/ld+json';
-      script.text = JSON.stringify(schemaData);
-      document.head.appendChild(script);
-
-      // Level 1: Google JS SEO (document.title & description)
-      const previousTitle = document.title;
-      const metaDescription = document.querySelector('meta[name="description"]');
-      const previousDescription = metaDescription ? metaDescription.getAttribute('content') : '';
-
-      document.title = `${business.name} - DirectorioPY`;
-      if (metaDescription) {
-        metaDescription.setAttribute('content', `Encuentra a ${business.name} en DirectorioPY. ${business.description ? business.description.substring(0, 120) + '...' : ''}`);
-      }
+      document.body.style.overflow = 'hidden';
 
       return () => {
-        const oldScript = document.getElementById('dynamic-localbusiness-schema');
-        if (oldScript) oldScript.remove();
-        
-        document.title = previousTitle;
-        if (metaDescription) {
-          metaDescription.setAttribute('content', previousDescription);
-        }
+        document.body.style.overflow = 'unset';
       };
     }
   }, [business]);
@@ -354,3 +303,4 @@ export default function BusinessDetailModal({ business, onClose, onClaimClick })
     </div>
   );
 }
+

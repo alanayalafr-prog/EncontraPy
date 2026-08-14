@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { WhatsAppIcon, MapPinIcon, ShieldCheckIcon, ClockIcon } from './Icons';
 import { formatWhatsAppNumber } from '../utils/phoneUtils';
@@ -200,3 +201,4 @@ export default function BusinessCard({ business, onSelectDetail }) {
     </div>
   );
 }
+

@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { XIcon, CreditCardIcon, WhatsAppIcon, CheckCircleIcon, UploadIcon, SparklesIcon, ShieldCheckIcon } from './Icons';
 import { formatWhatsAppNumber } from '../utils/phoneUtils';
@@ -188,3 +189,4 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
     </div>
   );
 }
+

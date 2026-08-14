@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
+'use client';
+import React from 'react';
 import { WhatsAppIcon, SparklesIcon } from './Icons';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 export default function ContactAbout() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4 md:px-8 container-clean max-w-4xl mx-auto">
-      <Link to="/" className="text-amber-400 text-sm font-bold hover:underline mb-6 inline-block">
+      <Link href="/" className="text-amber-400 text-sm font-bold hover:underline mb-6 inline-block">
         ← Volver al Inicio
       </Link>
       
@@ -67,3 +65,4 @@ export default function ContactAbout() {
     </div>
   );
 }
+

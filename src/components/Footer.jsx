@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { WhatsAppIcon, SparklesIcon, MapPinIcon, TractorIcon, ShieldCheckIcon } from './Icons';
 
 export default function Footer({ onSelectCategory, onSelectCity }) {
@@ -113,11 +113,11 @@ export default function Footer({ onSelectCategory, onSelectCity }) {
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
             <p>© 2026 DirectorioPY — Directorio Web de Paraguay 🇵🇾.</p>
             <div className="flex items-center gap-3 font-medium text-slate-500">
-              <Link to="/privacidad" className="hover:text-amber-400 transition-colors">Privacidad</Link>
+              <Link href="/privacidad" className="hover:text-amber-400 transition-colors">Privacidad</Link>
               <span>|</span>
-              <Link to="/terminos" className="hover:text-amber-400 transition-colors">Términos</Link>
+              <Link href="/terminos" className="hover:text-amber-400 transition-colors">Términos</Link>
               <span>|</span>
-              <Link to="/contacto" className="hover:text-amber-400 transition-colors">Contacto</Link>
+              <Link href="/contacto" className="hover:text-amber-400 transition-colors">Contacto</Link>
             </div>
           </div>
           <div className="flex items-center gap-2">

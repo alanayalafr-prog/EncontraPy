@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { MapPinIcon, WhatsAppIcon, StarIcon, ShieldCheckIcon, SparklesIcon } from './Icons';
 import { formatWhatsAppNumber } from '../utils/phoneUtils';
@@ -124,3 +125,4 @@ export default function MapView({ businesses, onSelectDetail }) {
     </div>
   );
 }
+

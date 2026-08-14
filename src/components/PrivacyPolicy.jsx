@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ShieldCheckIcon } from './Icons';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 export default function PrivacyPolicy() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4 md:px-8 container-clean max-w-4xl mx-auto">
-      <Link to="/" className="text-amber-400 text-sm font-bold hover:underline mb-6 inline-block">
+      <Link href="/" className="text-amber-400 text-sm font-bold hover:underline mb-6 inline-block">
         ← Volver al Inicio
       </Link>
       
@@ -70,7 +67,7 @@ export default function PrivacyPolicy() {
 
           <h2 className="text-xl font-bold text-white pt-4">6. Contacto</h2>
           <p>
-            Si tienes alguna pregunta sobre esta Política de Privacidad, puedes ponerte en contacto con nosotros a través de nuestro <Link to="/contacto" className="text-blue-400 hover:underline">formulario de contacto o WhatsApp</Link>.
+            Si tienes alguna pregunta sobre esta Política de Privacidad, puedes ponerte en contacto con nosotros a través de nuestro <Link href="/contacto" className="text-blue-400 hover:underline">formulario de contacto o WhatsApp</Link>.
           </p>
 
           <div className="pt-8 text-xs text-slate-500">

@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import { 
   XIcon, 
@@ -750,3 +751,4 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
     </div>
   );
 }
+
