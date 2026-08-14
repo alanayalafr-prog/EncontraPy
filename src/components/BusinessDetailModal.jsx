@@ -44,8 +44,8 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
   const waUrl = `https://wa.me/${formatWhatsAppNumber(business.whatsappNumber)}?text=${encodeURIComponent(business.whatsappDefaultMessage)}`;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${business.name} ${business.address} ${business.cityName} Paraguay`)}`;
   
-  const isProOrPremium = business.plan === 'pro' || business.plan === 'premium';
-  const isPremium = business.plan === 'premium';
+  const isProOrPremium = (business.plan === 'pro' || business.plan === 'premium') && business.isVerified;
+  const isPremium = business.plan === 'premium' && business.isVerified;
   const galleryImages = (business.gallery && business.gallery.length > 0) ? business.gallery : [business.image];
 
   return (

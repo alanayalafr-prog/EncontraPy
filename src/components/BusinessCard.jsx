@@ -8,8 +8,8 @@ export default function BusinessCard({ business, onSelectDetail }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const waUrl = `https://wa.me/${formatWhatsAppNumber(business.whatsappNumber)}?text=${encodeURIComponent(business.whatsappDefaultMessage)}`;
   
-  const isPremium = business.plan === 'premium';
-  const isPro = business.plan === 'pro';
+  const isPremium = business.plan === 'premium' && business.isVerified;
+  const isPro = business.plan === 'pro' && business.isVerified;
   
   // Solo los planes Pro y Premium pueden tener galería en la tarjeta.
   // El plan gratuito solo muestra la imagen principal.

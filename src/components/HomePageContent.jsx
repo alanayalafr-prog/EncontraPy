@@ -65,8 +65,10 @@ export default function HomePageContent({ initialBusinesses }) {
       }
       return true;
     }).sort((a, b) => {
-      const weightA = planWeight[a.plan] || 1;
-      const weightB = planWeight[b.plan] || 1;
+      const planA = a.isVerified ? a.plan : 'free';
+      const planB = b.isVerified ? b.plan : 'free';
+      const weightA = planWeight[planA] || 1;
+      const weightB = planWeight[planB] || 1;
       if (weightB !== weightA) return weightB - weightA;
       return b.rating - a.rating;
     });
