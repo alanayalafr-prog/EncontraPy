@@ -100,7 +100,8 @@ export default function App() {
             gallery: newBusiness.gallery,
             instagram: newBusiness.instagram,
             facebook: newBusiness.facebook,
-            website: newBusiness.website
+            website: newBusiness.website,
+            googleMapsUrl: newBusiness.googleMapsUrl
           }
         ])
         .select();

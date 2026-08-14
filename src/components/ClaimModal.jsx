@@ -34,7 +34,8 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
     plan: initialPlan,
     description: '',
     imageUrl: '',
-    galleryUrls: ['', '']
+    galleryUrls: ['', ''],
+    googleMapsUrl: ''
   });
 
   useEffect(() => {
@@ -122,7 +123,8 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       gallery: finalGallery,
       tags: [formData.category, formData.city, 'nuevo'],
       instagram: formData.plan !== 'gratuito' ? formattedInstagram : '',
-      website: formData.plan !== 'gratuito' ? formattedWebsite : ''
+      website: formData.plan !== 'gratuito' ? formattedWebsite : '',
+      googleMapsUrl: formData.plan !== 'gratuito' ? formData.googleMapsUrl : ''
     };
 
     if (onAddBusiness) {
@@ -392,6 +394,20 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
                           placeholder="Ej: minegocio.com.py o https://minegocio.com.py"
                           value={formData.website}
                           onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                          className="w-full bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5 sm:col-span-2">
+                      <label className="text-xs font-semibold text-amber-300">Link Exacto de Google Maps (Beneficio VIP)</label>
+                      <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#1E293B] border border-amber-500/30">
+                        <MapPinIcon className="w-4 h-4 text-amber-400 shrink-0" />
+                        <input
+                          type="text"
+                          placeholder="Ej: https://maps.app.goo.gl/..."
+                          value={formData.googleMapsUrl}
+                          onChange={(e) => setFormData({ ...formData, googleMapsUrl: e.target.value })}
                           className="w-full bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none"
                         />
                       </div>

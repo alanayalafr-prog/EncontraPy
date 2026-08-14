@@ -183,6 +183,31 @@ export default function BusinessDetailModal({ business, onClose, onClaimClick })
             </div>
           </div>
 
+          {/* Mapa Interactivo (Premium & Pro Only) */}
+          {(business.plan === 'premium' || business.plan === 'pro') && (
+            <div className="mt-4 p-4 rounded-xl bg-[#151F32] border border-amber-500/30 space-y-3 relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-amber-500 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg z-10">
+                BENEFICIO {business.plan.toUpperCase()}
+              </div>
+              <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider">
+                <MapPinIcon className="w-4 h-4" />
+                <span>Ubicación Interactiva</span>
+              </div>
+              <div className="w-full h-48 rounded-lg overflow-hidden border border-[#27354D]">
+                <iframe 
+                  width="100%" 
+                  height="100%" 
+                  frameBorder="0" 
+                  scrolling="no" 
+                  marginHeight="0" 
+                  marginWidth="0" 
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(`${business.name} ${business.address} ${business.cityName} Paraguay`)}&output=embed`}
+                  title="Mapa de Ubicación"
+                ></iframe>
+              </div>
+            </div>
+          )}
+
           {/* Description */}
           <div className="space-y-2">
             <h3 className="text-base font-bold text-white">Sobre el Comercio / Servicio</h3>
@@ -202,7 +227,7 @@ export default function BusinessDetailModal({ business, onClose, onClaimClick })
               </div>
               <p className="text-sm font-medium text-white">{business.address}</p>
               <a
-                href={mapsUrl}
+                href={business.googleMapsUrl || mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block text-xs text-amber-400 font-bold hover:underline pt-1"
