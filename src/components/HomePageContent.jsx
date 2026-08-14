@@ -105,8 +105,8 @@ export default function HomePageContent({ initialBusinesses }) {
         {hasActiveFilters && (
           <div className="bg-[#151F32] border border-[#27354D] rounded-xl p-4 text-sm text-slate-300">
             <h2 className="font-bold text-white mb-2">
-              Resultados para {selectedCategory !== 'todos' ? CATEGORIES.find(c => c.id === selectedCategory)?.name : 'Todas las categorías'} 
-              {selectedCity !== 'todas' ? ` en ${CITIES.find(c => c.id === selectedCity)?.name}` : ''}
+              Resultados para {selectedCategory !== 'todos' ? CATEGORIES.find(c => c.id === selectedCategory)?.label : 'Todas las categorías'} 
+              {selectedCity !== 'todas' ? ` en ${CITIES.find(c => c.id === selectedCity)?.label}` : ''}
             </h2>
             <p>
               Explora nuestra lista verificada de comercios y profesionales. Contacta directamente por WhatsApp sin intermediarios ni comisiones. Mantén tu economía local fuerte apoyando a emprendedores de tu zona.
@@ -129,7 +129,7 @@ export default function HomePageContent({ initialBusinesses }) {
                       : 'bg-[#151F32] text-slate-300 border-[#27354D] hover:bg-[#1E293B] hover:text-white'
                   }`}
                 >
-                  {city.name}
+                  {city.label}
                 </button>
               ))}
             </div>
