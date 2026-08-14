@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { WhatsAppIcon, MapPinIcon, ShieldCheckIcon, ClockIcon } from './Icons';
 import { formatWhatsAppNumber } from '../utils/phoneUtils';
 
@@ -50,13 +51,15 @@ export default function BusinessCard({ business, onSelectDetail }) {
           className="relative aspect-video w-full overflow-hidden bg-slate-900 group cursor-pointer"
           onClick={() => onSelectDetail(business)}
         >
-          <img
+          <Image
             src={images[currentImageIndex]}
             alt={business.name}
-            className="w-full h-full object-cover transition-opacity duration-300"
-            loading="lazy"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-opacity duration-300"
+            unoptimized={images[currentImageIndex]?.startsWith('http')}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#151F32] via-[#151F32]/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#151F32] via-[#151F32]/30 to-transparent z-10" />
           
           {/* Carousel Controls */}
           {images.length > 1 && (

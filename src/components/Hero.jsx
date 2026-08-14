@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { SearchIcon, MapPinIcon, FilterIcon, SparklesIcon } from './Icons';
 
 export default function Hero({
@@ -34,10 +35,10 @@ export default function Hero({
           {/* Social Proof */}
           <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
             <div className="flex -space-x-2 overflow-hidden">
-              <img className="inline-block h-6 w-6 rounded-full ring-2 ring-[#0F172A]" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&h=64" alt="User" />
-              <img className="inline-block h-6 w-6 rounded-full ring-2 ring-[#0F172A]" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64" alt="User" />
-              <img className="inline-block h-6 w-6 rounded-full ring-2 ring-[#0F172A]" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=64&h=64" alt="User" />
-              <img className="inline-block h-6 w-6 rounded-full ring-2 ring-[#0F172A]" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=64&h=64" alt="User" />
+              <Image width={24} height={24} className="inline-block rounded-full ring-2 ring-[#0F172A]" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&h=64" alt="User" unoptimized />
+              <Image width={24} height={24} className="inline-block rounded-full ring-2 ring-[#0F172A]" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64" alt="User" unoptimized />
+              <Image width={24} height={24} className="inline-block rounded-full ring-2 ring-[#0F172A]" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=64&h=64" alt="User" unoptimized />
+              <Image width={24} height={24} className="inline-block rounded-full ring-2 ring-[#0F172A]" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=64&h=64" alt="User" unoptimized />
             </div>
             <p className="text-[11px] font-semibold text-slate-400">
               Más de <span className="text-white font-bold">1,000</span> personas ya conectaron con negocios locales hoy.

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { 
   XIcon, 
   WhatsAppIcon, 
@@ -56,10 +57,13 @@ export default function BusinessDetailModal({ business, onClose, onClaimClick })
 
         {/* Hero Photo Viewer */}
         <div className="relative w-full h-[45vh] min-h-[24rem] sm:h-[50vh] sm:min-h-[28rem] flex flex-col justify-end overflow-hidden bg-slate-900 pt-24 pb-5 px-5 sm:px-10">
-          <img
+          <Image
             src={activeImage}
             alt={business.name}
+            fill
             className="absolute inset-0 w-full h-full object-cover transition-all duration-300 z-0"
+            priority
+            unoptimized={activeImage?.startsWith('http')}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] from-10% via-[#0B1120]/70 via-45% to-transparent z-10" />
           
@@ -111,7 +115,7 @@ export default function BusinessDetailModal({ business, onClose, onClaimClick })
                       activeImage === img ? 'border-amber-400 scale-105 shadow-md' : 'border-slate-700 opacity-70 hover:opacity-100'
                     }`}
                   >
-                    <img src={img} alt={`Galería ${idx + 1}`} className="w-full h-full object-cover" />
+                    <Image src={img} alt={`Galería ${idx + 1}`} fill className="object-cover" sizes="80px" unoptimized={img?.startsWith('http')} />
                   </button>
                 ))}
               </div>
