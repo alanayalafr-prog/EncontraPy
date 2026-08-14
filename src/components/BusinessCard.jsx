@@ -45,7 +45,10 @@ export default function BusinessCard({ business, onSelectDetail }) {
     >
       <div>
         {/* Standardized Aspect-Ratio Image Container */}
-        <div className="relative aspect-video w-full overflow-hidden bg-slate-900 group">
+        <div 
+          className="relative aspect-video w-full overflow-hidden bg-slate-900 group cursor-pointer"
+          onClick={() => onSelectDetail(business)}
+        >
           <img
             src={images[currentImageIndex]}
             alt={business.name}
