@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import Hero from './Hero';
 import SearchBar from './SearchBar';
 import FeaturedSpotlight from './FeaturedSpotlight';
@@ -20,11 +20,30 @@ const planWeight = {
 
 export default function HomePageContent({ initialBusinesses }) {
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedService, setSelectedService] = useState('todos');
-  const [selectedCity, setSelectedCity] = useState('todas');
-  const [selectedCategory, setSelectedCategory] = useState('todos');
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const searchQuery = searchParams.get('q') || '';
+  const selectedService = searchParams.get('servicio') || 'todos';
+  const selectedCity = searchParams.get('ciudad') || 'todas';
+  const selectedCategory = searchParams.get('categoria') || 'todos';
+  
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'map'
+
+  const updateURL = (key, value) => {
+    const params = new URLSearchParams(searchParams);
+    if (value && value !== 'todos' && value !== 'todas' && value !== '') {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  const setSearchQuery = (val) => updateURL('q', val);
+  const setSelectedService = (val) => updateURL('servicio', val);
+  const setSelectedCity = (val) => updateURL('ciudad', val);
+  const setSelectedCategory = (val) => updateURL('categoria', val);
 
   // Filtering Logic
   const filteredBusinesses = useMemo(() => {

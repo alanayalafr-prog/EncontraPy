@@ -40,6 +40,21 @@ export default async function Page({ params }) {
     notFound();
   }
 
+  // Fetch Related Businesses (same category, excluding current)
+  const { data: related } = await supabase
+    .from('businesses')
+    .select('*')
+    .eq('categoryId', business.categoryId)
+    .neq('id', id)
+    .limit(4);
+
+  // Fetch Reviews
+  const { data: reviews } = await supabase
+    .from('reviews')
+    .select('*')
+    .eq('business_id', id)
+    .order('created_at', { ascending: false });
+
   // Inject Server-Side Schema.org
   const schemaData = {
     "@context": "https://schema.org",
@@ -62,7 +77,11 @@ export default async function Page({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
-      <BusinessDetailModalWrapper business={business} />
+      <BusinessDetailModalWrapper 
+        business={business} 
+        relatedBusinesses={related || []} 
+        reviews={reviews || []} 
+      />
     </>
   );
 }

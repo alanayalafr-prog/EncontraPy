@@ -1,6 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { supabase } from '@/config/supabase';
+import Image from 'next/image';
 import { 
   XIcon, 
   WhatsAppIcon, 
@@ -18,10 +21,15 @@ import {
 } from './Icons';
 import { formatWhatsAppNumber } from '../utils/phoneUtils';
 
-export default function BusinessDetailModal({ business, onClose, onClaimClick }) {
+export default function BusinessDetailModal({ business, relatedBusinesses = [], reviews = [], onClose, onClaimClick }) {
   if (!business) return null;
 
   const [activeImage, setActiveImage] = useState(business.image);
+  const [reviewName, setReviewName] = useState('');
+  const [reviewComment, setReviewComment] = useState('');
+  const [reviewRating, setReviewRating] = useState(5);
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
+  const [reviewSuccess, setReviewSuccess] = useState(false);
 
   useEffect(() => {
     if (business) {
@@ -279,6 +287,12 @@ export default function BusinessDetailModal({ business, onClose, onClaimClick })
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={async () => {
+                if (business.id) {
+                  // Increment click count without awaiting to not block user
+                  supabase.rpc('increment_whatsapp_clicks', { business_id: business.id });
+                }
+              }}
               className="btn-whatsapp-official w-full py-3.5 text-sm sm:text-base font-extrabold flex items-center justify-center gap-2 rounded-xl shadow-lg shadow-emerald-950/50 hover:scale-[1.01] transition-all"
             >
               <WhatsAppIcon className="w-6 h-6" />
@@ -302,6 +316,123 @@ export default function BusinessDetailModal({ business, onClose, onClaimClick })
             </div>
           )}
 
+          {/* Reseñas Section */}
+          <div className="mt-8 pt-6 border-t border-[#27354D]">
+            <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wide flex items-center gap-2">
+              <StarIcon className="w-5 h-5 text-amber-400" />
+              Reseñas y Opiniones
+            </h3>
+            
+            {/* Formulario de Reseña */}
+            {!reviewSuccess ? (
+              <form 
+                className="bg-[#0F172A] p-4 rounded-xl border border-[#27354D] mb-6 space-y-3"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!reviewName || !reviewComment) return;
+                  setIsSubmittingReview(true);
+                  try {
+                    await supabase.from('reviews').insert([{
+                      business_id: business.id,
+                      user_name: reviewName,
+                      rating: reviewRating,
+                      comment: reviewComment
+                    }]);
+                    setReviewSuccess(true);
+                  } catch(err) {
+                    console.error('Error enviando reseña', err);
+                  } finally {
+                    setIsSubmittingReview(false);
+                  }
+                }}
+              >
+                <p className="text-xs text-slate-300 font-medium">Dejá tu opinión sobre este comercio:</p>
+                <div className="flex items-center gap-1">
+                  {[1,2,3,4,5].map(star => (
+                    <button 
+                      key={star} type="button" onClick={() => setReviewRating(star)}
+                      className={`transition-colors ${reviewRating >= star ? 'text-amber-400' : 'text-slate-600'}`}
+                    >
+                      ★
+                    </button>
+                  ))}
+                </div>
+                <input 
+                  type="text" placeholder="Tu nombre" required
+                  value={reviewName} onChange={e => setReviewName(e.target.value)}
+                  className="w-full bg-[#151F32] border border-[#27354D] rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 outline-none"
+                />
+                <textarea 
+                  placeholder="Escribe tu experiencia..." required rows={2}
+                  value={reviewComment} onChange={e => setReviewComment(e.target.value)}
+                  className="w-full bg-[#151F32] border border-[#27354D] rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 outline-none"
+                />
+                <button 
+                  type="submit" disabled={isSubmittingReview}
+                  className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm py-2 rounded-lg transition-colors disabled:opacity-50"
+                >
+                  {isSubmittingReview ? 'Enviando...' : 'Publicar Reseña'}
+                </button>
+              </form>
+            ) : (
+              <div className="bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 p-4 rounded-xl mb-6 text-sm text-center">
+                ¡Gracias por tu reseña! Ha sido enviada exitosamente.
+              </div>
+            )}
+
+            {/* Lista de Reseñas */}
+            <div className="space-y-3">
+              {reviews.length > 0 ? reviews.map(review => (
+                <div key={review.id} className="bg-[#151F32] p-4 rounded-xl border border-[#27354D]">
+                  <div className="flex justify-between items-start mb-1">
+                    <span className="font-bold text-slate-200 text-sm">{review.user_name}</span>
+                    <div className="flex text-amber-400 text-xs">
+                      {'★'.repeat(review.rating)}{'☆'.repeat(5-review.rating)}
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-400 mt-1">{review.comment}</p>
+                </div>
+              )) : (
+                <p className="text-xs text-slate-500 italic text-center py-4">Todavía no hay reseñas. ¡Sé el primero en opinar!</p>
+              )}
+            </div>
+          </div>
+
+          {/* Related Businesses */}
+          {relatedBusinesses.length > 0 && (
+            <div className="mt-8 pt-6 border-t border-[#27354D]">
+              <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-wide">Otros comercios en tu ciudad</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {relatedBusinesses.map((related) => (
+                  <Link 
+                    href={`/publicacion/${related.id}`} 
+                    key={related.id}
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[#0F172A] border border-[#27354D] hover:border-slate-500 transition-all group"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-slate-800 overflow-hidden shrink-0 relative">
+                      <Image 
+                        src={related.image} 
+                        alt={related.name} 
+                        fill 
+                        className="object-cover group-hover:scale-110 transition-transform" 
+                        sizes="48px"
+                        unoptimized={related.image?.startsWith('http')}
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-sm font-bold text-slate-200 truncate">{related.name}</h4>
+                      <div className="flex items-center gap-1 mt-0.5 text-xs text-slate-400">
+                        <StarIcon className="w-3 h-3 text-amber-400" />
+                        <span>{related.rating}</span>
+                        <span className="mx-1">•</span>
+                        <span className="truncate">{related.niche}</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

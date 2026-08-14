@@ -8,6 +8,22 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' });
 export const metadata = {
   title: 'DirectorioPY - Directorio de Comercios en Paraguay',
   description: 'El directorio web de comercios, empresas y servicios de Paraguay optimizado para búsquedas.',
+  openGraph: {
+    title: 'DirectorioPY - Directorio de Comercios en Paraguay',
+    description: 'Encontrá empresas verificadas en Asunción, Luque, San Lorenzo, CDE y Encarnación. Contactá directo por WhatsApp.',
+    url: 'https://directoriopy.com',
+    siteName: 'DirectorioPY',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'DirectorioPY - Comercios en Paraguay',
+      },
+    ],
+    locale: 'es_PY',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({ children }) {
