@@ -14,6 +14,10 @@ import PricingSection from './components/PricingSection';
 import Footer from './components/Footer';
 import MapView from './components/MapView';
 import SkeletonCard from './components/SkeletonCard';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsConditions from './components/TermsConditions';
+import ContactAbout from './components/ContactAbout';
+import CookieBanner from './components/CookieBanner';
 import { CATEGORIES, SERVICES, CITIES } from './data/businesses';
 import { supabase } from './config/supabase';
 import { SearchIcon } from './components/Icons';
@@ -186,6 +190,8 @@ export default function App() {
   const hasActiveFilters = selectedCategory !== 'todos' || selectedService !== 'todos' || selectedCity !== 'todas' || searchQuery !== '';
   const location = useLocation();
   const isAdminRoute = location.pathname === '/admin';
+  const isLegalRoute = ['/privacidad', '/terminos', '/contacto'].includes(location.pathname);
+  const showMainContent = !isAdminRoute && !isLegalRoute;
 
   return (
     <div className={`min-h-screen font-sans flex flex-col ${theme === 'dark' ? 'bg-[#060B14] text-slate-200' : 'bg-slate-50 text-slate-900'}`}>
@@ -202,11 +208,13 @@ export default function App() {
         }}
       />
 
-      {/* Hero Section con Desplegable de Servicios y Ciudad */}
-      <Hero />
+      {showMainContent && (
+        <>
+          {/* Hero Section con Desplegable de Servicios y Ciudad */}
+          <Hero />
 
-      {/* Main Content Area */}
-      <main className="flex-1 container-clean pt-2 sm:pt-3 pb-10 space-y-8">
+          {/* Main Content Area */}
+          <main className="flex-1 container-clean pt-2 sm:pt-3 pb-10 space-y-8">
         
         {/* Plan Premium Feature: Featured Spotlight Carousel Banner */}
         <FeaturedSpotlight
@@ -374,6 +382,8 @@ export default function App() {
         <PricingSection onOpenPaymentModal={handleOpenAddModal} />
 
       </main>
+      </>
+      )}
 
       {/* Footer */}
       <Footer
@@ -383,7 +393,7 @@ export default function App() {
         </>
       )}
 
-      {/* Modals */}
+      {/* Modals and Routes */}
       <Routes>
         <Route path="/publicacion/:id" element={
           <BusinessModalRoute 
@@ -393,7 +403,12 @@ export default function App() {
           />
         } />
         <Route path="/admin" element={<AdminDashboard businesses={businesses} />} />
+        <Route path="/privacidad" element={<PrivacyPolicy />} />
+        <Route path="/terminos" element={<TermsConditions />} />
+        <Route path="/contacto" element={<ContactAbout />} />
       </Routes>
+
+      <CookieBanner />
 
       <ClaimModal
         isOpen={isAddModalOpen}
