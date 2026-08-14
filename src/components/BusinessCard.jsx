@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { WhatsAppIcon, MapPinIcon, ShieldCheckIcon, ClockIcon } from './Icons';
+import { formatWhatsAppNumber } from '../utils/phoneUtils';
 
 export default function BusinessCard({ business, onSelectDetail }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const waUrl = `https://wa.me/${business.whatsappNumber}?text=${encodeURIComponent(business.whatsappDefaultMessage)}`;
+  const waUrl = `https://wa.me/${formatWhatsAppNumber(business.whatsappNumber)}?text=${encodeURIComponent(business.whatsappDefaultMessage)}`;
   
   const isPremium = business.plan === 'premium';
   const isPro = business.plan === 'pro';

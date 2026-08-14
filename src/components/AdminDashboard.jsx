@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ShieldCheckIcon, WhatsAppIcon, MapPinIcon, PhoneIcon } from './Icons';
+import { formatWhatsAppNumber } from '../utils/phoneUtils';
 
 export default function AdminDashboard({ businesses }) {
   const [password, setPassword] = useState('');
@@ -101,7 +102,7 @@ export default function AdminDashboard({ businesses }) {
             </div>
             
             <a
-              href={`https://wa.me/${b.whatsappNumber}?text=${encodeURIComponent(getMarketingMessage(b))}`}
+              href={`https://wa.me/${formatWhatsAppNumber(b.whatsappNumber)}?text=${encodeURIComponent(getMarketingMessage(b))}`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-2.5 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold text-sm flex items-center justify-center gap-2 hover:from-green-400 hover:to-emerald-400 transition-all shadow-lg shadow-green-500/30"
@@ -164,7 +165,7 @@ export default function AdminDashboard({ businesses }) {
                     </td>
                     <td className="px-6 py-4">
                       <a 
-                        href={`https://wa.me/${b.whatsappNumber}`} 
+                        href={`https://wa.me/${formatWhatsAppNumber(b.whatsappNumber)}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-green-400 hover:text-green-300 flex items-center gap-1 font-semibold"

@@ -14,6 +14,7 @@ import {
   SparklesIcon,
   CrownIcon
 } from './Icons';
+import { formatWhatsAppNumber } from '../utils/phoneUtils';
 
 export default function BusinessDetailModal({ business, onClose }) {
   if (!business) return null;
@@ -83,7 +84,7 @@ export default function BusinessDetailModal({ business, onClose }) {
     }
   }, [business]);
 
-  const waUrl = `https://wa.me/${business.whatsappNumber}?text=${encodeURIComponent(business.whatsappDefaultMessage)}`;
+  const waUrl = `https://wa.me/${formatWhatsAppNumber(business.whatsappNumber)}?text=${encodeURIComponent(business.whatsappDefaultMessage)}`;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${business.name} ${business.address} ${business.cityName} Paraguay`)}`;
   
   const isProOrPremium = business.plan === 'pro' || business.plan === 'premium';

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MapPinIcon, WhatsAppIcon, StarIcon, ShieldCheckIcon, SparklesIcon } from './Icons';
+import { formatWhatsAppNumber } from '../utils/phoneUtils';
 
 export default function MapView({ businesses, onSelectDetail }) {
   const [selectedPin, setSelectedPin] = useState(businesses[0] || null);
@@ -106,7 +107,7 @@ export default function MapView({ businesses, onSelectDetail }) {
                 Ver Ficha
               </button>
               <a
-                href={`https://wa.me/${selectedPin.whatsappNumber}?text=${encodeURIComponent(selectedPin.whatsappDefaultMessage)}`}
+                href={`https://wa.me/${formatWhatsAppNumber(selectedPin.whatsappNumber)}?text=${encodeURIComponent(selectedPin.whatsappDefaultMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-whatsapp text-xs py-2 rounded-xl flex items-center justify-center gap-1"

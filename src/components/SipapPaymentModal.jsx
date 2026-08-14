@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { XIcon, CreditCardIcon, WhatsAppIcon, CheckCircleIcon, UploadIcon, SparklesIcon, ShieldCheckIcon } from './Icons';
+import { formatWhatsAppNumber } from '../utils/phoneUtils';
 import { PRICING_PLANS, BANK_TRANSFER_DETAILS } from '../data/businesses';
 
 export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'pro' }) {
@@ -25,7 +26,7 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
 
   const handleConfirmTransfer = () => {
     const message = `Hola DirectorioPY 🇵🇾, acabo de realizar la transferencia bancaria por SIPAP para activar el ${currentPlan.name} (${currentPlan.priceGs}). Adjunto mi comprobante para la verificación.`;
-    const waUrl = `https://wa.me/${BANK_TRANSFER_DETAILS.contactWhatsApp}?text=${encodeURIComponent(message)}`;
+    const waUrl = `https://wa.me/${formatWhatsAppNumber(BANK_TRANSFER_DETAILS.contactWhatsApp)}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
     setReceiptSent(true);
   };
