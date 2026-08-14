@@ -16,7 +16,7 @@ import {
 } from './Icons';
 import { formatWhatsAppNumber } from '../utils/phoneUtils';
 
-export default function BusinessDetailModal({ business, onClose }) {
+export default function BusinessDetailModal({ business, onClose, onClaimClick }) {
   if (!business) return null;
 
   const [activeImage, setActiveImage] = useState(business.image);
@@ -307,6 +307,22 @@ export default function BusinessDetailModal({ business, onClose }) {
               <span>Contactar por WhatsApp Ahora</span>
             </a>
           </div>
+
+          {/* Reclamar / Destacar Comercio */}
+          {!isPremium && (
+            <div className="mt-8 pt-6 border-t border-[#27354D] text-center space-y-3">
+              <p className="text-xs text-slate-400">¿Sos el dueño de este local y querés destacar tu negocio, subir más fotos o aparecer primero?</p>
+              <button
+                onClick={() => {
+                  if (onClaimClick) onClaimClick();
+                }}
+                className="inline-flex items-center justify-center gap-2 text-xs font-bold text-amber-400 border border-amber-400/40 hover:bg-amber-400/10 px-5 py-2.5 rounded-xl transition-all hover:scale-105"
+              >
+                <CrownIcon className="w-4 h-4" />
+                <span>Reclamar y Destacar este Comercio</span>
+              </button>
+            </div>
+          )}
 
         </div>
       </div>

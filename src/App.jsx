@@ -385,7 +385,11 @@ export default function App() {
       {/* Modals */}
       <Routes>
         <Route path="/publicacion/:id" element={
-          <BusinessModalRoute businesses={businesses} onClose={() => navigate('/')} />
+          <BusinessModalRoute 
+            businesses={businesses} 
+            onClose={() => navigate('/')} 
+            onClaimClick={() => handleOpenAddModal('premium')}
+          />
         } />
         <Route path="/admin" element={<AdminDashboard businesses={businesses} />} />
       </Routes>
@@ -409,7 +413,7 @@ export default function App() {
 }
 
 // Wrapper Component para el Modal Híbrido usando la URL
-function BusinessModalRoute({ businesses, onClose }) {
+function BusinessModalRoute({ businesses, onClose, onClaimClick }) {
   const { id } = useParams();
   
   // Buscar el negocio por ID
@@ -421,5 +425,5 @@ function BusinessModalRoute({ businesses, onClose }) {
     return null;
   }
   
-  return <BusinessDetailModal business={business} onClose={onClose} />;
+  return <BusinessDetailModal business={business} onClose={onClose} onClaimClick={onClaimClick} />;
 }
