@@ -100,21 +100,21 @@ export default function BusinessDetailModal({ business, onClose }) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-black/70 text-white hover:bg-black/90 transition-colors shadow-lg border border-white/20"
+          className="absolute top-4 right-4 z-30 p-2.5 rounded-full bg-black/70 text-white hover:bg-black/90 transition-colors shadow-lg border border-white/20"
         >
           <XIcon className="w-5 h-5" />
         </button>
 
         {/* Hero Photo Viewer */}
-        <div className="relative h-64 sm:h-80 w-full overflow-hidden bg-slate-900">
+        <div className="relative w-full min-h-[20rem] sm:min-h-[24rem] flex flex-col justify-end overflow-hidden bg-slate-900 pt-24 pb-6 px-6 sm:px-10">
           <img
             src={activeImage}
             alt={business.name}
-            className="w-full h-full object-cover transition-all duration-300"
+            className="absolute inset-0 w-full h-full object-cover transition-all duration-300 z-0"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120]/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120]/70 to-transparent z-10" />
           
-          <div className="absolute bottom-5 sm:bottom-6 left-8 right-8 sm:left-10 sm:right-10 space-y-1.5" style={{ padding: '0 2.1rem' }}>
+          <div className="relative z-20 space-y-2.5">
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 rounded-full bg-blue-600/90 backdrop-blur-md text-white text-xs font-semibold">
                 {business.categoryLabel} • {business.niche}
