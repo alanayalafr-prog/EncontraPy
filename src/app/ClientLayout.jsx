@@ -75,6 +75,7 @@ export default function ClientLayout({ children }) {
       } else {
         alert('¡Negocio registrado exitosamente! Ya está en vivo en el directorio.');
         setIsAddModalOpen(false);
+        window.location.reload();
       }
     } catch (err) {
       console.error('Error inesperado:', err);

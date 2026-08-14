@@ -102,10 +102,8 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       : [];
 
     const newBusinessObj = {
-      id: 'emp_' + Date.now(),
       name: formData.name || 'Comercio Nuevo',
       category: formData.category,
-      categoryLabel: categoryLabelMap[formData.category] || 'Oficios y Servicios',
       niche: finalNiche || 'Servicios Generales',
       city: formData.city,
       cityName: cityNameMap[formData.city] || 'Asunción',
@@ -116,7 +114,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       whatsappNumber: formattedWa,
       whatsappDefaultMessage: `Hola ${formData.name || 'Comercio'}, los encontré en DirectorioPY. Me gustaría hacerles una consulta sobre sus servicios, por favor.`,
       rating: 5.0,
-      reviewCount: 1,
+      reviews: 1,
       isVerified: false,
       plan: formData.plan === 'gratuito' ? 'free' : formData.plan,
       workingHours: formData.workingHours || 'Lun a Vie: 08:00 - 18:00',
@@ -124,8 +122,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       gallery: finalGallery,
       tags: [formData.category, formData.city, 'nuevo'],
       instagram: formData.plan !== 'gratuito' ? formattedInstagram : '',
-      website: formData.plan !== 'gratuito' ? formattedWebsite : '',
-      googleMapsUrl: formData.plan !== 'gratuito' ? formData.googleMapsUrl : ''
+      website: formData.plan !== 'gratuito' ? formattedWebsite : ''
     };
 
     if (onAddBusiness) {
