@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import Hero from './Hero';
 import SearchBar from './SearchBar';
@@ -11,6 +11,8 @@ import PricingSection from './PricingSection';
 import MapView from './MapView';
 import SkeletonCard from './SkeletonCard';
 import { CATEGORIES, SERVICES, CITIES } from '@/data/businesses';
+
+const ITEMS_PER_PAGE = 16;
 
 const planWeight = {
   'premium': 3,
@@ -29,6 +31,12 @@ export default function HomePageContent({ initialBusinesses }) {
   const selectedCategory = searchParams.get('categoria') || 'todos';
   
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'map'
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+
+  // Reset pagination when filters change
+  useEffect(() => {
+    setVisibleCount(ITEMS_PER_PAGE);
+  }, [searchQuery, selectedService, selectedCity, selectedCategory]);
 
   const updateURL = (key, value) => {
     const params = new URLSearchParams(searchParams);
@@ -73,6 +81,10 @@ export default function HomePageContent({ initialBusinesses }) {
       return b.rating - a.rating;
     });
   }, [initialBusinesses, searchQuery, selectedService, selectedCity, selectedCategory]);
+
+  const visibleBusinesses = useMemo(() => {
+    return filteredBusinesses.slice(0, visibleCount);
+  }, [filteredBusinesses, visibleCount]);
 
   const hasActiveFilters = selectedCategory !== 'todos' || selectedService !== 'todos' || selectedCity !== 'todas' || searchQuery !== '';
 
@@ -195,19 +207,36 @@ export default function HomePageContent({ initialBusinesses }) {
             />
           </div>
         ) : filteredBusinesses.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {filteredBusinesses.map((business, index) => (
-              <div 
-                key={business.id}
-                className="animate-fadeIn"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                <BusinessCard 
-                  business={business} 
-                  onSelectDetail={(b) => router.push(`/publicacion/${b.id}`)} 
-                />
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {visibleBusinesses.map((business, index) => (
+                <div 
+                  key={business.id}
+                  className="animate-fadeIn"
+                  style={{ animationDelay: `${(index % ITEMS_PER_PAGE) * 0.03}s` }}
+                >
+                  <BusinessCard 
+                    business={business} 
+                    onSelectDetail={(b) => router.push(`/publicacion/${b.id}`)} 
+                  />
+                </div>
+              ))}
+            </div>
+
+            {visibleBusinesses.length < filteredBusinesses.length && (
+              <div className="flex flex-col items-center justify-center pt-4 pb-2">
+                <p className="text-xs text-slate-400 mb-3 font-medium">
+                  Mostrando <span className="font-bold text-white">{visibleBusinesses.length}</span> de <span className="font-bold text-white">{filteredBusinesses.length}</span> comercios
+                </p>
+                <button
+                  onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}
+                  className="px-8 py-3.5 rounded-2xl bg-[#151F32] hover:bg-[#1E293B] border border-[#27354D] hover:border-amber-400/50 text-white font-bold text-sm transition-all shadow-lg hover:shadow-amber-400/10 flex items-center gap-2.5 group cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <span>Cargar más locales</span>
+                  <span className="text-amber-400 font-extrabold group-hover:translate-y-0.5 transition-transform text-base">↓</span>
+                </button>
               </div>
-            ))}
+            )}
           </div>
         ) : (
           <div className="text-center py-24 bg-[#0F172A] rounded-3xl border border-[#27354D]/50 shadow-inner">
