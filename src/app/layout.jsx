@@ -6,6 +6,7 @@ import Script from 'next/script';
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata = {
+  metadataBase: new URL('https://www.directoriopy.com'),
   title: 'DirectorioPY - Directorio de Comercios en Paraguay',
   description: 'El directorio web de comercios, empresas y servicios de Paraguay optimizado para búsquedas.',
   openGraph: {

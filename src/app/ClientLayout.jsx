@@ -68,17 +68,75 @@ export default function ClientLayout({ children }) {
 
   const handleAddBusiness = async (newBusinessObj) => {
     try {
-      const { error } = await supabase.from('businesses').insert([newBusinessObj]);
-      if (error) {
-        console.error('Error insertando negocio en Supabase:', error);
-        alert('Hubo un error al registrar el negocio. Revisa la consola.');
+      const cleanWa = (newBusinessObj.whatsappNumber || '').replace(/\D/g, '');
+      const normalizedName = (newBusinessObj.name || '').trim();
+      const city = newBusinessObj.city || 'asuncion';
+
+      let existingMatch = null;
+
+      // 1. Verificar si ya existe por número de WhatsApp o Teléfono
+      if (cleanWa && cleanWa.length >= 8) {
+        const { data: byPhone } = await supabase
+          .from('businesses')
+          .select('id, name, city, plan, isVerified, reviews, rating, gallery, image')
+          .or(`whatsappNumber.eq.${cleanWa},phone.ilike.%${cleanWa.slice(-8)}%`)
+          .limit(1);
+
+        if (byPhone && byPhone.length > 0) {
+          existingMatch = byPhone[0];
+        }
+      }
+
+      // 2. Verificar si ya existe por Nombre + Ciudad
+      if (!existingMatch && normalizedName) {
+        const { data: byName } = await supabase
+          .from('businesses')
+          .select('id, name, city, plan, isVerified, reviews, rating, gallery, image')
+          .eq('city', city)
+          .ilike('name', `%${normalizedName}%`)
+          .limit(1);
+
+        if (byName && byName.length > 0) {
+          existingMatch = byName[0];
+        }
+      }
+
+      if (existingMatch) {
+        // ACTUALIZAR el registro existente sin duplicarlo
+        const updatedPayload = {
+          ...newBusinessObj,
+          reviews: Math.max(existingMatch.reviews || 0, newBusinessObj.reviews || 1),
+          rating: existingMatch.rating && existingMatch.rating > 0 ? existingMatch.rating : newBusinessObj.rating,
+          isVerified: true, // Al ser reclamado o registrado por el dueño, queda verificado
+        };
+
+        const { error: updateError } = await supabase
+          .from('businesses')
+          .update(updatedPayload)
+          .eq('id', existingMatch.id);
+
+        if (updateError) {
+          console.error('Error actualizando negocio existente en Supabase:', updateError);
+          alert('Hubo un error al actualizar los datos del negocio.');
+        } else {
+          alert(`¡Perfil de "${newBusinessObj.name}" actualizado y verificado con éxito! Se sincronizaron los datos con tu ficha existente.`);
+          setIsAddModalOpen(false);
+          window.location.reload();
+        }
       } else {
-        alert('¡Negocio registrado exitosamente! Ya está en vivo en el directorio.');
-        setIsAddModalOpen(false);
-        window.location.reload();
+        // INSERTAR como nuevo comercio
+        const { error: insertError } = await supabase.from('businesses').insert([newBusinessObj]);
+        if (insertError) {
+          console.error('Error insertando negocio en Supabase:', insertError);
+          alert('Hubo un error al registrar el negocio. Revisa la consola.');
+        } else {
+          alert('¡Negocio registrado exitosamente! Ya está en vivo en el directorio.');
+          setIsAddModalOpen(false);
+          window.location.reload();
+        }
       }
     } catch (err) {
-      console.error('Error inesperado:', err);
+      console.error('Error inesperado al guardar negocio:', err);
     }
   };
 

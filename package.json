@@ -7,7 +7,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "audit:businesses": "node scripts/audit_businesses.cjs",
+    "cleanup:placeholders": "node scripts/cleanup_placeholder_businesses.cjs",
+    "scrape:places": "node scripts/scrape_google_places.cjs",
+    "review:candidates": "node scripts/review_candidates.cjs",
+    "import:approved": "node scripts/import_approved_businesses.cjs",
+    "import:osm": "node scripts/import_osm_results.cjs",
+    "outreach:whatsapp": "node scripts/generate_outreach_list.cjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.3",

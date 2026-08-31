@@ -4,7 +4,7 @@ export default async function sitemap() {
   const { data: businesses } = await supabase.from('businesses').select('id, updated_at');
 
   const businessEntries = businesses?.map((b) => ({
-    url: "https://www.directoriopy.com/publicacion/",
+    url: `https://www.directoriopy.com/publicacion/${b.id}`,
     lastModified: new Date(b.updated_at || new Date()),
     changeFrequency: 'weekly',
     priority: 0.8,

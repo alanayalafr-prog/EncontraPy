@@ -31,7 +31,8 @@ export default function AdminDashboard() {
   };
 
   const getMarketingMessage = (b) => {
-    return `Hola ${b.name}, vimos su perfil activo en DirectorioPY. Si desea destacar su negocio para recibir más clientes, le invitamos a ver nuestros planes en www.DirectorioPy.com`;
+    const greeting = b?.name ? `Hola ${b.name}` : 'Hola';
+    return `${greeting}, te encontramos en Google Maps y armamos tu ficha en DirectorioPY para que la gente te contacte más fácil. ¿Confirmás que los datos son correctos?`;
   };
 
   if (!isAuthenticated) {

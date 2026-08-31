@@ -30,14 +30,32 @@ export default async function Page({ params }) {
   const resolvedParams = await params;
   const { id } = resolvedParams;
   
-  const { data: business, error } = await supabase
+  const { data: rawBusiness, error } = await supabase
     .from('businesses')
     .select('*')
     .eq('id', id)
     .single();
 
-  if (error || !business) {
+  if (error || !rawBusiness) {
     notFound();
+  }
+
+  // Lógica de Vencimiento Automático
+  let business = { ...rawBusiness };
+  if ((business.plan === 'pro' || business.plan === 'premium') && business.expires_at) {
+    const expirationDate = new Date(business.expires_at);
+    const now = new Date();
+    
+    if (now > expirationDate) {
+      business = {
+        ...business,
+        plan: 'free',
+        isVerified: false,
+        instagram: '',
+        website: '',
+        gallery: []
+      };
+    }
   }
 
   // Fetch Related Businesses (same category, excluding current)
