@@ -32,7 +32,7 @@ export default function AdminDashboard() {
 
   const getMarketingMessage = (b) => {
     const greeting = b?.name ? `Hola ${b.name}` : 'Hola';
-    return `${greeting}, te encontramos en Google Maps y armamos tu ficha en DirectorioPY para que la gente te contacte más fácil. ¿Confirmás que los datos son correctos?`;
+    return `${greeting}, te encontramos en Google Maps y armamos tu ficha en DirectorioPY (www.directorioPy.com) para que la gente te contacte más fácil. ¿Confirmás que los datos son correctos?`;
   };
 
   if (!isAuthenticated) {
