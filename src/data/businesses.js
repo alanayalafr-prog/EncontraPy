@@ -1661,7 +1661,7 @@ export const PRICING_PLANS = [
     name: 'Plan Pro Trimestral',
     badge: '⚡ Tiempo Limitado',
     priceGs: 'Gs. 199.000',
-    period: 'por 3 meses (Gs. 66.300/mes)',
+    period: 'por 3 meses',
     description: 'Mismos beneficios del Plan Pro por 3 meses completos a precio especial de lanzamiento.',
     features: [
       'Todo lo del Plan Pro Destacado (3 meses)',
@@ -1680,7 +1680,7 @@ export const PRICING_PLANS = [
     name: 'Plan Premium Anual',
     badge: 'VIP Anual 👑',
     priceGs: 'Gs. 790.000',
-    period: '/ año (Gs. 65.800/mes)',
+    period: '/ año',
     description: 'Visibilidad total y máxima prioridad en los motores de búsqueda y portada.',
     features: [
       'Todo lo del Plan Pro Destacado',
