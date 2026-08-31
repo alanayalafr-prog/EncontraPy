@@ -11,7 +11,7 @@ export default function PricingSection({ onOpenPaymentModal }) {
         <div className="text-center flex flex-col items-center justify-center w-full max-w-2xl mx-auto space-y-2.5" style={{ marginBottom: '22px' }}>
           <div className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-0.5">
             <SparklesIcon className="w-4 h-4 text-amber-400" />
-            <span>Monetización & Publicación Local 🇵🇾</span>
+            <span>Publicación Local 🇵🇾</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight leading-snug text-center w-full">

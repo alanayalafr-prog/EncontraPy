@@ -53,7 +53,7 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
         <div className="text-center space-y-2">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold uppercase tracking-wider border border-amber-500/20">
             <SparklesIcon className="w-4 h-4 text-amber-400" />
-            Monetización & Pago Local 🇵🇾
+            <span>Pago Seguro Local 🇵🇾</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
             Suscripción & Transferencia SIPAP
