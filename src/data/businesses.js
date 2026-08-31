@@ -1640,11 +1640,11 @@ export const PRICING_PLANS = [
   },
   {
     id: 'pro',
-    name: 'Plan Pro Destacado',
-    badge: 'Más Popular',
+    name: 'Plan Pro Mensual',
+    badge: 'Mensual',
     priceGs: 'Gs. 99.000',
     period: '/ mes',
-    description: 'Para comercios que buscan aumentar sus consultas de clientes de forma constante.',
+    description: 'Para comercios que buscan aumentar sus consultas de clientes mes a mes.',
     features: [
       'Todo lo del Plan Gratuito',
       'Insignia de Comercio Verificado ✔️',
@@ -1657,20 +1657,39 @@ export const PRICING_PLANS = [
     ctaText: 'Pagar con SIPAP (Gs. 99.000)'
   },
   {
+    id: 'pro_trimestral',
+    name: 'Plan Pro Trimestral',
+    badge: '⚡ Tiempo Limitado',
+    priceGs: 'Gs. 199.000',
+    period: 'por 3 meses (Gs. 66.300/mes)',
+    description: 'Mismos beneficios del Plan Pro por 3 meses completos a precio especial de lanzamiento.',
+    features: [
+      'Todo lo del Plan Pro Destacado (3 meses)',
+      'Insignia de Comercio Verificado ✔️',
+      'Posicionamiento prioritario en búsquedas',
+      'Mensaje directo de WhatsApp personalizado',
+      'Enlace a Instagram, Facebook y Sitio Web',
+      'Galería de fotos del comercio (hasta 3 fotos)',
+      '🔥 Ahorrás Gs. 98.000 (pagás 2 meses y tenés 3)'
+    ],
+    highlighted: true,
+    ctaText: 'Pagar con SIPAP (Gs. 199.000)'
+  },
+  {
     id: 'premium',
     name: 'Plan Premium Anual',
-    badge: 'Ahorrá 30% 🔥',
+    badge: 'VIP Anual 👑',
     priceGs: 'Gs. 790.000',
-    period: '/ año',
-    description: 'Visibilidad total y máxima prioridad en los motores de búsqueda y directorio.',
+    period: '/ año (Gs. 65.800/mes)',
+    description: 'Visibilidad total y máxima prioridad en los motores de búsqueda y portada.',
     features: [
       'Todo lo del Plan Pro Destacado',
       'Destacado en Portada Principal (Spotlight VIP ⭐️)',
-      'Soporte técnico y actualización de datos prioritaria (24/7)',
-      'Optimización SEO personalizada con Microdata Schema.org para Google',
-      'Ahorro del 30% respecto al pago mensual'
+      'Soporte técnico y actualización prioritaria (24/7)',
+      'Optimización SEO con Microdata Schema para Google',
+      'Ahorro del 35% respecto al pago mensual'
     ],
-    highlighted: true,
+    highlighted: false,
     ctaText: 'Pagar con SIPAP (Gs. 790.000)'
   }
 ];

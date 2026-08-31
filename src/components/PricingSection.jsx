@@ -25,59 +25,68 @@ export default function PricingSection({ onOpenPaymentModal }) {
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch w-full" style={{ marginTop: '0px', paddingTop: '10px' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch w-full" style={{ marginTop: '0px', paddingTop: '10px' }}>
           {PRICING_PLANS.map((plan) => {
             const isFeatured = plan.highlighted;
+            const isTrimestral = plan.id === 'pro_trimestral';
             const isPremium = plan.id === 'premium';
             const isPro = plan.id === 'pro';
-            const internalBadgeText = isPremium ? 'VIP ANUAL 👑 (AHORRÁ 30%)' : isPro ? 'MÁS POPULAR' : 'INICIAL';
+
+            let internalBadgeText = 'INICIAL';
+            if (isTrimestral) internalBadgeText = 'PROMO LIMITADA 🔥 (AHORRÁ Gs. 98.000)';
+            else if (isPremium) internalBadgeText = 'VIP ANUAL 👑 (AHORRÁ 35%)';
+            else if (isPro) internalBadgeText = 'PLAN MENSUAL';
 
             return (
               <div
                 key={plan.id}
-                style={{ paddingTop: '24px', paddingLeft: '24px', paddingRight: '24px', paddingBottom: '24px' }}
-                className={`rounded-2xl flex flex-col justify-between space-y-8 relative transition-all duration-200 ${
+                style={{ paddingTop: '24px', paddingLeft: '20px', paddingRight: '20px', paddingBottom: '24px' }}
+                className={`rounded-2xl flex flex-col justify-between space-y-6 relative transition-all duration-200 ${
                   isFeatured
-                    ? 'bg-gradient-to-b from-[#1E2B45] to-[#151F32] border-2 border-amber-500 shadow-2xl shadow-amber-500/10'
+                    ? 'bg-gradient-to-b from-[#1E2B45] to-[#151F32] border-2 border-amber-500 shadow-2xl shadow-amber-500/20 ring-1 ring-amber-500/50'
+                    : isPremium
+                    ? 'bg-[#151F32] border-2 border-purple-500/60 shadow-xl'
                     : isPro
                     ? 'bg-[#151F32] border-2 border-blue-500/60 shadow-xl'
                     : 'bg-[#151F32] border-2 border-[#27354D] shadow-md'
                 }`}
               >
-                {/* Badge Overlay Sin Solapamiento */}
+                {/* Badge Overlay */}
                 {isFeatured && (
-                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-[11px] font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg z-10 whitespace-nowrap border border-amber-400">
-                    🔥 MÁS RECOMENDADO
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-orange-500 text-black text-[10px] font-black px-3.5 py-1 rounded-full uppercase tracking-wider shadow-lg z-10 whitespace-nowrap border border-amber-300">
+                    ⚡ TIEMPO LIMITADO
                   </span>
                 )}
-                {isPro && !isFeatured && (
-                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-lg z-10 whitespace-nowrap border border-blue-400">
-                    MÁS POPULAR
+                {isPremium && !isFeatured && (
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg z-10 whitespace-nowrap border border-purple-400">
+                    👑 MÁS COMPLETO
                   </span>
                 )}
 
-                <div className="space-y-6">
+                <div className="space-y-5">
                   {/* Plan Name & Subtitle */}
-                  <div className="space-y-2" style={{ marginTop: '0px' }}>
-                    <span className={`text-[11px] font-bold tracking-wider uppercase block ${isFeatured ? 'text-amber-400' : 'text-blue-400'}`}>
+                  <div className="space-y-1.5" style={{ marginTop: '0px' }}>
+                    <span className={`text-[10px] font-bold tracking-wider uppercase block ${isFeatured ? 'text-amber-400' : isPremium ? 'text-purple-400' : 'text-blue-400'}`}>
                       {internalBadgeText}
                     </span>
-                    <h3 className="text-2xl font-extrabold text-white leading-snug mt-1">{plan.name}</h3>
-                    <p className="text-xs text-slate-300 leading-relaxed pt-1.5">{plan.description}</p>
+                    <h3 className="text-xl font-extrabold text-white leading-snug">{plan.name}</h3>
+                    <p className="text-xs text-slate-300 leading-relaxed pt-1">{plan.description}</p>
                   </div>
 
                   {/* Pricing Display */}
-                  <div className="py-4 border-y border-[#27354D] flex items-baseline gap-1.5">
-                    <span className="text-3xl sm:text-4xl font-extrabold text-amber-400 tracking-tight">{plan.priceGs}</span>
-                    <span className="text-xs font-medium text-slate-300">{plan.period}</span>
+                  <div className="py-3.5 border-y border-[#27354D] flex flex-col gap-0.5">
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-tight">{plan.priceGs}</span>
+                    </div>
+                    <span className="text-[11px] font-medium text-slate-400">{plan.period}</span>
                   </div>
 
                   {/* Feature Checklist */}
-                  <ul className="space-y-3.5 text-xs text-slate-200">
+                  <ul className="space-y-2.5 text-xs text-slate-200">
                     {plan.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5">
-                        <CheckCircleIcon className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                        <span className="leading-relaxed">{feat}</span>
+                      <li key={idx} className="flex items-start gap-2">
+                        <CheckCircleIcon className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                        <span className="leading-relaxed text-[11px]">{feat}</span>
                       </li>
                     ))}
                   </ul>
@@ -86,9 +95,11 @@ export default function PricingSection({ onOpenPaymentModal }) {
                 {/* Plan Action CTA */}
                 <button
                   onClick={() => onOpenPaymentModal(plan.id)}
-                  className={`w-full py-3.5 rounded-xl font-bold text-xs transition-all shadow-md mt-4 ${
+                  className={`w-full py-3 rounded-xl font-bold text-xs transition-all shadow-md mt-4 cursor-pointer ${
                     isFeatured
                       ? 'bg-amber-500 hover:bg-amber-400 text-black shadow-amber-500/20 hover:scale-[1.01]'
+                      : isPremium
+                      ? 'bg-purple-600 hover:bg-purple-500 text-white shadow-purple-500/20 hover:scale-[1.01]'
                       : 'bg-[#1E293B] hover:bg-[#27354D] text-white border border-[#27354D]'
                   }`}
                 >
