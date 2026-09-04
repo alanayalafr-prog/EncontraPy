@@ -18,7 +18,7 @@ import {
   SparklesIcon,
   CrownIcon
 } from './Icons';
-import { formatWhatsAppNumber } from '../utils/phoneUtils';
+import { formatWhatsAppNumber, getBusinessWhatsAppMessage } from '../utils/phoneUtils';
 
 export default function BusinessDetailModal({ business, relatedBusinesses = [], reviews = [], onClose, onClaimClick }) {
   if (!business) return null;
@@ -41,7 +41,8 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
     }
   }, [business]);
 
-  const waUrl = `https://wa.me/${formatWhatsAppNumber(business.whatsappNumber)}?text=${encodeURIComponent(business.whatsappDefaultMessage)}`;
+  const defaultMessage = getBusinessWhatsAppMessage(business);
+  const waUrl = `https://wa.me/${formatWhatsAppNumber(business.whatsappNumber)}?text=${encodeURIComponent(defaultMessage)}`;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${business.name} ${business.address} ${business.cityName} Paraguay`)}`;
   
   const isProOrPremium = (business.plan === 'pro' || business.plan === 'premium') && business.isVerified;
@@ -269,16 +270,22 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
           <div className="p-5 rounded-2xl bg-gradient-to-r from-emerald-950/70 via-emerald-900/50 to-emerald-950/70 border border-emerald-500/40 space-y-3 shadow-xl">
             <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider">
               <SparklesIcon className="w-4 h-4 text-amber-400" />
-              <span>Lead Directo por WhatsApp sin intermediarios</span>
+              <span>Contacto Directo por WhatsApp sin intermediarios</span>
             </div>
             
             <div className="space-y-1.5">
-              <h4 className="text-lg font-bold text-white">¿Querés hacer una consulta o solicitar presupuesto?</h4>
+              <h4 className="text-lg font-bold text-white">
+                {business.category === 'gastronomia'
+                  ? '¿Querés consultar la carta o hacer un pedido?'
+                  : business.category === 'salud'
+                  ? '¿Querés consultar turnos o agendar una cita?'
+                  : '¿Querés hacer una consulta o solicitar presupuesto?'}
+              </h4>
               <p className="text-xs text-emerald-200/90">
                 Mensaje personalizado listo para enviar:
               </p>
               <div className="p-3 rounded-xl bg-black/60 text-emerald-300 font-mono text-xs italic border border-emerald-500/30">
-                "{business.whatsappDefaultMessage}"
+                "{defaultMessage}"
               </div>
             </div>
 

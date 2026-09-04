@@ -68,6 +68,22 @@ function normalizeWhatsApp(phone) {
   return `595${digits.replace(/^0+/, '')}`;
 }
 
+function getCustomerWhatsAppMessage(name, category) {
+  const cleanName = (name || '').trim().replace(/[.,;:\-]+$/, '').trim();
+  switch (category) {
+    case 'gastronomia':
+      return `Hola ${cleanName}, los encontré en DirectorioPY y quisiera consultar su menú o hacer un pedido.`;
+    case 'salud':
+      return `Hola ${cleanName}, los encontré en DirectorioPY y quisiera consultar sobre turnos y atención.`;
+    case 'oficios':
+      return `Hola ${cleanName}, los encontré en DirectorioPY y quisiera consultar por un presupuesto o servicio.`;
+    case 'agro':
+      return `Hola ${cleanName}, los encontré en DirectorioPY y quisiera consultar sobre disponibilidad y cotizaciones.`;
+    default:
+      return `Hola ${cleanName}, los encontré en DirectorioPY y me gustaría hacerles una consulta.`;
+  }
+}
+
 function normalizeKey(value) {
   return String(value || '')
     .normalize('NFD')
@@ -97,7 +113,7 @@ function toBusiness(osmRecord) {
     description: `${osmRecord.name} figura en registros públicos de OpenStreetMap con teléfono de contacto. Perfil pendiente de validación comercial por DirectorioPY.`,
     phone: osmRecord.phone,
     whatsappNumber: normalizeWhatsApp(osmRecord.phone),
-    whatsappDefaultMessage: `Hola ${osmRecord.name}, vi su comercio en DirectorioPY y quisiera conversar sobre su perfil.`,
+    whatsappDefaultMessage: getCustomerWhatsAppMessage(osmRecord.name, category),
     rating: 0,
     reviews: 0,
     isVerified: false,

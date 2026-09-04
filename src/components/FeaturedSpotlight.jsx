@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { CrownIcon, StarIcon, WhatsAppIcon, ShieldCheckIcon, MapPinIcon } from './Icons';
-import { formatWhatsAppNumber } from '../utils/phoneUtils';
+import { formatWhatsAppNumber, getBusinessWhatsAppMessage } from '../utils/phoneUtils';
 
 export default function FeaturedSpotlight({ businesses = [], onSelectDetail }) {
   const carouselRef = useRef(null);
@@ -65,7 +65,8 @@ export default function FeaturedSpotlight({ businesses = [], onSelectDetail }) {
         {/* Showcase Horizontal Carousel */}
         <div ref={carouselRef} className="flex overflow-x-auto gap-4 pt-4 pb-4 relative z-10 snap-x snap-mandatory items-stretch scroll-smooth">
         {premiumBusinesses.map((business, index) => {
-          const waUrl = `https://wa.me/${formatWhatsAppNumber(business.whatsappNumber)}?text=${encodeURIComponent(business.whatsappDefaultMessage)}`;
+          const defaultMessage = getBusinessWhatsAppMessage(business);
+          const waUrl = `https://wa.me/${formatWhatsAppNumber(business.whatsappNumber)}?text=${encodeURIComponent(defaultMessage)}`;
 
           return (
             <div

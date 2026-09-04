@@ -13,3 +13,38 @@ export const formatWhatsAppNumber = (number) => {
   
   return cleaned;
 };
+
+export const getCleanBusinessName = (name) => {
+  if (!name) return 'su negocio';
+  return name.trim().replace(/[.,;:\-]+$/, '').trim();
+};
+
+export const getBusinessWhatsAppMessage = (business) => {
+  if (!business) return '';
+
+  const rawMsg = (business.whatsappDefaultMessage || '').trim();
+  // Si tiene un mensaje personalizado que NO sea el texto legado de prospección/auditoría
+  if (
+    rawMsg &&
+    !rawMsg.toLowerCase().includes('conversar sobre su perfil') &&
+    !rawMsg.toLowerCase().includes('sobre su perfil')
+  ) {
+    return rawMsg;
+  }
+
+  const cleanName = getCleanBusinessName(business.name);
+  const cat = (business.category || business.categoryId || '').toLowerCase();
+
+  switch (cat) {
+    case 'gastronomia':
+      return `Hola ${cleanName}, los encontré en DirectorioPY y quisiera consultar su menú o hacer un pedido.`;
+    case 'salud':
+      return `Hola ${cleanName}, los encontré en DirectorioPY y quisiera consultar sobre turnos y atención.`;
+    case 'oficios':
+      return `Hola ${cleanName}, los encontré en DirectorioPY y quisiera consultar por un presupuesto o servicio.`;
+    case 'agro':
+      return `Hola ${cleanName}, los encontré en DirectorioPY y quisiera consultar sobre disponibilidad y cotizaciones.`;
+    default:
+      return `Hola ${cleanName}, los encontré en DirectorioPY y me gustaría hacerles una consulta.`;
+  }
+};
