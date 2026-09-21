@@ -1,24 +1,34 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { WhatsAppIcon, MapPinIcon, ShieldCheckIcon, ClockIcon } from './Icons';
+import { WhatsAppIcon, MapPinIcon, ShieldCheckIcon, ClockIcon, StarIcon } from './Icons';
 import { formatWhatsAppNumber, getBusinessWhatsAppMessage } from '../utils/phoneUtils';
+import { isOpenNow, getRepresentativeImage, formatRating, getTrustStatus } from '../utils/businessUtils';
 
 export default function BusinessCard({ business, onSelectDetail }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  if (!business) return null;
+
   const defaultMessage = getBusinessWhatsAppMessage(business);
   const waUrl = `https://wa.me/${formatWhatsAppNumber(business.whatsappNumber)}?text=${encodeURIComponent(defaultMessage)}`;
-  
-  const isPremium = business.plan === 'premium' && business.isVerified;
-  const isPro = business.plan === 'pro' && business.isVerified;
-  
-  // Solo los planes Pro y Premium pueden tener galería en la tarjeta.
-  // El plan gratuito solo muestra la imagen principal.
-  const images = (isPremium || isPro) && business.gallery && business.gallery.length > 0
-    ? business.gallery 
-    : [business.image];
 
-  // Visual Star Rating Generator (e.g. 4.9 -> ★★★★★)
+  const trust = getTrustStatus(business);
+  const { isOpen, label: openStatusLabel } = isOpenNow(business.workingHours);
+  const ratingInfo = formatRating(business);
+  const representativeImg = getRepresentativeImage(business);
+
+  const isPremium = trust.type === 'destacado';
+  const isVerified = trust.type === 'verificado' || isPremium;
+
+  // Solo los planes Pro y Premium pueden tener galería interactiva en la tarjeta si tiene fotos válidas
+  const images = (isPremium || business.plan === 'pro') && business.gallery && business.gallery.length > 0
+    ? business.gallery
+    : [representativeImg];
+
+  const currentImage = images[currentImageIndex] || representativeImg;
+
+  // Generador de estrellas reales
   const renderVisualStars = (rating) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
@@ -38,164 +48,185 @@ export default function BusinessCard({ business, onSelectDetail }) {
 
   return (
     <div
-      className={`rounded-2xl flex flex-col justify-between overflow-hidden transition-all duration-200 hover:-translate-y-1 ${
+      className={`rounded-2xl flex flex-col justify-between overflow-hidden transition-all duration-200 hover:-translate-y-0.5 bg-[#151F32] border ${
         isPremium
-          ? 'bg-gradient-to-b from-[#1C273D] to-[#151F32] border-2 border-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.22)] hover:border-amber-300 hover:shadow-[0_0_28px_rgba(245,158,11,0.35)]'
-          : isPro
-          ? 'bg-[#151F32] border border-blue-500/50 shadow-md hover:border-blue-400'
-          : 'bg-[#151F32] border border-[#27354D] opacity-90 hover:opacity-100 hover:border-slate-500'
+          ? 'border-amber-400/40 hover:border-amber-300 shadow-lg shadow-amber-500/5'
+          : isVerified
+          ? 'border-emerald-500/30 hover:border-emerald-500/60 shadow-md'
+          : 'border-[#27354D] hover:border-slate-500'
       }`}
     >
       <div>
-        {/* Standardized Aspect-Ratio Image Container */}
+        {/* Aspect-Ratio Image Container */}
         <div 
-          className="relative aspect-video w-full overflow-hidden bg-slate-900 group cursor-pointer"
+          className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900 group cursor-pointer"
           onClick={() => onSelectDetail(business)}
         >
           <Image
-            src={images[currentImageIndex]}
+            src={currentImage}
             alt={business.name}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-opacity duration-300"
-            unoptimized={images[currentImageIndex]?.startsWith('http')}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            unoptimized={typeof currentImage === 'string' && currentImage.startsWith('http')}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#151F32] via-[#151F32]/30 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#151F32] via-[#151F32]/25 to-transparent z-10" />
           
-          {/* Carousel Controls */}
+          {/* Carousel Controls if multiple photos */}
           {images.length > 1 && (
             <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover:opacity-100 transition-opacity z-20">
               <button 
                 onClick={(e) => { e.stopPropagation(); setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1)); }}
-                className="bg-black/50 text-white p-1 rounded-full hover:bg-black/80"
+                className="bg-black/60 text-white p-1 rounded-full hover:bg-black/90 text-xs"
+                aria-label="Foto anterior"
               >
                 ◀
               </button>
               <button 
                 onClick={(e) => { e.stopPropagation(); setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1)); }}
-                className="bg-black/50 text-white p-1 rounded-full hover:bg-black/80"
+                className="bg-black/60 text-white p-1 rounded-full hover:bg-black/90 text-xs"
+                aria-label="Siguiente foto"
               >
                 ▶
               </button>
             </div>
           )}
+
           {/* Carousel Dots */}
           {images.length > 1 && (
-            <div className="absolute bottom-9 left-0 right-0 flex justify-center gap-1 z-20">
+            <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-1 z-20">
               {images.map((_, idx) => (
                 <div 
                   key={idx} 
-                  className={`h-1.5 rounded-full transition-all ${idx === currentImageIndex ? 'w-4 bg-amber-400' : 'w-1.5 bg-white/50'}`} 
+                  className={`h-1.5 rounded-full transition-all ${idx === currentImageIndex ? 'w-3.5 bg-amber-400' : 'w-1.5 bg-white/60'}`} 
                 />
               ))}
             </div>
           )}
           
-          {/* Single Dominant Badge on Top Left */}
-          <div className="absolute top-3 left-3 z-10">
+          {/* Badge Top Left */}
+          <div className="absolute top-2.5 left-2.5 z-20">
             {isPremium ? (
-              <span className="bg-amber-400 text-black text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-md shadow-lg flex items-center gap-1">
+              <span className="bg-amber-400 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded shadow flex items-center gap-1 tracking-wider">
                 ⭐️ DESTACADO
               </span>
-            ) : isPro || business.isVerified ? (
+            ) : isVerified ? (
               <span className="bg-emerald-950/90 text-emerald-400 text-[10px] font-bold uppercase px-2 py-0.5 rounded border border-emerald-500/40 shadow backdrop-blur-sm flex items-center gap-1">
                 <ShieldCheckIcon className="w-3 h-3" />
                 <span>VERIFICADO</span>
               </span>
-            ) : null}
+            ) : (
+              <span className="bg-slate-900/85 text-slate-300 text-[10px] font-medium px-2 py-0.5 rounded border border-slate-700/60 backdrop-blur-sm">
+                Ficha Local
+              </span>
+            )}
           </div>
 
-          {/* Category Chip over Image Bottom */}
-          <div className="absolute bottom-2.5 left-3">
-            <span className="bg-black/75 backdrop-blur-sm text-blue-300 text-[11px] font-bold px-2.5 py-0.5 rounded border border-blue-900/50">
-              {business.niche}
+          {/* Category Chip Bottom Left */}
+          <div className="absolute bottom-2.5 left-2.5 z-20">
+            <span className="bg-black/75 backdrop-blur-sm text-blue-300 text-[11px] font-semibold px-2 py-0.5 rounded border border-blue-900/40 max-w-[200px] truncate inline-block">
+              {business.niche || business.categoryLabel || 'Comercio'}
             </span>
           </div>
         </div>
 
         {/* Card Content Body */}
-        <div className="p-4 space-y-3">
+        <div className="p-4 space-y-2.5">
           
-          {/* Business Title & Verification Check */}
+          {/* Business Title & Verification */}
           <div>
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-start justify-between gap-1.5">
               <h3
                 onClick={() => onSelectDetail(business)}
-                className={`text-lg font-bold hover:text-amber-400 transition-colors cursor-pointer line-clamp-1 tracking-tight ${
-                  isPremium ? 'text-white' : 'text-slate-100'
-                }`}
+                className="text-base font-bold text-white hover:text-blue-400 transition-colors cursor-pointer line-clamp-1 leading-snug"
+                title={business.name}
               >
                 {business.name}
               </h3>
-              {(isPremium || isPro) && business.isVerified && (
-                <span title="Comercio Verificado" className="shrink-0">
+              {isVerified && (
+                <span title="Comercio Verificado" className="shrink-0 mt-0.5">
                   <ShieldCheckIcon className="w-4 h-4 text-emerald-400" />
                 </span>
               )}
             </div>
 
-            {/* Fixed Star Rating Row */}
+            {/* Real Rating Display */}
             <div className="flex items-center gap-1.5 mt-1">
-              <div className="flex items-center text-xs space-x-0.5">
-                {renderVisualStars(business.rating)}
-              </div>
-              <span className="text-xs font-bold text-amber-400">{business.rating}</span>
-              <span className="text-[11px] text-slate-400">({business.reviewCount} reseñas)</span>
+              {ratingInfo.hasReviews ? (
+                <>
+                  <div className="flex items-center text-xs space-x-0.5">
+                    {renderVisualStars(Number(ratingInfo.rating))}
+                  </div>
+                  <span className="text-xs font-bold text-amber-400">{ratingInfo.rating}</span>
+                  <span className="text-[11px] text-slate-400">({ratingInfo.reviewsCount})</span>
+                </>
+              ) : (
+                <div className="flex items-center gap-1 text-[11px] text-slate-400">
+                  <span className="text-slate-500">★</span>
+                  <span>Sin reseñas aún</span>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Location & Abierto Ahora Row */}
-          <div className="flex items-center justify-between text-xs text-slate-300 pt-1">
-            <div className="flex items-center gap-1.5 truncate">
-              <MapPinIcon className="w-4 h-4 text-amber-400 shrink-0" />
-              <span className="font-bold text-white">{business.cityName}</span>
-              <span>•</span>
-              <span className="truncate text-slate-300">{business.zone}</span>
+          {/* Location & Status Row */}
+          <div className="flex items-center justify-between text-xs text-slate-300 pt-0.5">
+            <div className="flex items-center gap-1 truncate text-slate-300">
+              <MapPinIcon className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+              <span className="font-semibold text-white truncate">{business.cityName || 'Paraguay'}</span>
+              {business.zone && (
+                <>
+                  <span className="text-slate-500">•</span>
+                  <span className="truncate text-slate-400">{business.zone}</span>
+                </>
+              )}
             </div>
             
-            <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-400 shrink-0">
-              <span className="pulse-green-dot"></span>
-              <span>Abierto</span>
-            </div>
+            {isOpen ? (
+              <div className="flex items-center gap-1 text-[11px] font-bold text-emerald-400 shrink-0">
+                <span className="pulse-green-dot"></span>
+                <span>Abierto</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1 text-[11px] font-medium text-slate-400 shrink-0">
+                <span className="w-2 h-2 rounded-full bg-slate-500"></span>
+                <span>Cerrado</span>
+              </div>
+            )}
           </div>
 
-          {/* Description */}
+          {/* Description Clamped */}
           <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
-            {business.description}
+            {business.description || 'Comercio local en Paraguay disponible para consultas directas por WhatsApp.'}
           </p>
 
-          {/* Hours with Clock Icon */}
-          <div className="flex items-center gap-1.5 text-[11px] text-slate-300 pt-2 border-t border-[#27354D]">
+          {/* Hours Info */}
+          <div className="flex items-center gap-1.5 text-[11px] text-slate-400 pt-2 border-t border-[#27354D]/70">
             <ClockIcon className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            <span className="truncate">{business.workingHours}</span>
+            <span className="truncate">{business.workingHours || 'Horario a confirmar por WhatsApp'}</span>
           </div>
 
         </div>
       </div>
 
-      {/* Footer Action Buttons with Explicit CTA Hierarchy */}
+      {/* Footer Action Buttons */}
       <div className="p-4 pt-0 space-y-2">
         <a
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className={`w-full flex items-center justify-center gap-2 transition-all ${
-            isPremium
-              ? 'bg-gradient-to-r from-[#25D366] to-[#10B981] hover:from-[#1DA851] hover:to-[#059669] text-white text-xs font-black py-3 px-4 rounded-xl shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 border border-emerald-300/40 tracking-wide uppercase hover:scale-[1.02]'
-              : isPro
-              ? 'bg-[#25D366] hover:bg-[#1DA851] text-white text-xs font-bold py-2.5 px-3 rounded-xl shadow-md'
-              : 'bg-[#132A24] hover:bg-[#1A3830] text-emerald-400 hover:text-emerald-300 border border-emerald-500/40 text-xs font-semibold py-2 px-3 rounded-xl'
-          }`}
-          title="Contactar por WhatsApp"
+          className="btn-whatsapp-official w-full py-2.5 px-3 text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
+          title="Contactar directo por WhatsApp"
         >
           <WhatsAppIcon className="w-4 h-4 shrink-0" />
-          <span>{isPremium ? '💬 Contactar por WhatsApp' : isPro ? 'Contactar por WhatsApp' : 'Enviar WhatsApp'}</span>
+          <span>Contactar por WhatsApp</span>
         </a>
 
-        <div className="text-center">
+        <div className="flex items-center justify-between pt-0.5 px-1">
+          <span className="text-[10px] text-slate-400">Sin comisiones</span>
           <button
             onClick={() => onSelectDetail(business)}
-            className="text-[11px] text-slate-400 hover:text-white font-medium transition-colors hover:underline"
+            className="text-[11px] text-blue-400 hover:text-blue-300 font-semibold transition-colors hover:underline"
           >
             Ver Ficha Completa →
           </button>
@@ -205,4 +236,3 @@ export default function BusinessCard({ business, onSelectDetail }) {
     </div>
   );
 }
-

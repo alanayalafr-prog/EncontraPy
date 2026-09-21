@@ -130,11 +130,18 @@ h1, h2, h3, h4, h5, h6 {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(11, 17, 32, 0.85);
-  backdrop-filter: blur(6px);
+  background: rgba(11, 17, 32, 0.88);
+  backdrop-filter: blur(8px);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem; /* Increased padding around the modal */
+  padding: 0.75rem;
 }
+
+@media (min-width: 640px) {
+  .modal-overlay {
+    padding: 1.5rem;
+  }
+}
+

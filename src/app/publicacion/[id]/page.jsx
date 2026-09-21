@@ -1,6 +1,6 @@
 import { supabase } from '@/config/supabase';
-import BusinessDetailModal from '@/components/BusinessDetailModal';
 import { notFound } from 'next/navigation';
+import BusinessDetailModalWrapper from './BusinessDetailModalWrapper';
 
 export const revalidate = 0; // Dynamic route
 
@@ -13,15 +13,20 @@ export async function generateMetadata({ params }) {
     .eq('id', id)
     .single();
 
-  if (!business) return { title: 'No encontrado | DirectorioPY' };
+  if (!business) return { title: 'Comercio no encontrado | DirectorioPY' };
+
+  const city = business.cityName || 'Paraguay';
+  const category = business.niche || business.categoryLabel || 'Comercios y Servicios';
 
   return {
-    title: `${business.name} en ${business.cityName} | DirectorioPY`,
-    description: business.description || `Contacta a ${business.name} en ${business.cityName}. ${business.category}.`,
+    title: `${business.name} en ${city} - ${category} | DirectorioPY`,
+    description: business.description || `Contactá directo por WhatsApp a ${business.name} en ${city}. Atención sin intermediarios en DirectorioPY.`,
     openGraph: {
-      title: `${business.name} | DirectorioPY`,
-      description: business.description,
+      title: `${business.name} | DirectorioPY Paraguay`,
+      description: business.description || `Encontrá ${business.name} en ${city}. Contacto directo por WhatsApp.`,
       images: [business.image || '/og-image.jpg'],
+      locale: 'es_PY',
+      type: 'article'
     }
   };
 }
@@ -59,10 +64,11 @@ export default async function Page({ params }) {
   }
 
   // Fetch Related Businesses (same category, excluding current)
+  const categoryFilter = business.category || business.categoryId;
   const { data: related } = await supabase
     .from('businesses')
     .select('*')
-    .eq('categoryId', business.categoryId)
+    .eq('category', categoryFilter)
     .neq('id', id)
     .limit(4);
 
@@ -73,21 +79,35 @@ export default async function Page({ params }) {
     .eq('business_id', id)
     .order('created_at', { ascending: false });
 
-  // Inject Server-Side Schema.org
+  // Schema.org LocalBusiness enriquecido
+  const reviewCount = Number(business.reviewCount || business.reviews || 0);
+  const ratingValue = Number(business.rating || 0);
+
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": business.name,
     "image": business.image,
-    "telephone": business.whatsappNumber,
+    "telephone": business.phone || business.whatsappNumber,
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": business.cityName,
+      "streetAddress": business.address || "",
+      "addressLocality": business.cityName || "Asunción",
       "addressRegion": "Paraguay",
       "addressCountry": "PY"
     },
-    "description": business.description
+    "description": business.description,
+    "priceRange": "$$",
+    "currenciesAccepted": "PYG"
   };
+
+  if (ratingValue > 0 && reviewCount > 0) {
+    schemaData.aggregateRating = {
+      "@type": "AggregateRating",
+      "ratingValue": ratingValue,
+      "reviewCount": reviewCount
+    };
+  }
 
   return (
     <>
@@ -103,6 +123,3 @@ export default async function Page({ params }) {
     </>
   );
 }
-
-// Client wrapper to handle the onClose navigation
-import BusinessDetailModalWrapper from './BusinessDetailModalWrapper';
