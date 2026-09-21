@@ -219,3 +219,15 @@ export function getTrustStatus(business) {
     description: 'Información recopilada de fuentes públicas o Google Places. ¿Sos el dueño? Reclamala gratis.'
   };
 }
+
+/**
+ * Determina si el comercio tiene habilitado el botón directo de WhatsApp
+ * (Solo comercios con Plan Pro o Premium. En Plan Gratuito/Free el botón está apagado/inactivo)
+ */
+export function canUseWhatsApp(business) {
+  if (!business || !business.whatsappNumber) return false;
+  const plan = (business.plan || '').toLowerCase();
+  const isPaid = plan === 'pro' || plan === 'premium' || plan === 'pro_trimestral';
+  return isPaid;
+}
+

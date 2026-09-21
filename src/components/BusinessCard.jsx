@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { WhatsAppIcon, MapPinIcon, ShieldCheckIcon, ClockIcon, StarIcon } from './Icons';
 import { formatWhatsAppNumber, getBusinessWhatsAppMessage } from '../utils/phoneUtils';
-import { isOpenNow, getRepresentativeImage, formatRating, getTrustStatus } from '../utils/businessUtils';
+import { isOpenNow, getRepresentativeImage, formatRating, getTrustStatus, canUseWhatsApp } from '../utils/businessUtils';
 
 export default function BusinessCard({ business, onSelectDetail }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -211,24 +211,36 @@ export default function BusinessCard({ business, onSelectDetail }) {
 
       {/* Footer Action Buttons */}
       <div className="p-4 pt-0 space-y-2">
-        <a
-          href={waUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-whatsapp-official w-full py-2.5 px-3 text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
-          title="Contactar directo por WhatsApp"
-        >
-          <WhatsAppIcon className="w-4 h-4 shrink-0" />
-          <span>Contactar por WhatsApp</span>
-        </a>
+        {canUseWhatsApp(business) ? (
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-whatsapp-official w-full py-2.5 px-3 text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
+            title="Contactar directo por WhatsApp"
+          >
+            <WhatsAppIcon className="w-4 h-4 shrink-0" />
+            <span>Contactar por WhatsApp</span>
+          </a>
+        ) : (
+          <button
+            onClick={() => onSelectDetail(business)}
+            className="w-full py-2.5 px-3 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-[#27354D] flex items-center justify-center gap-2 transition-colors cursor-pointer"
+            title="WhatsApp inactivo en Plan Gratis - Ver Ficha y Dirección"
+          >
+            <span>Ver Ficha y Dirección →</span>
+          </button>
+        )}
 
         <div className="flex items-center justify-between pt-0.5 px-1">
-          <span className="text-[10px] text-slate-400">Sin comisiones</span>
+          <span className="text-[10px] text-slate-400">
+            {canUseWhatsApp(business) ? 'Sin comisiones' : 'WhatsApp inactivo (Plan Free)'}
+          </span>
           <button
             onClick={() => onSelectDetail(business)}
             className="text-[11px] text-blue-400 hover:text-blue-300 font-semibold transition-colors hover:underline"
           >
-            Ver Ficha Completa →
+            {canUseWhatsApp(business) ? 'Ver Ficha Completa →' : 'Ver Detalles →'}
           </button>
         </div>
       </div>

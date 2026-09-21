@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { MapPinIcon, WhatsAppIcon, StarIcon, ShieldCheckIcon, SparklesIcon, XIcon } from './Icons';
 import { formatWhatsAppNumber, getBusinessWhatsAppMessage } from '../utils/phoneUtils';
-import { getRepresentativeImage, formatRating, isOpenNow, getTrustStatus } from '../utils/businessUtils';
+import { getRepresentativeImage, formatRating, isOpenNow, getTrustStatus, canUseWhatsApp } from '../utils/businessUtils';
 
 export default function MapView({ businesses = [], onSelectDetail, onBackToGrid }) {
   const [selectedPin, setSelectedPin] = useState(businesses[0] || null);
@@ -229,22 +229,28 @@ export default function MapView({ businesses = [], onSelectDetail, onBackToGrid 
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-1">
+              <div className={canUseWhatsApp(selectedPin) ? "grid grid-cols-2 gap-2 pt-1" : "pt-1"}>
                 <button
                   onClick={() => onSelectDetail(selectedPin)}
-                  className="w-full py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition-colors text-center"
+                  className={`w-full py-2 rounded-lg text-white text-xs font-bold transition-colors text-center ${
+                    canUseWhatsApp(selectedPin)
+                      ? 'bg-slate-800 hover:bg-slate-700 border border-slate-700'
+                      : 'bg-primary-600 hover:bg-primary-500 border border-primary-500 shadow-sm'
+                  }`}
                 >
-                  Ver Ficha
+                  {canUseWhatsApp(selectedPin) ? 'Ver Ficha' : 'Ver Ficha y Dirección →'}
                 </button>
-                <a
-                  href={`https://wa.me/${formatWhatsAppNumber(selectedPin.whatsappNumber)}?text=${encodeURIComponent(getBusinessWhatsAppMessage(selectedPin))}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-whatsapp-official text-xs py-2 px-2 rounded-lg flex items-center justify-center gap-1 font-bold"
-                >
-                  <WhatsAppIcon className="w-3.5 h-3.5" />
-                  <span>WhatsApp</span>
-                </a>
+                {canUseWhatsApp(selectedPin) && (
+                  <a
+                    href={`https://wa.me/${formatWhatsAppNumber(selectedPin.whatsappNumber)}?text=${encodeURIComponent(getBusinessWhatsAppMessage(selectedPin))}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-whatsapp-official text-xs py-2 px-2 rounded-lg flex items-center justify-center gap-1 font-bold"
+                  >
+                    <WhatsAppIcon className="w-3.5 h-3.5" />
+                    <span>WhatsApp</span>
+                  </a>
+                )}
               </div>
 
             </div>
