@@ -221,13 +221,15 @@ export function getTrustStatus(business) {
 }
 
 /**
- * Determina si el comercio tiene habilitado el botón directo de WhatsApp
- * (Solo comercios con Plan Pro o Premium. En Plan Gratuito/Free el botón está apagado/inactivo)
+ * Determina si el comercio tiene un plan de pago (Pro o Premium).
+ * Los comercios con plan de pago tienen el botón de WhatsApp "prendido" (destacado/vibrante),
+ * mientras que los de plan gratuito lo tienen "apagado" (atenuado/discreto pero funcional).
  */
-export function canUseWhatsApp(business) {
-  if (!business || !business.whatsappNumber) return false;
+export function isPaidPlan(business) {
+  if (!business) return false;
   const plan = (business.plan || '').toLowerCase();
-  const isPaid = plan === 'pro' || plan === 'premium' || plan === 'pro_trimestral';
-  return isPaid;
+  return plan === 'pro' || plan === 'premium' || plan === 'pro_trimestral';
 }
+
+export const canUseWhatsApp = isPaidPlan;
 

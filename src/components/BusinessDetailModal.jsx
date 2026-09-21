@@ -246,34 +246,26 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
             </a>
           </div>
 
-          {/* Primary WhatsApp CTA or Pro upgrade prompt in Top Bar */}
-          {canUseWhatsApp(business) ? (
-            <a
-              href={waUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => {
-                if (business.id) {
-                  supabase.rpc('increment_whatsapp_clicks', { business_id: business.id }).catch(() => {});
-                }
-              }}
-              className="btn-whatsapp-official py-2 px-4 text-xs font-bold rounded-xl flex items-center gap-2"
-            >
-              <WhatsAppIcon className="w-4 h-4 shrink-0" />
-              <span>Chatear por WhatsApp</span>
-            </a>
-          ) : (
-            <button
-              onClick={() => {
-                if (onClaimClick) onClaimClick();
-              }}
-              className="px-3.5 py-2 text-xs font-bold rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 transition-colors flex items-center gap-1.5 cursor-pointer"
-              title="El botón de WhatsApp está inactivo en el Plan Gratuito"
-            >
-              <CrownIcon className="w-3.5 h-3.5" />
-              <span>WhatsApp Inactivo (Activar con Pro)</span>
-            </button>
-          )}
+          {/* Primary WhatsApp CTA in Top Bar (Vibrant for Paid, Dimmed for Free) */}
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              if (business.id) {
+                supabase.rpc('increment_whatsapp_clicks', { business_id: business.id }).catch(() => {});
+              }
+            }}
+            className={`${
+              canUseWhatsApp(business)
+                ? 'btn-whatsapp-official shadow-md shadow-emerald-500/25'
+                : 'btn-whatsapp-dimmed opacity-85 hover:opacity-100'
+            } py-2 px-4 text-xs font-bold rounded-xl flex items-center gap-2`}
+            title={canUseWhatsApp(business) ? "WhatsApp Oficial • Respuesta Rápida" : "Contactar por WhatsApp (Ficha Básica)"}
+          >
+            <WhatsAppIcon className={`w-4 h-4 shrink-0 ${canUseWhatsApp(business) ? '' : 'text-emerald-400/60'}`} />
+            <span>Chatear por WhatsApp</span>
+          </a>
         </div>
 
         {/* 3. CONTENIDO MODULAR CON BUEN AIRE VISUAL */}
@@ -451,12 +443,12 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
             </div>
           </div>
 
-          {/* WhatsApp Contact Box (Active for Pro/Premium, Inactive for Free) */}
+          {/* WhatsApp Contact Box (Vibrant for Pro/Premium, Dimmed for Free) */}
           {canUseWhatsApp(business) ? (
             <div className="p-6 rounded-2xl bg-gradient-to-r from-emerald-950/70 via-emerald-900/50 to-emerald-950/70 border border-emerald-500/40 space-y-3 shadow-xl">
               <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider">
                 <SparklesIcon className="w-4 h-4 text-amber-400" />
-                <span>Contacto Directo por WhatsApp sin intermediarios</span>
+                <span>Contacto Directo por WhatsApp • Canal Oficial Verificado</span>
               </div>
               
               <div className="space-y-1.5">
@@ -484,7 +476,7 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
                     supabase.rpc('increment_whatsapp_clicks', { business_id: business.id }).catch(() => {});
                   }
                 }}
-                className="btn-whatsapp-official w-full py-3.5 text-sm sm:text-base font-extrabold flex items-center justify-center gap-2 rounded-xl shadow-lg shadow-emerald-950/50 hover:scale-[1.01] transition-all"
+                className="btn-whatsapp-official w-full py-3.5 text-sm sm:text-base font-extrabold flex items-center justify-center gap-2 rounded-xl shadow-lg shadow-emerald-500/30 hover:scale-[1.01] transition-all"
               >
                 <WhatsAppIcon className="w-5 h-5" />
                 <span>Contactar por WhatsApp Ahora</span>
@@ -495,29 +487,53 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
               </p>
             </div>
           ) : (
-            <div className="p-6 rounded-2xl bg-[#151F32] border border-[#27354D] space-y-3 shadow-lg">
-              <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-wider">
-                <WhatsAppIcon className="w-4 h-4 text-slate-500" />
-                <span>Botón de WhatsApp Inactivo en Plan Gratuito</span>
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#151F32] border border-[#27354D] space-y-3 shadow-md">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold uppercase tracking-wider">
+                  <WhatsAppIcon className="w-4 h-4 text-slate-500" />
+                  <span>Contacto por WhatsApp (Ficha Básica)</span>
+                </div>
+                <span className="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
+                  Plan Free
+                </span>
               </div>
               
               <div className="space-y-1.5">
-                <h4 className="text-base sm:text-lg font-bold text-white">
-                  Este comercio cuenta con una Ficha Gratuita
+                <h4 className="text-sm sm:text-base font-semibold text-slate-200">
+                  {business.category === 'gastronomia'
+                    ? '¿Querés consultar la carta o hacer un pedido?'
+                    : business.category === 'salud'
+                    ? '¿Querés consultar turnos o agendar una cita?'
+                    : '¿Querés hacer una consulta o solicitar presupuesto?'}
                 </h4>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  El botón de contacto directo por WhatsApp se encuentra apagado para este perfil. Podés comunicarte con el local llamando al teléfono directo ({business.phone || 'indicado en la ficha'}) o visitando su dirección física.
-                </p>
+                <div className="p-3 rounded-xl bg-slate-900/80 text-slate-400 font-mono text-xs italic border border-slate-800">
+                  "{defaultMessage}"
+                </div>
               </div>
 
+              <a
+                href={waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  if (business.id) {
+                    supabase.rpc('increment_whatsapp_clicks', { business_id: business.id }).catch(() => {});
+                  }
+                }}
+                className="btn-whatsapp-dimmed w-full py-3 text-sm font-semibold flex items-center justify-center gap-2 rounded-xl opacity-90 hover:opacity-100 transition-all"
+              >
+                <WhatsAppIcon className="w-4 h-4 text-emerald-400/60" />
+                <span>Contactar por WhatsApp</span>
+              </a>
+
               {onClaimClick && (
-                <div className="pt-2">
+                <div className="pt-2 text-center border-t border-[#27354D]/60">
                   <button
                     onClick={onClaimClick}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/40 text-xs font-bold transition-all cursor-pointer hover:scale-[1.01]"
+                    className="text-[11px] text-amber-400 hover:text-amber-300 font-semibold inline-flex items-center gap-1 transition-colors hover:underline cursor-pointer"
                   >
-                    <CrownIcon className="w-4 h-4" />
-                    <span>¿Sos el dueño de este local? Activá el botón de WhatsApp con Plan Pro</span>
+                    <CrownIcon className="w-3.5 h-3.5" />
+                    <span>¿Sos el dueño? Activá tu botón destacado e iluminado con Plan Pro</span>
                   </button>
                 </div>
               )}
@@ -675,44 +691,33 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
                   <span>• WhatsApp Oficial</span>
                 </>
               ) : (
-                <span className="text-slate-400">📍 Ficha Gratuita</span>
+                <>
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                  <span className="text-slate-400">{isOpen ? 'Abierto' : 'Disponible'}</span>
+                  <span>• Ficha Free</span>
+                </>
               )}
             </div>
           </div>
 
-          {canUseWhatsApp(business) ? (
-            <a
-              href={waUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => {
-                if (business.id) {
-                  supabase.rpc('increment_whatsapp_clicks', { business_id: business.id }).catch(() => {});
-                }
-              }}
-              className="btn-whatsapp-official py-2.5 px-4 text-xs font-bold rounded-xl flex items-center gap-1.5 shrink-0 shadow-lg"
-            >
-              <WhatsAppIcon className="w-4 h-4" />
-              <span>Contactar</span>
-            </a>
-          ) : business.phone ? (
-            <a
-              href={`tel:${business.phone}`}
-              className="py-2.5 px-4 text-xs font-bold rounded-xl bg-blue-600 hover:bg-blue-500 text-white flex items-center gap-1.5 shrink-0 shadow-lg"
-            >
-              <PhoneIcon className="w-4 h-4" />
-              <span>Llamar</span>
-            </a>
-          ) : (
-            <button
-              onClick={() => {
-                if (onClaimClick) onClaimClick();
-              }}
-              className="py-2 px-3 text-xs font-bold rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 shrink-0"
-            >
-              Activar Pro
-            </button>
-          )}
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              if (business.id) {
+                supabase.rpc('increment_whatsapp_clicks', { business_id: business.id }).catch(() => {});
+              }
+            }}
+            className={`${
+              canUseWhatsApp(business)
+                ? 'btn-whatsapp-official shadow-lg shadow-emerald-500/30'
+                : 'btn-whatsapp-dimmed opacity-85 hover:opacity-100'
+            } py-2.5 px-4 text-xs font-bold rounded-xl flex items-center gap-1.5 shrink-0`}
+          >
+            <WhatsAppIcon className={`w-4 h-4 ${canUseWhatsApp(business) ? '' : 'text-emerald-400/60'}`} />
+            <span>Contactar</span>
+          </a>
         </div>
 
       </div>

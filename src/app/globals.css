@@ -76,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-right: 1.25rem;
 }
 
-/* Botón de WhatsApp Oficial */
+/* Botón de WhatsApp Oficial / Prendido (Planes Destacados Pro y Premium) */
 .btn-whatsapp-official {
   background-color: #25D366;
   color: #FFFFFF;
@@ -86,18 +86,55 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.65rem 1.15rem;
-  border-radius: 0.6rem;
+  border-radius: 0.75rem;
   text-decoration: none;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
   transition: all 0.2s ease;
 }
 
 .btn-whatsapp-official:hover {
   background-color: #1DA851;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.55);
+}
+
+/* Botón de WhatsApp Apagado / Atenuado (Planes Gratuitos / Básicos) */
+.btn-whatsapp-dimmed {
+  background-color: #151F32;
+  color: #94A3B8;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.15rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  border: 1px solid #27354D;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+.btn-whatsapp-dimmed:hover {
+  background-color: #1C2942;
+  color: #F1F5F9;
+  border-color: #3B82F6;
+  transform: translateY(-1px);
+}
+
+[data-theme='light'] .btn-whatsapp-dimmed {
+  background-color: #F1F5F9;
+  color: #64748B;
+  border: 1px solid #CBD5E1;
+}
+
+[data-theme='light'] .btn-whatsapp-dimmed:hover {
+  background-color: #E2E8F0;
+  color: #0F172A;
+  border-color: #94A3B8;
 }
 
 /* Indicador Abierto Ahora Punto Verde */

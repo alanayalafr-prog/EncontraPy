@@ -229,28 +229,27 @@ export default function MapView({ businesses = [], onSelectDetail, onBackToGrid 
                 </button>
               </div>
 
-              <div className={canUseWhatsApp(selectedPin) ? "grid grid-cols-2 gap-2 pt-1" : "pt-1"}>
+              <div className="grid grid-cols-2 gap-2 pt-1">
                 <button
                   onClick={() => onSelectDetail(selectedPin)}
-                  className={`w-full py-2 rounded-lg text-white text-xs font-bold transition-colors text-center ${
-                    canUseWhatsApp(selectedPin)
-                      ? 'bg-slate-800 hover:bg-slate-700 border border-slate-700'
-                      : 'bg-primary-600 hover:bg-primary-500 border border-primary-500 shadow-sm'
-                  }`}
+                  className="w-full py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition-colors text-center"
                 >
-                  {canUseWhatsApp(selectedPin) ? 'Ver Ficha' : 'Ver Ficha y Dirección →'}
+                  Ver Ficha
                 </button>
-                {canUseWhatsApp(selectedPin) && (
-                  <a
-                    href={`https://wa.me/${formatWhatsAppNumber(selectedPin.whatsappNumber)}?text=${encodeURIComponent(getBusinessWhatsAppMessage(selectedPin))}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-whatsapp-official text-xs py-2 px-2 rounded-lg flex items-center justify-center gap-1 font-bold"
-                  >
-                    <WhatsAppIcon className="w-3.5 h-3.5" />
-                    <span>WhatsApp</span>
-                  </a>
-                )}
+                <a
+                  href={`https://wa.me/${formatWhatsAppNumber(selectedPin.whatsappNumber)}?text=${encodeURIComponent(getBusinessWhatsAppMessage(selectedPin))}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${
+                    canUseWhatsApp(selectedPin)
+                      ? 'btn-whatsapp-official shadow-md shadow-emerald-500/25'
+                      : 'btn-whatsapp-dimmed opacity-85 hover:opacity-100'
+                  } text-xs py-2 px-2 rounded-lg flex items-center justify-center gap-1 font-bold`}
+                  title={canUseWhatsApp(selectedPin) ? "WhatsApp Oficial • Plan Pro" : "Contactar por WhatsApp"}
+                >
+                  <WhatsAppIcon className={`w-3.5 h-3.5 ${canUseWhatsApp(selectedPin) ? '' : 'text-emerald-400/60'}`} />
+                  <span>WhatsApp</span>
+                </a>
               </div>
 
             </div>
