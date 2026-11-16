@@ -1664,10 +1664,10 @@ export const PRICING_PLANS = [
 ];
 
 export const BANK_TRANSFER_DETAILS = {
-  bankName: 'Ueno Bank',
-  accountHolder: 'Alan Ayala Fernandez',
+  bankName: 'Banco Atlas',
+  accountHolder: 'Alan Ayala',
   ruc: '4318506',
-  accountNumber: '619450001',
+  accountNumber: '1665294',
   accountType: 'Caja de Ahorro en Guaraníes',
   aliasSIPAP: '4318506',
   contactWhatsApp: '595981747679'
