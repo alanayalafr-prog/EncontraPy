@@ -3,7 +3,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { MapPinIcon, WhatsAppIcon, StarIcon, ShieldCheckIcon, SparklesIcon, XIcon } from './Icons';
 import { formatWhatsAppNumber, getBusinessWhatsAppMessage } from '../utils/phoneUtils';
-import { getRepresentativeImage, formatRating, isOpenNow, getTrustStatus, canUseWhatsApp } from '../utils/businessUtils';
+import { getRepresentativeImage, isOpenNow, getTrustStatus, canUseWhatsApp } from '../utils/businessUtils';
+import { trackWhatsAppClick } from '../utils/analyticsUtils';
 
 export default function MapView({ businesses = [], onSelectDetail, onBackToGrid }) {
   const [selectedPin, setSelectedPin] = useState(businesses[0] || null);
@@ -88,7 +89,6 @@ export default function MapView({ businesses = [], onSelectDetail, onBackToGrid 
             businesses.map((item) => {
               const isSelected = selectedPin?.id === item.id;
               const photo = getRepresentativeImage(item);
-              const ratingInfo = formatRating(item);
               const trust = getTrustStatus(item);
 
               return (
@@ -125,14 +125,9 @@ export default function MapView({ businesses = [], onSelectDetail, onBackToGrid 
                     </div>
 
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-[10px] text-slate-300 font-semibold truncate max-w-[120px]">
+                      <span className="text-[10px] text-slate-300 font-semibold truncate max-w-[160px]">
                         {item.niche || item.categoryLabel}
                       </span>
-                      {ratingInfo.hasReviews && (
-                        <span className="text-[10px] text-amber-400 font-bold flex items-center gap-0.5">
-                          ★ {ratingInfo.rating}
-                        </span>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -240,6 +235,7 @@ export default function MapView({ businesses = [], onSelectDetail, onBackToGrid 
                   href={`https://wa.me/${formatWhatsAppNumber(selectedPin.whatsappNumber)}?text=${encodeURIComponent(getBusinessWhatsAppMessage(selectedPin))}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick(selectedPin.id)}
                   className={`${
                     canUseWhatsApp(selectedPin)
                       ? 'btn-whatsapp-official shadow-md shadow-emerald-500/25'

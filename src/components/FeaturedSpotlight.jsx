@@ -3,6 +3,7 @@ import { CrownIcon, StarIcon, WhatsAppIcon, ShieldCheckIcon, MapPinIcon } from '
 import { formatWhatsAppNumber, getBusinessWhatsAppMessage } from '../utils/phoneUtils';
 
 import { getRepresentativeImage } from '../utils/businessUtils';
+import { trackWhatsAppClick } from '../utils/analyticsUtils';
 
 export default function FeaturedSpotlight({ businesses = [], onSelectDetail }) {
   const carouselRef = useRef(null);
@@ -41,7 +42,7 @@ export default function FeaturedSpotlight({ businesses = [], onSelectDetail }) {
               </span>
             </div>
             <p className="text-[11px] text-slate-400 hidden sm:block">
-              Empresas verificadas con atención prioritaria en Paraguay
+              Comercios con atención prioritaria en Paraguay
             </p>
           </div>
         </div>
@@ -131,7 +132,10 @@ export default function FeaturedSpotlight({ businesses = [], onSelectDetail }) {
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  trackWhatsAppClick(business.id);
+                }}
                 className="btn-whatsapp-official w-full text-[11px] font-bold py-2 px-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-all"
               >
                 <WhatsAppIcon className="w-3.5 h-3.5 shrink-0" />

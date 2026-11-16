@@ -181,6 +181,46 @@ export function formatRating(business) {
 }
 
 /**
+ * Calcula calificación únicamente a partir de reseñas reales registradas en DirectorioPY
+ * (sin utilizar calificaciones importadas de Google Places).
+ */
+export function formatLocalReviewsRating(reviews = []) {
+  if (!Array.isArray(reviews) || reviews.length === 0) {
+    return {
+      hasReviews: false,
+      rating: null,
+      reviewsCount: 0,
+      label: 'Sin reseñas aún',
+      badgeText: 'Nuevo en DirectorioPY'
+    };
+  }
+
+  const validRatings = reviews
+    .map((r) => Number(r?.rating || 0))
+    .filter((r) => r > 0);
+
+  if (validRatings.length === 0) {
+    return {
+      hasReviews: false,
+      rating: null,
+      reviewsCount: 0,
+      label: 'Sin reseñas aún',
+      badgeText: 'Nuevo en DirectorioPY'
+    };
+  }
+
+  const avg = validRatings.reduce((acc, val) => acc + val, 0) / validRatings.length;
+
+  return {
+    hasReviews: true,
+    rating: avg.toFixed(1),
+    reviewsCount: validRatings.length,
+    label: `${avg.toFixed(1)} (${validRatings.length} ${validRatings.length === 1 ? 'reseña' : 'reseñas'})`,
+    badgeText: `${avg.toFixed(1)} ★`
+  };
+}
+
+/**
  * Retorna información y badges de confianza para el comercio
  */
 export function getTrustStatus(business) {
@@ -216,7 +256,7 @@ export function getTrustStatus(business) {
     shortLabel: 'Ficha Local',
     badgeClass: 'bg-slate-800/90 text-slate-300 border border-slate-700 font-medium',
     borderClass: 'border-[#27354D] hover:border-slate-500',
-    description: 'Información recopilada de fuentes públicas o Google Places. ¿Sos el dueño? Reclamala gratis.'
+    description: 'Información pública del comercio. ¿Sos el dueño? Reclamala gratis para actualizar tus datos.'
   };
 }
 

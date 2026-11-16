@@ -15,8 +15,10 @@ export default async function Page() {
     console.error('Error fetching businesses on server:', error.message);
   }
 
-  // Lógica de Vencimiento Automático
-  const processedBusinesses = (businesses || []).map(business => {
+  // Lógica de Vencimiento Automático y filtrado de fichas demo
+  const processedBusinesses = (businesses || [])
+    .filter(business => !/agroganadera del chaco/i.test(business.name || ''))
+    .map(business => {
     // Si el local es de pago y tiene una fecha de vencimiento configurada...
     if ((business.plan === 'pro' || business.plan === 'premium') && business.expires_at) {
       const expirationDate = new Date(business.expires_at);

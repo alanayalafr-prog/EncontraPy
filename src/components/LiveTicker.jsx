@@ -4,10 +4,10 @@ import { WhatsAppIcon, ShieldCheckIcon, SparklesIcon, MapPinIcon } from './Icons
 
 export default function LiveTicker() {
   const tickerItems = [
-    { id: 1, text: '+34 consultas enviadas por WhatsApp hoy en Gran Asunción', icon: WhatsAppIcon, color: 'text-emerald-400' },
-    { id: 2, text: '58 comercios con insignia de Comercio Verificado', icon: ShieldCheckIcon, color: 'text-blue-400' },
-    { id: 3, text: 'Nicho líder de búsquedas: Oficios del Hogar & Agro', icon: SparklesIcon, color: 'text-amber-400' },
-    { id: 4, text: 'Nuevos comercios registrados en Luque, CDE y San Lorenzo', icon: MapPinIcon, color: 'text-pink-400' }
+    { id: 1, text: 'Contacto directo por WhatsApp en Gran Asunción, CDE y Encarnación', icon: WhatsAppIcon, color: 'text-emerald-400' },
+    { id: 2, text: 'Fichas de comercios y profesionales locales en todo Paraguay', icon: ShieldCheckIcon, color: 'text-blue-400' },
+    { id: 3, text: 'Rubros disponibles: Oficios, Salud, Gastronomía y Agro', icon: SparklesIcon, color: 'text-amber-400' },
+    { id: 4, text: 'Publicá o reclamá la ficha de tu comercio sin comisiones', icon: MapPinIcon, color: 'text-pink-400' }
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);

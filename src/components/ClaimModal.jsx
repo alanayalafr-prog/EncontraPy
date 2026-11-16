@@ -155,7 +155,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       ]
     },
     pro: {
-      name: 'Plan Pro Destacado (Gs. 99.000/mes)',
+      name: 'Plan Pro Mensual (Gs. 99.000/mes)',
       color: 'border-blue-500/80 bg-blue-950/40',
       badge: 'Más Popular 🚀',
       items: [
@@ -173,12 +173,12 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       color: 'border-amber-400/80 bg-amber-950/30',
       badge: 'Máximo Alcance 👑',
       items: [
-        { text: 'Todo lo del Plan Pro Destacado', included: true },
+        { text: 'Todo lo del Plan Pro Mensual', included: true },
         { text: 'Foto real de fachada/logo personalizada', included: true },
         { text: 'Destacado en Portada Principal (Spotlight VIP ⭐️)', included: true },
         { text: 'Optimización SEO para Google (Schema.org)', included: true },
-        { text: 'Soporte técnico prioritario y actualización 24/7', included: true },
-        { text: 'Ahorro del 30% respecto al pago mensual', included: true }
+        { text: 'Soporte directo y actualización prioritaria por WhatsApp', included: true },
+        { text: 'Ahorro del 33% respecto al pago mensual', included: true }
       ]
     }
   };

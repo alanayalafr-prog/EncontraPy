@@ -4,23 +4,28 @@ import { ShieldCheckIcon, WhatsAppIcon, MapPinIcon, PhoneIcon, SearchIcon, Filte
 import { formatWhatsAppNumber } from '../utils/phoneUtils';
 import { supabase } from '../config/supabase';
 
-const DEFAULT_MESSAGE = `Hola {nombre}, te encontramos en Google Maps y armamos tu ficha en DirectorioPY (www.directorioPy.com) para que la gente te contacte más fácil. ¿Confirmás que los datos son correctos?`;
+const DEFAULT_MESSAGE = `Hola {nombre}, armamos una ficha básica de tu comercio en DirectorioPY (www.directoriopy.com) para que la gente te contacte más fácil por WhatsApp. ¿Confirmás si los datos son correctos?`;
 
 const TEMPLATES = [
   {
     id: 'confirmacion',
     title: '✅ Validación de Ficha (Recomendado)',
-    text: `Hola {nombre}, te encontramos en Google Maps y armamos tu ficha en DirectorioPY (www.directorioPy.com) para que la gente te contacte más fácil. ¿Confirmás que los datos son correctos?`
+    text: `Hola {nombre}, armamos una ficha básica de tu comercio en DirectorioPY (www.directoriopy.com) para que la gente te contacte más fácil por WhatsApp. ¿Confirmás si los datos son correctos?`
+  },
+  {
+    id: 'metricas',
+    title: '📊 Reporte de Visitas y Clics',
+    text: `Hola {nombre}, te escribimos de DirectorioPY (www.directoriopy.com). Tu ficha en {ciudad} registró {visitas} visitas y {clics} clics al botón de WhatsApp. ¿Confirmás si tus datos siguen vigentes para seguir derivándote consultas?`
   },
   {
     id: 'rubro',
     title: '🔧 Demanda por Rubro / Oficio',
-    text: `Hola {nombre}, te escribo de DirectorioPY (www.directorioPy.com). Tenemos muchas consultas de clientes buscando servicios de {rubro} en {ciudad} y queremos confirmar tu número para derivarte clientes directos.`
+    text: `Hola {nombre}, te escribo de DirectorioPY (www.directoriopy.com). Tenemos consultas de clientes buscando servicios de {rubro} en {ciudad} y queremos confirmar tu número para derivarte clientes directos.`
   },
   {
     id: 'upsell',
     title: '⭐ Ofrecer Plan Destacado / VIP',
-    text: `Hola {nombre}, vimos tu perfil activo de {rubro} en DirectorioPY. ¿Te gustaría destacar tu negocio para aparecer primero cuando busquen en {ciudad}? Conocé nuestros planes en www.directorioPy.com`
+    text: `Hola {nombre}, vimos tu perfil activo de {rubro} en DirectorioPY. ¿Te gustaría destacar tu negocio para aparecer primero cuando busquen en {ciudad}? Conocé nuestros planes en www.directoriopy.com`
   }
 ];
 
@@ -128,6 +133,8 @@ export default function AdminDashboard() {
     msg = msg.replaceAll('{nombre}', b?.name || '');
     msg = msg.replaceAll('{rubro}', b?.niche || b?.category || 'tu rubro');
     msg = msg.replaceAll('{ciudad}', b?.cityName || b?.city || 'Paraguay');
+    msg = msg.replaceAll('{visitas}', String(b?.profile_views || 0));
+    msg = msg.replaceAll('{clics}', String(b?.whatsapp_clicks || 0));
     return msg;
   };
 
@@ -475,6 +482,14 @@ export default function AdminDashboard() {
                         <PhoneIcon className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
                         <span>{b.whatsappNumber || b.phone || 'Sin teléfono'}</span>
                       </p>
+                      <div className="flex items-center gap-2 pt-1">
+                        <span className="text-[11px] bg-slate-800/80 border border-[#27354D] text-slate-300 px-2 py-0.5 rounded font-semibold">
+                          👁️ {b.profile_views || 0} visitas
+                        </span>
+                        <span className="text-[11px] bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded font-semibold">
+                          💬 {b.whatsapp_clicks || 0} clics WA
+                        </span>
+                      </div>
                     </div>
                   </div>
                   

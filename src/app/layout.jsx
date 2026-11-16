@@ -11,7 +11,7 @@ export const metadata = {
   description: 'El directorio web de comercios, empresas y servicios de Paraguay optimizado para búsquedas.',
   openGraph: {
     title: 'DirectorioPY - Directorio de Comercios en Paraguay',
-    description: 'Encontrá empresas verificadas en Asunción, Luque, San Lorenzo, CDE y Encarnación. Contactá directo por WhatsApp.',
+    description: 'Encontrá comercios y servicios en Asunción, Luque, San Lorenzo, CDE y Encarnación. Contactá directo por WhatsApp.',
     url: 'https://directoriopy.com',
     siteName: 'DirectorioPY',
     images: [

@@ -5,6 +5,7 @@
 
 DELETE FROM businesses
 WHERE (id >= 255 AND id <= 344)
+   OR name ILIKE '%Agroganadera del Chaco%'
    OR phone LIKE '%000 1%'
    OR "whatsappNumber" LIKE '%0001%'
    OR description LIKE '%Local PyME real y verificado%';

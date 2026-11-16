@@ -47,8 +47,8 @@ export default function PricingSection({ onOpenPaymentModal }) {
     },
     {
       step: '4',
-      title: 'Activación en 2h',
-      desc: 'Tu ficha queda verificada y en los primeros lugares de búsqueda.'
+      title: 'Activación el mismo día',
+      desc: 'Tu ficha queda validada y en los primeros lugares de búsqueda.'
     }
   ];
 
@@ -67,7 +67,7 @@ export default function PricingSection({ onOpenPaymentModal }) {
     },
     {
       q: '¿Cuánto tiempo tarda en activarse mi plan destacado?',
-      a: 'Una vez enviado tu comprobante de pago a nuestro WhatsApp de soporte, la validación y activación se realiza en menos de 2 horas hábiles.'
+      a: 'Una vez enviado tu comprobante de pago a nuestro WhatsApp de soporte, la validación y activación se realiza el mismo día en horario comercial.'
     },
     {
       q: '¿Puedo actualizar mis datos o fotos en cualquier momento?',

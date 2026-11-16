@@ -1,9 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { WhatsAppIcon, MapPinIcon, ShieldCheckIcon, ClockIcon, StarIcon } from './Icons';
+import { WhatsAppIcon, MapPinIcon, ShieldCheckIcon, ClockIcon } from './Icons';
 import { formatWhatsAppNumber, getBusinessWhatsAppMessage } from '../utils/phoneUtils';
-import { isOpenNow, getRepresentativeImage, formatRating, getTrustStatus, canUseWhatsApp } from '../utils/businessUtils';
+import { isOpenNow, getRepresentativeImage, getTrustStatus, canUseWhatsApp } from '../utils/businessUtils';
+import { trackWhatsAppClick } from '../utils/analyticsUtils';
 
 export default function BusinessCard({ business, onSelectDetail }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -15,7 +16,6 @@ export default function BusinessCard({ business, onSelectDetail }) {
 
   const trust = getTrustStatus(business);
   const { isOpen, label: openStatusLabel } = isOpenNow(business.workingHours);
-  const ratingInfo = formatRating(business);
   const representativeImg = getRepresentativeImage(business);
 
   const isPremium = trust.type === 'destacado';
@@ -27,24 +27,6 @@ export default function BusinessCard({ business, onSelectDetail }) {
     : [representativeImg];
 
   const currentImage = images[currentImageIndex] || representativeImg;
-
-  // Generador de estrellas reales
-  const renderVisualStars = (rating) => {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
-    const stars = [];
-
-    for (let i = 0; i < 5; i++) {
-      if (i < fullStars) {
-        stars.push(<span key={i} className="text-amber-400">★</span>);
-      } else if (i === fullStars && hasHalfStar) {
-        stars.push(<span key={i} className="text-amber-400">★</span>);
-      } else {
-        stars.push(<span key={i} className="text-slate-600">★</span>);
-      }
-    }
-    return stars;
-  };
 
   return (
     <div
@@ -149,24 +131,6 @@ export default function BusinessCard({ business, onSelectDetail }) {
                 </span>
               )}
             </div>
-
-            {/* Real Rating Display */}
-            <div className="flex items-center gap-1.5 mt-1">
-              {ratingInfo.hasReviews ? (
-                <>
-                  <div className="flex items-center text-xs space-x-0.5">
-                    {renderVisualStars(Number(ratingInfo.rating))}
-                  </div>
-                  <span className="text-xs font-bold text-amber-400">{ratingInfo.rating}</span>
-                  <span className="text-[11px] text-slate-400">({ratingInfo.reviewsCount})</span>
-                </>
-              ) : (
-                <div className="flex items-center gap-1 text-[11px] text-slate-400">
-                  <span className="text-slate-500">★</span>
-                  <span>Sin reseñas aún</span>
-                </div>
-              )}
-            </div>
           </div>
 
           {/* Location & Status Row */}
@@ -215,6 +179,7 @@ export default function BusinessCard({ business, onSelectDetail }) {
           href={waUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackWhatsAppClick(business.id)}
           className={`${
             canUseWhatsApp(business)
               ? 'btn-whatsapp-official shadow-lg shadow-emerald-500/25'

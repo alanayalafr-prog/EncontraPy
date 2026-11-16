@@ -79,9 +79,12 @@ export default async function Page({ params }) {
     .eq('business_id', id)
     .order('created_at', { ascending: false });
 
-  // Schema.org LocalBusiness enriquecido
-  const reviewCount = Number(business.reviewCount || business.reviews || 0);
-  const ratingValue = Number(business.rating || 0);
+  // Schema.org LocalBusiness enriquecido (solo usa reseñas propias de DirectorioPY)
+  const localReviews = Array.isArray(reviews) ? reviews : [];
+  const reviewCount = localReviews.length;
+  const ratingValue = reviewCount > 0
+    ? Number((localReviews.reduce((acc, r) => acc + Number(r.rating || 0), 0) / reviewCount).toFixed(1))
+    : 0;
 
   const schemaData = {
     "@context": "https://schema.org",

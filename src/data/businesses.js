@@ -33,37 +33,6 @@ export const CITIES = [
 
 export const INITIAL_BUSINESSES = [
   {
-    id: 'b1',
-    name: 'Agroganadera del Chaco S.A.',
-    category: 'agro',
-    categoryLabel: 'Agro e Insumos',
-    niche: 'Insumos & Nutrición Animal',
-    city: 'asuncion',
-    cityName: 'Asunción',
-    zone: 'Barrio Carmelitas',
-    address: 'Av. Molas López 1450 c/ San Martín',
-    description: 'Especialistas en suplementación mineral ganadera, insumos veterinarios y semillas certificadas para pasturas.',
-    phone: '+595 981 450 900',
-    whatsappNumber: '595981450900',
-    whatsappDefaultMessage: 'Hola Agroganadera del Chaco, vi su perfil en DirectorioPY y quisiera cotizar insumos ganaderos.',
-    rating: 4.9,
-    reviewCount: 42,
-    isVerified: true,
-    plan: 'premium',
-    workingHours: 'Lun a Vie: 07:30 - 17:30 | Sáb: 07:30 - 12:00',
-    image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80',
-    gallery: [
-      'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1570042707223-93ef6bf7a303?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=800&q=80'
-    ],
-    tags: ['ganado', 'suplemento', 'semillas', 'pastura', 'veterinaria', 'agro'],
-    instagram: '@agrochaco_py',
-    facebook: 'facebook.com/agrochacopy',
-    website: 'https://agrochaco.com.py',
-    geo: { latitude: -25.281, longitude: -57.575 }
-  },
-  {
     id: 'b2',
     name: 'ServiClima Luque - Aire y Refrigeración',
     category: 'oficios',
@@ -1664,7 +1633,7 @@ export const PRICING_PLANS = [
     period: 'por 3 meses',
     description: 'Mismos beneficios del Plan Pro por 3 meses completos a precio especial de lanzamiento.',
     features: [
-      'Todo lo del Plan Pro Destacado (3 meses)',
+      'Todo lo del Plan Pro Mensual (por 3 meses)',
       'Insignia de Comercio Verificado ✔️',
       'Posicionamiento prioritario en búsquedas',
       'Mensaje directo de WhatsApp personalizado',
@@ -1683,11 +1652,11 @@ export const PRICING_PLANS = [
     period: '/ año',
     description: 'Visibilidad total y máxima prioridad en los motores de búsqueda y portada.',
     features: [
-      'Todo lo del Plan Pro Destacado',
+      'Todo lo del Plan Pro Mensual',
       'Destacado en Portada Principal (Spotlight VIP ⭐️)',
-      'Soporte técnico y actualización prioritaria (24/7)',
+      'Soporte directo y actualización prioritaria por WhatsApp',
       'Optimización SEO con Microdata Schema para Google',
-      'Ahorro del 35% respecto al pago mensual'
+      'Ahorro del 33% respecto al pago mensual'
     ],
     highlighted: false,
     ctaText: 'Pagar con SIPAP (Gs. 790.000)'

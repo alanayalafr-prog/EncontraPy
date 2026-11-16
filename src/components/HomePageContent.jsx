@@ -97,18 +97,11 @@ export default function HomePageContent({ initialBusinesses = [] }) {
 
     // Apply Sorting
     return filtered.sort((a, b) => {
-      if (sortBy === 'mejor_valorados') {
-        const ratingA = Number(a.rating || 0);
-        const ratingB = Number(b.rating || 0);
-        if (ratingB !== ratingA) return ratingB - ratingA;
-        return (Number(b.reviewCount || 0)) - (Number(a.reviewCount || 0));
-      }
-
       if (sortBy === 'abiertos') {
         const openA = isOpenNow(a.workingHours).isOpen ? 1 : 0;
         const openB = isOpenNow(b.workingHours).isOpen ? 1 : 0;
         if (openB !== openA) return openB - openA;
-        return (Number(b.rating || 0)) - (Number(a.rating || 0));
+        return (a.name || '').localeCompare(b.name || '');
       }
 
       if (sortBy === 'nombre_asc') {
@@ -121,7 +114,7 @@ export default function HomePageContent({ initialBusinesses = [] }) {
       const weightA = planWeight[planA] || 1;
       const weightB = planWeight[planB] || 1;
       if (weightB !== weightA) return weightB - weightA;
-      return (Number(b.rating || 0)) - (Number(a.rating || 0));
+      return (a.name || '').localeCompare(b.name || '');
     });
   }, [initialBusinesses, searchQuery, selectedService, selectedCity, selectedCategory, sortBy]);
 
@@ -141,9 +134,9 @@ export default function HomePageContent({ initialBusinesses = [] }) {
   const activeCityLabel = CITIES.find(c => c.id === selectedCity)?.label;
 
   const getSeoText = () => {
-    let text = "DirectorioPY es la guía comercial líder en Paraguay para encontrar profesionales, servicios y comercios locales.";
+    let text = "DirectorioPY es un directorio de comercios y servicios de Paraguay para encontrar profesionales y negocios locales.";
     if (selectedCity !== 'todas') {
-      text += ` Explorá las mejores opciones verificadas en ${activeCityLabel}.`;
+      text += ` Explorá comercios y servicios disponibles en ${activeCityLabel}.`;
     }
     if (selectedCategory !== 'todos') {
       text += ` Rubro especializado en ${activeCategoryLabel?.toLowerCase()}.`;
@@ -252,7 +245,6 @@ export default function HomePageContent({ initialBusinesses = [] }) {
                 className="bg-[#0F172A] border border-[#27354D] text-white text-xs font-semibold rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-500 cursor-pointer"
               >
                 <option value="recomendados">⭐ Recomendados</option>
-                <option value="mejor_valorados">🏆 Mejor valorados</option>
                 <option value="abiertos">🟢 Abiertos ahora</option>
                 <option value="nombre_asc">🔤 Nombre (A-Z)</option>
               </select>

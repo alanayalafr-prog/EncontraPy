@@ -24,7 +24,8 @@ import {
   CopyIcon
 } from './Icons';
 import { formatWhatsAppNumber, getBusinessWhatsAppMessage } from '../utils/phoneUtils';
-import { isOpenNow, getRepresentativeImage, formatRating, getTrustStatus, canUseWhatsApp } from '../utils/businessUtils';
+import { isOpenNow, getRepresentativeImage, formatLocalReviewsRating, getTrustStatus, canUseWhatsApp } from '../utils/businessUtils';
+import { trackWhatsAppClick, trackProfileView } from '../utils/analyticsUtils';
 
 export default function BusinessDetailModal({ business, relatedBusinesses = [], reviews = [], onClose, onClaimClick }) {
   if (!business) return null;
@@ -42,6 +43,7 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
   useEffect(() => {
     if (business) {
       setActiveImage(getRepresentativeImage(business));
+      trackProfileView(business.id);
       document.body.style.overflow = 'hidden';
 
       return () => {
@@ -55,7 +57,7 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
   const mapsUrl = business.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${business.name} ${business.address || ''} ${business.cityName || ''} Paraguay`)}`;
   
   const trust = getTrustStatus(business);
-  const ratingInfo = formatRating(business);
+  const ratingInfo = formatLocalReviewsRating(reviews);
   const { isOpen, label: openStatusLabel } = isOpenNow(business.workingHours);
 
   const isProOrPremium = (business.plan === 'pro' || business.plan === 'premium') && business.isVerified;
@@ -203,7 +205,7 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
               <strong className="text-emerald-400">✓ Comercio Verificado:</strong> Nuestro equipo ha comprobado directamente la identidad del propietario, el número oficial de WhatsApp y la dirección física del negocio.
             </p>
             <p className="leading-relaxed text-slate-400">
-              <strong className="text-slate-300">📍 Ficha Local:</strong> Datos registrados de forma comunitaria o fuentes públicas (Google Places / OpenStreetMap). Si sos el titular, podés reclamarla gratis para obtener la insignia verificada.
+              <strong className="text-slate-300">📍 Ficha Local:</strong> Datos públicos del comercio. Si sos el titular, podés reclamarla gratis para actualizar tu información y obtener la insignia verificada.
             </p>
           </div>
         )}
@@ -251,11 +253,7 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => {
-              if (business.id) {
-                supabase.rpc('increment_whatsapp_clicks', { business_id: business.id }).catch(() => {});
-              }
-            }}
+            onClick={() => trackWhatsAppClick(business.id)}
             className={`${
               canUseWhatsApp(business)
                 ? 'btn-whatsapp-official shadow-md shadow-emerald-500/25'
@@ -471,11 +469,7 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => {
-                  if (business.id) {
-                    supabase.rpc('increment_whatsapp_clicks', { business_id: business.id }).catch(() => {});
-                  }
-                }}
+                onClick={() => trackWhatsAppClick(business.id)}
                 className="btn-whatsapp-official w-full py-3.5 text-sm sm:text-base font-extrabold flex items-center justify-center gap-2 rounded-xl shadow-lg shadow-emerald-500/30 hover:scale-[1.01] transition-all"
               >
                 <WhatsAppIcon className="w-5 h-5" />
@@ -515,11 +509,7 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => {
-                  if (business.id) {
-                    supabase.rpc('increment_whatsapp_clicks', { business_id: business.id }).catch(() => {});
-                  }
-                }}
+                onClick={() => trackWhatsAppClick(business.id)}
                 className="btn-whatsapp-dimmed w-full py-3 text-sm font-semibold flex items-center justify-center gap-2 rounded-xl opacity-90 hover:opacity-100 transition-all"
               >
                 <WhatsAppIcon className="w-4 h-4 text-emerald-400/60" />
@@ -704,11 +694,7 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => {
-              if (business.id) {
-                supabase.rpc('increment_whatsapp_clicks', { business_id: business.id }).catch(() => {});
-              }
-            }}
+            onClick={() => trackWhatsAppClick(business.id)}
             className={`${
               canUseWhatsApp(business)
                 ? 'btn-whatsapp-official shadow-lg shadow-emerald-500/30'
