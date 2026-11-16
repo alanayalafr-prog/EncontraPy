@@ -155,7 +155,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       ]
     },
     pro: {
-      name: 'Plan Pro Mensual (Gs. 99.000/mes)',
+      name: 'Plan Pro Mensual (Gs. 67.000/mes)',
       color: 'border-blue-500/80 bg-blue-950/40',
       badge: 'Más Popular 🚀',
       items: [
@@ -169,7 +169,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       ]
     },
     premium: {
-      name: 'Plan Premium Anual (Gs. 790.000/año)',
+      name: 'Plan Premium Anual (Gs. 560.000/año)',
       color: 'border-amber-400/80 bg-amber-950/30',
       badge: 'Máximo Alcance 👑',
       items: [
@@ -178,7 +178,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
         { text: 'Destacado en Portada Principal (Spotlight VIP ⭐️)', included: true },
         { text: 'Optimización SEO para Google (Schema.org)', included: true },
         { text: 'Soporte directo y actualización prioritaria por WhatsApp', included: true },
-        { text: 'Ahorro del 33% respecto al pago mensual', included: true }
+        { text: 'Ahorro del 30% respecto al pago mensual', included: true }
       ]
     }
   };
@@ -619,7 +619,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
                     </span>
                     <div>
                       <div className="text-xs font-bold text-blue-300 mt-1">Pro Mensual</div>
-                      <div className="text-lg font-black text-amber-400 mt-1">Gs. 99.000</div>
+                      <div className="text-lg font-black text-amber-400 mt-1">Gs. 67.000</div>
                     </div>
                     <div className="text-[10px] text-blue-200 mt-3 font-medium">/ mes (Sin permanencia)</div>
                   </button>
@@ -639,7 +639,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
                     </span>
                     <div>
                       <div className="text-xs font-bold text-amber-400 mt-1">Premium Anual</div>
-                      <div className="text-lg font-black text-amber-300 mt-1">Gs. 790.000</div>
+                      <div className="text-lg font-black text-amber-300 mt-1">Gs. 560.000</div>
                     </div>
                     <div className="text-[10px] text-amber-200/90 mt-3 font-medium">/ año (Portada VIP)</div>
                   </button>

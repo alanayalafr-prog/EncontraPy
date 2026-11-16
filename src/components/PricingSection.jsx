@@ -130,7 +130,7 @@ export default function PricingSection({ onOpenPaymentModal }) {
                 {/* Badge Overlay: ONLY for the recommended plan */}
                 {isFeatured && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-950 text-[10px] font-black px-3 py-0.5 rounded-full uppercase tracking-wider shadow whitespace-nowrap">
-                    🔥 MÁS ELEGIDO (AHORRO GS. 98.000)
+                    🔥 MÁS ELEGIDO (AHORRO GS. 41.000)
                   </span>
                 )}
 

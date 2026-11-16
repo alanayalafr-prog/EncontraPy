@@ -1611,7 +1611,7 @@ export const PRICING_PLANS = [
     id: 'pro',
     name: 'Plan Pro Mensual',
     badge: 'Mensual',
-    priceGs: 'Gs. 99.000',
+    priceGs: 'Gs. 67.000',
     period: '/ mes',
     description: 'Para comercios que buscan aumentar sus consultas de clientes mes a mes.',
     features: [
@@ -1623,13 +1623,13 @@ export const PRICING_PLANS = [
       'Galería de fotos del comercio (hasta 3 fotos)'
     ],
     highlighted: false,
-    ctaText: 'Pagar con SIPAP (Gs. 99.000)'
+    ctaText: 'Pagar con SIPAP (Gs. 67.000)'
   },
   {
     id: 'pro_trimestral',
     name: 'Plan Pro Trimestral',
     badge: '⚡ Tiempo Limitado',
-    priceGs: 'Gs. 199.000',
+    priceGs: 'Gs. 160.000',
     period: 'por 3 meses',
     description: 'Mismos beneficios del Plan Pro por 3 meses completos a precio especial de lanzamiento.',
     features: [
@@ -1639,16 +1639,16 @@ export const PRICING_PLANS = [
       'Mensaje directo de WhatsApp personalizado',
       'Enlace a Instagram, Facebook y Sitio Web',
       'Galería de fotos del comercio (hasta 3 fotos)',
-      '🔥 Ahorrás Gs. 98.000 (pagás 2 meses y tenés 3)'
+      '🔥 Ahorrás Gs. 41.000 respecto al pago mensual'
     ],
     highlighted: true,
-    ctaText: 'Pagar con SIPAP (Gs. 199.000)'
+    ctaText: 'Pagar con SIPAP (Gs. 160.000)'
   },
   {
     id: 'premium',
     name: 'Plan Premium Anual',
     badge: 'VIP Anual 👑',
-    priceGs: 'Gs. 790.000',
+    priceGs: 'Gs. 560.000',
     period: '/ año',
     description: 'Visibilidad total y máxima prioridad en los motores de búsqueda y portada.',
     features: [
@@ -1656,10 +1656,10 @@ export const PRICING_PLANS = [
       'Destacado en Portada Principal (Spotlight VIP ⭐️)',
       'Soporte directo y actualización prioritaria por WhatsApp',
       'Optimización SEO con Microdata Schema para Google',
-      'Ahorro del 33% respecto al pago mensual'
+      'Ahorro del 30% respecto al pago mensual'
     ],
     highlighted: false,
-    ctaText: 'Pagar con SIPAP (Gs. 790.000)'
+    ctaText: 'Pagar con SIPAP (Gs. 560.000)'
   }
 ];
 
