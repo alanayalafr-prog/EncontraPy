@@ -15,10 +15,11 @@ import {
   ShieldCheckIcon,
   FilterIcon
 } from './Icons';
-import { SERVICES } from '../data/businesses';
+import { SERVICES, CITIES } from '../data/businesses';
 
 export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, onAddBusiness, initialPlan = 'gratuito' }) {
   const availableServices = SERVICES.filter(s => s.id !== 'todos');
+  const availableCities = CITIES.filter(c => c.id !== 'todas');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -26,6 +27,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
     nicheSelect: availableServices[0]?.id || 'Refrigeración & Climatización',
     customNiche: '',
     city: 'asuncion',
+    customCity: '',
     zone: '',
     phone: '',
     whatsapp: '',
@@ -79,14 +81,19 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       formattedInstagram = `@${formattedInstagram}`;
     }
 
-    const cityNameMap = {
-      asuncion: 'Asunción',
-      luque: 'Luque',
-      san_lorenzo: 'San Lorenzo',
-      lambare: 'Lambaré',
-      cde: 'Ciudad del Este',
-      encarnacion: 'Encarnación'
-    };
+    let finalCityId = formData.city;
+    let finalCityName = availableCities.find(c => c.id === formData.city)?.label || 'Asunción';
+
+    if (formData.city === 'otra') {
+      const trimmedCustomCity = formData.customCity.trim();
+      finalCityName = trimmedCustomCity || 'Paraguay';
+      finalCityId = finalCityName
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '') || 'otra_ciudad';
+    }
 
     const cleanWhatsapp = formData.whatsapp ? formData.whatsapp.replace(/\D/g, '') : '595984043197';
     const formattedWa = cleanWhatsapp.startsWith('595') ? cleanWhatsapp : `595${cleanWhatsapp.replace(/^0/, '')}`;
@@ -105,8 +112,8 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       name: formData.name || 'Comercio Nuevo',
       category: formData.category,
       niche: finalNiche || 'Servicios Generales',
-      city: formData.city,
-      cityName: cityNameMap[formData.city] || 'Asunción',
+      city: finalCityId,
+      cityName: finalCityName,
       zone: formData.zone || 'Zona Centro',
       address: formData.zone || 'Av. Principal del Comercio',
       description: formData.description || 'Comercio registrado en DirectorioPY.',
@@ -120,7 +127,7 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
       workingHours: formData.workingHours || 'Lun a Vie: 08:00 - 18:00',
       image: mainImage,
       gallery: finalGallery,
-      tags: [formData.category, formData.city, 'nuevo'],
+      tags: [formData.category, finalCityId, 'nuevo'],
       instagram: formData.plan !== 'gratuito' ? formattedInstagram : '',
       website: formData.plan !== 'gratuito' ? formattedWebsite : ''
     };
@@ -307,12 +314,10 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-[#1E293B] border border-[#27354D] text-xs sm:text-sm text-white focus:outline-none cursor-pointer"
                     >
-                      <option value="asuncion">Asunción</option>
-                      <option value="luque">Luque</option>
-                      <option value="san_lorenzo">San Lorenzo</option>
-                      <option value="lambare">Lambaré</option>
-                      <option value="cde">Ciudad del Este</option>
-                      <option value="encarnacion">Encarnación</option>
+                      {availableCities.map((c) => (
+                        <option key={c.id} value={c.id}>{c.label}</option>
+                      ))}
+                      <option value="otra">➕ Otra ciudad (escribir manualmente)</option>
                     </select>
                   </div>
 
@@ -331,6 +336,24 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
                   </div>
 
                 </div>
+
+                {/* Custom City Input if "otra" selected */}
+                {formData.city === 'otra' && (
+                  <div className="space-y-1.5 animate-fadeIn">
+                    <label className="text-xs font-semibold text-amber-400">Escribí el nombre de tu ciudad *</label>
+                    <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#1E293B] border border-amber-400/60">
+                      <MapPinIcon className="w-4 h-4 text-amber-400 shrink-0" />
+                      <input
+                        type="text"
+                        required
+                        placeholder="Ej: Caacupé, Pilar, Concepción, Filadelfia, Hernandarias..."
+                        value={formData.customCity}
+                        onChange={(e) => setFormData({ ...formData, customCity: e.target.value })}
+                        className="w-full bg-transparent text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                )}
 
                 {/* Contact & Hours */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

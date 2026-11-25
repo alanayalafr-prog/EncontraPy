@@ -61,6 +61,19 @@ export default function HomePageContent({ initialBusinesses = [] }) {
     router.replace(pathname, { scroll: false });
   };
 
+  // Dynamic Cities List (CITIES + any custom cities registered by users)
+  const availableCities = useMemo(() => {
+    const knownIds = new Set(CITIES.map(c => c.id));
+    const extraCities = [];
+    for (const b of initialBusinesses) {
+      if (b.city && !knownIds.has(b.city)) {
+        knownIds.add(b.city);
+        extraCities.push({ id: b.city, label: b.cityName || b.city });
+      }
+    }
+    return [...CITIES, ...extraCities];
+  }, [initialBusinesses]);
+
   // Dynamic Category Counts
   const categoryCounts = useMemo(() => {
     const counts = { todos: initialBusinesses.length };
@@ -131,7 +144,7 @@ export default function HomePageContent({ initialBusinesses = [] }) {
   );
 
   const activeCategoryLabel = CATEGORIES.find(c => c.id === selectedCategory)?.label;
-  const activeCityLabel = CITIES.find(c => c.id === selectedCity)?.label;
+  const activeCityLabel = availableCities.find(c => c.id === selectedCity)?.label;
 
   const getSeoText = () => {
     let text = "DirectorioPY es un directorio de comercios y servicios de Paraguay para encontrar profesionales y negocios locales.";
@@ -165,7 +178,7 @@ export default function HomePageContent({ initialBusinesses = [] }) {
           selectedCity={selectedCity}
           setSelectedCity={setSelectedCity}
           services={SERVICES}
-          cities={CITIES}
+          cities={availableCities}
           onClearFilters={handleClearAllFilters}
         />
 
@@ -182,7 +195,7 @@ export default function HomePageContent({ initialBusinesses = [] }) {
           <span className="text-[11px] font-bold text-slate-400 mr-1 uppercase tracking-wider shrink-0">
             Ciudades:
           </span>
-          {CITIES.map((city) => (
+          {availableCities.map((city) => (
             <button
               key={city.id}
               onClick={() => setSelectedCity(city.id)}

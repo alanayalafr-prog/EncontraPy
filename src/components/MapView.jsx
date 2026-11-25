@@ -21,12 +21,18 @@ export default function MapView({ businesses = [], onSelectDetail, onBackToGrid 
     asuncion: { top: '48%', left: '32%', name: 'Asunción' },
     luque: { top: '42%', left: '38%', name: 'Luque' },
     san_lorenzo: { top: '53%', left: '40%', name: 'San Lorenzo' },
+    capiata: { top: '54%', left: '44%', name: 'Capiatá' },
     lambare: { top: '56%', left: '30%', name: 'Lambaré' },
     fernando_de_la_mora: { top: '50%', left: '36%', name: 'Fernando de la Mora' },
+    limpio: { top: '38%', left: '36%', name: 'Limpio' },
+    mariano_roque_alonso: { top: '41%', left: '34%', name: 'Mariano Roque Alonso' },
     nemby: { top: '60%', left: '38%', name: 'Ñemby' },
     villa_elisa: { top: '58%', left: '34%', name: 'Villa Elisa' },
     cde: { top: '44%', left: '80%', name: 'Ciudad del Este' },
-    encarnacion: { top: '82%', left: '54%', name: 'Encarnación' }
+    encarnacion: { top: '82%', left: '54%', name: 'Encarnación' },
+    pedro_juan_caballero: { top: '20%', left: '66%', name: 'Pedro Juan Caballero' },
+    coronel_oviedo: { top: '49%', left: '56%', name: 'Coronel Oviedo' },
+    villarrica: { top: '62%', left: '54%', name: 'Villarrica' }
   };
 
   const handleSelectBusiness = (business) => {

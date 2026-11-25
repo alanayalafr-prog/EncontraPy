@@ -21,14 +21,20 @@ export const SERVICES = [
 export const CITIES = [
   { id: 'todas', label: 'Todas las Ciudades' },
   { id: 'asuncion', label: 'Asunción' },
+  { id: 'cde', label: 'Ciudad del Este' },
   { id: 'luque', label: 'Luque' },
   { id: 'san_lorenzo', label: 'San Lorenzo' },
+  { id: 'capiata', label: 'Capiatá' },
   { id: 'lambare', label: 'Lambaré' },
-  { id: 'cde', label: 'Ciudad del Este' },
-  { id: 'encarnacion', label: 'Encarnación' },
+  { id: 'fernando_de_la_mora', label: 'Fernando de la Mora' },
+  { id: 'limpio', label: 'Limpio' },
   { id: 'nemby', label: 'Ñemby' },
+  { id: 'encarnacion', label: 'Encarnación' },
+  { id: 'mariano_roque_alonso', label: 'Mariano Roque Alonso' },
+  { id: 'pedro_juan_caballero', label: 'Pedro Juan Caballero' },
   { id: 'villa_elisa', label: 'Villa Elisa' },
-  { id: 'fernando_de_la_mora', label: 'Fernando de la Mora' }
+  { id: 'coronel_oviedo', label: 'Coronel Oviedo' },
+  { id: 'villarrica', label: 'Villarrica' }
 ];
 
 export const INITIAL_BUSINESSES = [
