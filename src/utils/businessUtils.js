@@ -83,8 +83,8 @@ export function getRepresentativeImage(business) {
   if (!business) return 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80';
 
   const userImage = business.image;
-  // Si tiene imagen propia que no sea la URL rota/repetida del placeholder
-  if (userImage && typeof userImage === 'string' && userImage.startsWith('http') && !userImage.includes('via.placeholder') && !userImage.includes('default_business')) {
+  // Si tiene imagen propia (URL externa o imagen local en /images/) que no sea placeholder
+  if (userImage && typeof userImage === 'string' && (userImage.startsWith('http') || userImage.startsWith('/images/')) && !userImage.includes('via.placeholder') && !userImage.includes('default_business')) {
     return userImage;
   }
 
@@ -138,7 +138,7 @@ export function getRepresentativeImage(business) {
     return 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80';
   }
   if (niche.includes('insumos') || niche.includes('nutricion animal') || niche.includes('semill') || niche.includes('pastur')) {
-    return 'https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=800&q=80';
+    return '/images/insumos-nutricion-animal.jpg';
   }
   if (niche.includes('maquin') || niche.includes('tractor')) {
     return 'https://images.unsplash.com/photo-1530267981375-f0de937f5f13?auto=format&fit=crop&w=800&q=80';
