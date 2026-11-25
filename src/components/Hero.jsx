@@ -1,5 +1,5 @@
 import React from 'react';
-import { SparklesIcon } from './Icons';
+import { SparklesIcon, ParaguayFlagIcon } from './Icons';
 
 export default function Hero() {
   return (
@@ -11,7 +11,8 @@ export default function Hero() {
           {/* Eyebrow badge */}
           <div className="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-blue-950/70 border border-blue-800/50 text-blue-300 text-xs font-semibold shadow-sm">
             <SparklesIcon className="w-3.5 h-3.5 text-amber-400" />
-            <span>Directorio de Comercios de Paraguay 🇵🇾</span>
+            <span>Directorio de Comercios de Paraguay</span>
+            <ParaguayFlagIcon className="w-4 h-3 rounded-[2px] shrink-0" />
           </div>
 
           {/* Heading */}
@@ -21,7 +22,7 @@ export default function Hero() {
 
           {/* Subtitle */}
           <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
-            Asunción, Luque, San Lorenzo, CDE y Encarnación.
+            En todo Paraguay: Asunción, Gran Asunción, CDE, Encarnación y más.
             <span className="text-amber-300/90 font-medium block sm:inline sm:ml-1">
               Contactá directo por WhatsApp sin intermediarios ni comisiones.
             </span>

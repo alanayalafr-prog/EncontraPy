@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { WhatsAppIcon, SparklesIcon, MapPinIcon, TractorIcon, ShieldCheckIcon } from './Icons';
+import { WhatsAppIcon, SparklesIcon, MapPinIcon, TractorIcon, ShieldCheckIcon, ParaguayFlagIcon } from './Icons';
 
 export default function Footer({ onSelectCategory, onSelectCity }) {
   return (
@@ -17,9 +17,7 @@ export default function Footer({ onSelectCategory, onSelectCity }) {
                 D<span className="text-amber-400">PY</span>
               </div>
               <span>Directorio<span className="text-amber-400 font-extrabold">PY</span></span>
-              <span className="text-xs px-2 py-0.5 rounded bg-blue-950 text-blue-300 font-bold border border-blue-800">
-                🇵🇾
-              </span>
+              <ParaguayFlagIcon className="w-5 h-3.5 rounded-[2px] shadow-sm shrink-0" />
             </div>
             <p className="text-xs text-slate-300 leading-relaxed">
               El directorio web de comercios, empresas y servicios de Paraguay optimizado para búsquedas en Google y atención inmediata por WhatsApp.

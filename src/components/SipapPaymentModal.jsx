@@ -25,13 +25,10 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
     setReceiptSent(true);
   };
 
-  // QR Code SVG Representation for Paraguayan SIPAP / Bancard / Alias
-  const qrSvgDataUri = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23FFFFFF"><rect width="100" height="100" fill="%230F172A"/><rect x="10" y="10" width="25" height="25" fill="%23F59E0B"/><rect x="15" y="15" width="15" height="15" fill="%230F172A"/><rect x="65" y="10" width="25" height="25" fill="%23F59E0B"/><rect x="70" y="15" width="15" height="15" fill="%230F172A"/><rect x="10" y="65" width="25" height="25" fill="%23F59E0B"/><rect x="15" y="70" width="15" height="15" fill="%230F172A"/><rect x="40" y="10" width="15" height="15" fill="%233B82F6"/><rect x="40" y="40" width="20" height="20" fill="%2310B981"/><rect x="65" y="65" width="25" height="25" fill="%23F59E0B"/><path d="M 40 65 h 15 v 15 h -15 Z" fill="%233B82F6"/></svg>`;
-
   return (
     <div className="modal-overlay animate-fadeIn" onClick={onClose}>
       <div
-        className="glass-panel w-full max-w-3xl max-h-[92vh] overflow-y-auto rounded-3xl bg-[#060B17] border border-amber-500/30 p-6 sm:p-8 space-y-6 relative"
+        className="glass-panel w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl bg-[#060B17] border border-amber-500/30 p-6 sm:p-8 space-y-6 relative"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -64,79 +61,67 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
             {/* Plan Header */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
               <div>
-                <span className="text-xs text-amber-400 font-bold uppercase tracking-wider">Plan Activo:</span>
+                <span className="text-xs text-amber-400 font-bold uppercase tracking-wider">Plan Seleccionado:</span>
                 <h3 className="text-xl font-bold text-white">{currentPlan.name} — <span className="text-amber-400">{currentPlan.priceGs}</span></h3>
               </div>
-              <span className="badge badge-verified">
-                ✔️ Verificación SIPAP
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-xs font-bold shrink-0">
+                <ShieldCheckIcon className="w-3.5 h-3.5" />
+                <span>Verificación SIPAP</span>
               </span>
             </div>
 
-            {/* Bank Details & QR Code Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+            {/* Bank Details */}
+            <div className="space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Datos para Transferencia SIPAP / Alias:</h4>
+                <span className="text-[11px] text-slate-400">Banco Atlas • Itaú • Continental • Sudameris • BNF • Basa • GNB</span>
+              </div>
               
-              {/* QR Code Card */}
-              <div className="md:col-span-1 p-4 rounded-2xl bg-slate-950 border border-amber-500/30 text-center space-y-2">
-                <div className="text-xs font-bold text-amber-400 uppercase tracking-wider">QR SIPAP Express</div>
-                <div className="p-2 bg-slate-900 rounded-xl inline-block border border-slate-800">
-                  <img src={qrSvgDataUri} alt="QR SIPAP DirectorioPY" className="w-32 h-32 rounded mx-auto" />
-                </div>
-                <p className="text-[11px] text-slate-400">
-                  Escaneá desde tu App bancaria en Paraguay (Continental, Sudameris, Itaú, Ueno)
-                </p>
-              </div>
-
-              {/* Bank Details text */}
-              <div className="md:col-span-2 space-y-3">
-                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Datos para Transferencia Manual / Alias:</h4>
-                
-                <div className="space-y-2 text-xs">
+              <div className="space-y-2.5 text-xs">
                   
-                  {/* Alias SIPAP Highlight */}
-                  <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between">
-                    <div>
-                      <div className="text-[10px] text-amber-400 font-bold uppercase">Alias SIPAP Preferido</div>
-                      <div className="font-mono font-extrabold text-white text-sm">{BANK_TRANSFER_DETAILS.aliasSIPAP}</div>
-                    </div>
-                    <button
-                      onClick={() => handleCopy(BANK_TRANSFER_DETAILS.aliasSIPAP, 'alias')}
-                      className="px-3 py-1.5 rounded-lg bg-amber-500 text-black font-extrabold text-xs shadow hover:bg-amber-400"
-                    >
-                      {copiedField === 'alias' ? '¡Copiado!' : 'Copiar Alias'}
-                    </button>
+                {/* Alias SIPAP Highlight */}
+                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/40 flex items-center justify-between gap-3">
+                  <div>
+                    <div className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Alias SIPAP Preferido (CI / RUC)</div>
+                    <div className="font-mono font-extrabold text-white text-base sm:text-lg">{BANK_TRANSFER_DETAILS.aliasSIPAP}</div>
                   </div>
-
-                  {/* Bank & Account Number */}
-                  <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between">
-                    <div>
-                      <div className="text-slate-400 text-[10px]">Banco & N° de Cuenta</div>
-                      <div className="font-mono font-bold text-white">{BANK_TRANSFER_DETAILS.bankName} — {BANK_TRANSFER_DETAILS.accountNumber}</div>
-                    </div>
-                    <button
-                      onClick={() => handleCopy(`${BANK_TRANSFER_DETAILS.bankName} ${BANK_TRANSFER_DETAILS.accountNumber}`, 'acc')}
-                      className="text-[10px] text-blue-400 font-semibold px-2 py-1 rounded bg-blue-500/10 hover:bg-blue-500/20"
-                    >
-                      {copiedField === 'acc' ? 'Copiado ✓' : 'Copiar'}
-                    </button>
-                  </div>
-
-                  {/* Titular & RUC */}
-                  <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between">
-                    <div>
-                      <div className="text-slate-400 text-[10px]">Titular / RUC</div>
-                      <div className="font-bold text-white">{BANK_TRANSFER_DETAILS.accountHolder} ({BANK_TRANSFER_DETAILS.ruc})</div>
-                    </div>
-                    <button
-                      onClick={() => handleCopy(`${BANK_TRANSFER_DETAILS.accountHolder} RUC ${BANK_TRANSFER_DETAILS.ruc}`, 'holder')}
-                      className="text-[10px] text-blue-400 font-semibold px-2 py-1 rounded bg-blue-500/10 hover:bg-blue-500/20"
-                    >
-                      {copiedField === 'holder' ? 'Copiado ✓' : 'Copiar'}
-                    </button>
-                  </div>
-
+                  <button
+                    onClick={() => handleCopy(BANK_TRANSFER_DETAILS.aliasSIPAP, 'alias')}
+                    className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs shadow transition-colors cursor-pointer shrink-0"
+                  >
+                    {copiedField === 'alias' ? '¡Copiado! ✓' : 'Copiar Alias'}
+                  </button>
                 </div>
-              </div>
 
+                {/* Bank & Account Number */}
+                <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between gap-3">
+                  <div>
+                    <div className="text-slate-400 text-[10px] uppercase font-semibold">Banco & N° de Cuenta</div>
+                    <div className="font-mono font-bold text-white text-sm">{BANK_TRANSFER_DETAILS.bankName} — {BANK_TRANSFER_DETAILS.accountNumber}</div>
+                  </div>
+                  <button
+                    onClick={() => handleCopy(`${BANK_TRANSFER_DETAILS.bankName} ${BANK_TRANSFER_DETAILS.accountNumber}`, 'acc')}
+                    className="text-xs text-blue-400 font-semibold px-3 py-1.5 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 transition-colors cursor-pointer shrink-0"
+                  >
+                    {copiedField === 'acc' ? 'Copiado ✓' : 'Copiar'}
+                  </button>
+                </div>
+
+                {/* Titular & RUC */}
+                <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-between gap-3">
+                  <div>
+                    <div className="text-slate-400 text-[10px] uppercase font-semibold">Titular / RUC</div>
+                    <div className="font-bold text-white text-sm">{BANK_TRANSFER_DETAILS.accountHolder} ({BANK_TRANSFER_DETAILS.ruc})</div>
+                  </div>
+                  <button
+                    onClick={() => handleCopy(`${BANK_TRANSFER_DETAILS.accountHolder} RUC ${BANK_TRANSFER_DETAILS.ruc}`, 'holder')}
+                    className="text-xs text-blue-400 font-semibold px-3 py-1.5 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 transition-colors cursor-pointer shrink-0"
+                  >
+                    {copiedField === 'holder' ? 'Copiado ✓' : 'Copiar'}
+                  </button>
+                </div>
+
+              </div>
             </div>
 
             {/* WhatsApp Receipt Confirmation */}

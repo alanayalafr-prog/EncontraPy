@@ -35,6 +35,7 @@ export default function HomePageContent({ initialBusinesses = [] }) {
   
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'map'
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+  const [showAllCities, setShowAllCities] = useState(false);
 
   // Reset pagination when filters change
   useEffect(() => {
@@ -195,7 +196,7 @@ export default function HomePageContent({ initialBusinesses = [] }) {
           <span className="text-[11px] font-bold text-slate-400 mr-1 uppercase tracking-wider shrink-0">
             Ciudades:
           </span>
-          {availableCities.map((city) => (
+          {(showAllCities ? availableCities : availableCities.slice(0, 7)).map((city) => (
             <button
               key={city.id}
               onClick={() => setSelectedCity(city.id)}
@@ -208,6 +209,14 @@ export default function HomePageContent({ initialBusinesses = [] }) {
               {city.label}
             </button>
           ))}
+          {availableCities.length > 7 && (
+            <button
+              onClick={() => setShowAllCities(prev => !prev)}
+              className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wide transition-all border border-blue-500/40 bg-blue-500/10 text-blue-300 hover:bg-blue-500/20 hover:text-white whitespace-nowrap cursor-pointer"
+            >
+              {showAllCities ? 'Ver menos' : `+${availableCities.length - 7} ciudades`}
+            </button>
+          )}
         </div>
 
         {/* Results Header Toolbar */}

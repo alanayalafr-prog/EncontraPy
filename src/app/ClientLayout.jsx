@@ -20,13 +20,9 @@ export default function ClientLayout({ children }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-    } else {
-      document.documentElement.classList.add('dark');
-    }
+    document.documentElement.classList.add('dark');
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'dark');
 
     const handleOpenPayment = (e) => {
       const planId = e.detail || 'pro';

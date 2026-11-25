@@ -47,27 +47,8 @@ export default function SearchBar({
           )}
         </div>
 
-        {/* Service / Niche Dropdown Selector */}
-        <div className="flex items-center gap-2 px-3.5 py-2.5 sm:py-3 rounded-xl bg-[#1E293B] border border-[#27354D] w-full md:w-60 shrink-0 focus-within:border-blue-500 transition-colors">
-          <FilterIcon className="w-4 h-4 text-amber-400 shrink-0" />
-          <label htmlFor="service-select" className="sr-only">Filtrar por tipo de servicio</label>
-          <select
-            id="service-select"
-            value={selectedService}
-            onChange={(e) => setSelectedService(e.target.value)}
-            aria-label="Filtrar por tipo de servicio"
-            className="w-full bg-transparent text-xs sm:text-sm text-white font-medium focus:outline-none cursor-pointer"
-          >
-            {services.map((service) => (
-              <option key={service.id} value={service.id} className="bg-[#0B1120] text-white">
-                {service.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
         {/* City Selector Dropdown */}
-        <div className="flex items-center gap-2 px-3.5 py-2.5 sm:py-3 rounded-xl bg-[#1E293B] border border-[#27354D] w-full md:w-48 shrink-0 focus-within:border-blue-500 transition-colors">
+        <div className="flex items-center gap-2 px-3.5 py-2.5 sm:py-3 rounded-xl bg-[#1E293B] border border-[#27354D] w-full md:w-56 shrink-0 focus-within:border-blue-500 transition-colors">
           <MapPinIcon className="w-4 h-4 text-blue-400 shrink-0" />
           <label htmlFor="city-select" className="sr-only">Filtrar por ciudad</label>
           <select

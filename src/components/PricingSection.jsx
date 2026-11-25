@@ -63,7 +63,7 @@ export default function PricingSection({ onOpenPaymentModal }) {
     },
     {
       q: '¿Qué bancos o billeteras aceptan para el pago SIPAP?',
-      a: 'Aceptamos transferencias desde cualquier entidad bancaria o financiera de Paraguay conectada a la red SIPAP (Ueno Bank, Itaú, Banco Continental, Sudameris, BNF, Basa, GNB, etc.) utilizando número de cuenta o nuestro Alias SIPAP directo.'
+      a: 'Aceptamos transferencias desde cualquier entidad bancaria o financiera de Paraguay conectada a la red SIPAP (Banco Atlas, Itaú, Banco Continental, Sudameris, BNF, Basa, GNB, etc.) utilizando número de cuenta o nuestro Alias SIPAP directo.'
     },
     {
       q: '¿Cuánto tiempo tarda en activarse mi plan destacado?',

@@ -253,3 +253,13 @@ export const CheckIcon = ({ size = 20, className = '', ...props }) => (
   </svg>
 );
 
+export const ParaguayFlagIcon = ({ className = 'w-5 h-3.5', ...props }) => (
+  <svg viewBox="0 0 30 20" className={className} aria-label="Paraguay" {...props}>
+    <rect width="30" height="6.67" y="0" fill="#D52B1E" />
+    <rect width="30" height="6.67" y="6.67" fill="#FFFFFF" />
+    <rect width="30" height="6.66" y="13.34" fill="#0038A8" />
+    <circle cx="15" cy="10" r="2.2" fill="none" stroke="#F59E0B" strokeWidth="0.9" />
+    <circle cx="15" cy="10" r="0.8" fill="#F59E0B" />
+  </svg>
+);
+
