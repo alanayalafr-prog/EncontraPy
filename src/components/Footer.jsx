@@ -103,7 +103,7 @@ export default function Footer({ onSelectCategory, onSelectCity }) {
                 className="btn-whatsapp-official w-full py-3 text-xs rounded-xl flex items-center justify-center gap-2 font-bold shadow-md hover:scale-[1.01] transition-transform"
               >
                 <WhatsAppIcon className="w-4 h-4 shrink-0" />
-                <span>Soporte Principal (0984 043 197)</span>
+                <span>Soporte Técnico (0984 043 197)</span>
               </a>
               <a
                 href="https://wa.me/595981747679?text=Hola%20soporte%20t%C3%A9cnico%20de%20DirectorioPY,%20necesito%20ayuda."

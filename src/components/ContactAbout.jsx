@@ -50,7 +50,7 @@ export default function ContactAbout() {
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white font-bold text-sm shadow-lg shadow-green-500/20 transition-all hover:scale-[1.02]"
                   >
                     <WhatsAppIcon className="w-5 h-5" />
-                    <span>Soporte Principal (+595 984 043197)</span>
+                    <span>Soporte Técnico (+595 984 043197)</span>
                   </a>
                   <a
                     href="https://wa.me/595981747679?text=Hola%20equipo%20de%20soporte%20t%C3%A9cnico%20de%20DirectorioPY.%20Necesito%20ayuda%20con%20la%20plataforma."
