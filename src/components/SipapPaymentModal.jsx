@@ -1,12 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import { XIcon, CreditCardIcon, WhatsAppIcon, CheckCircleIcon, UploadIcon, SparklesIcon, ShieldCheckIcon } from './Icons';
+import { XIcon, CreditCardIcon, WhatsAppIcon, CheckCircleIcon, SparklesIcon, ShieldCheckIcon } from './Icons';
 import { formatWhatsAppNumber } from '../utils/phoneUtils';
 import { PRICING_PLANS, BANK_TRANSFER_DETAILS } from '../data/businesses';
 
 export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'pro' }) {
   const [copiedField, setCopiedField] = useState(null);
-  const [receiptFile, setReceiptFile] = useState(null);
   const [receiptSent, setReceiptSent] = useState(false);
 
   if (!isOpen) return null;
@@ -17,12 +16,6 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
     navigator.clipboard.writeText(text);
     setCopiedField(fieldName);
     setTimeout(() => setCopiedField(null), 2000);
-  };
-
-  const handleFileUpload = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setReceiptFile(e.target.files[0]);
-    }
   };
 
   const handleConfirmTransfer = () => {
@@ -146,26 +139,26 @@ export default function SipapPaymentModal({ isOpen, onClose, selectedPlanId = 'p
 
             </div>
 
-            {/* Receipt Attachment & Confirmation */}
+            {/* WhatsApp Receipt Confirmation */}
             <div className="space-y-3 pt-2">
-              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Enviar Comprobante SIPAP:</h4>
+              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Paso final — Enviar Comprobante SIPAP:</h4>
               
-              <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700 space-y-3 text-center">
-                <label className="cursor-pointer block border-2 border-dashed border-slate-600 hover:border-blue-500 p-4 rounded-xl transition-colors">
-                  <UploadIcon className="w-6 h-6 text-blue-400 mx-auto mb-1" />
-                  <span className="text-xs font-semibold text-slate-300">
-                    {receiptFile ? `Comprobante adjunto: ${receiptFile.name}` : 'Adjuntar foto o PDF del comprobante SIPAP'}
-                  </span>
-                  <input type="file" onChange={handleFileUpload} accept="image/*,application/pdf" className="hidden" />
-                </label>
+              <div className="p-4 sm:p-5 rounded-xl bg-emerald-950/30 border border-emerald-500/30 space-y-3.5 text-center">
+                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                  Una vez realizada la transferencia, abrí nuestro WhatsApp y <strong className="text-white">adjuntá la captura de tu comprobante</strong> en el chat para activar tu plan:
+                </p>
 
                 <button
                   onClick={handleConfirmTransfer}
-                  className="btn-whatsapp pulse-wa w-full py-3.5 text-sm font-bold flex items-center justify-center gap-2 rounded-xl"
+                  className="btn-whatsapp-official w-full py-3.5 sm:py-4 px-5 text-sm sm:text-base font-extrabold flex items-center justify-center gap-2.5 rounded-xl shadow-lg shadow-emerald-500/35 hover:scale-[1.01] transition-all cursor-pointer"
                 >
-                  <WhatsAppIcon className="w-5 h-5" />
-                  <span>Enviar Comprobante por WhatsApp para Activación Inmediata</span>
+                  <WhatsAppIcon className="w-5 h-5 shrink-0" />
+                  <span>Enviar Comprobante por WhatsApp</span>
                 </button>
+
+                <p className="text-[11px] text-emerald-300/80 font-medium">
+                  ⚡ Validación y activación rápida el mismo día • Sin comisiones
+                </p>
               </div>
             </div>
 
