@@ -125,7 +125,7 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
             fill
             className="absolute inset-0 w-full h-full object-cover z-0"
             priority
-            unoptimized={typeof activeImage === 'string' && activeImage.startsWith('http')}
+            unoptimized={typeof activeImage === 'string' && (activeImage.startsWith('http') || activeImage.startsWith('data:'))}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] from-15% via-[#0B1120]/75 via-50% to-transparent z-10" />
           
@@ -395,7 +395,7 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
                       activeImage === img ? 'border-amber-400 scale-105 shadow-md' : 'border-slate-700 opacity-70 hover:opacity-100'
                     }`}
                   >
-                    <Image src={img} alt={`${business.name} ${idx + 1}`} fill className="object-cover" sizes="80px" unoptimized={typeof img === 'string' && img.startsWith('http')} />
+                    <Image src={img} alt={`${business.name} ${idx + 1}`} fill className="object-cover" sizes="80px" unoptimized={typeof img === 'string' && (img.startsWith('http') || img.startsWith('data:'))} />
                   </button>
                 ))}
               </div>

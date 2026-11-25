@@ -50,7 +50,7 @@ export default function BusinessCard({ business, onSelectDetail }) {
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
-            unoptimized={typeof currentImage === 'string' && currentImage.startsWith('http')}
+            unoptimized={typeof currentImage === 'string' && (currentImage.startsWith('http') || currentImage.startsWith('data:'))}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#151F32] via-[#151F32]/25 to-transparent z-10" />
           

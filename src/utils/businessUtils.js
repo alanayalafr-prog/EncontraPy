@@ -83,8 +83,8 @@ export function getRepresentativeImage(business) {
   if (!business) return 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80';
 
   const userImage = business.image;
-  // Si tiene imagen propia (URL externa o imagen local en /images/) que no sea placeholder
-  if (userImage && typeof userImage === 'string' && (userImage.startsWith('http') || userImage.startsWith('/images/')) && !userImage.includes('via.placeholder') && !userImage.includes('default_business')) {
+  // Si tiene imagen propia (URL externa, imagen local en /images/ o foto subida en base64) que no sea placeholder
+  if (userImage && typeof userImage === 'string' && (userImage.startsWith('http') || userImage.startsWith('/images/') || userImage.startsWith('data:image/')) && !userImage.includes('via.placeholder') && !userImage.includes('default_business')) {
     return userImage;
   }
 

@@ -76,6 +76,31 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
     name: formData.name
   });
 
+  const compressImageFile = (file, maxWidth = 900, quality = 0.78) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new window.Image();
+        img.onload = () => {
+          const scale = img.width > maxWidth ? maxWidth / img.width : 1;
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(event.target.result);
+            return;
+          }
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = () => resolve(event.target.result);
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const finalNiche = formData.nicheSelect === 'otro' ? formData.customNiche : formData.nicheSelect;
@@ -526,14 +551,11 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
                             type="file"
                             accept="image/*"
                             className="hidden"
-                            onChange={(e) => {
+                            onChange={async (e) => {
                               const file = e.target.files?.[0];
                               if (file) {
-                                const reader = new FileReader();
-                                reader.onloadend = () => {
-                                  setFormData(prev => ({ ...prev, imageUrl: reader.result }));
-                                };
-                                reader.readAsDataURL(file);
+                                const compressed = await compressImageFile(file);
+                                setFormData(prev => ({ ...prev, imageUrl: compressed }));
                               }
                             }}
                           />
@@ -581,18 +603,15 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
                                   type="file"
                                   accept="image/*"
                                   className="hidden"
-                                  onChange={(e) => {
+                                  onChange={async (e) => {
                                     const file = e.target.files?.[0];
                                     if (file) {
-                                      const reader = new FileReader();
-                                      reader.onloadend = () => {
-                                        setFormData(prev => {
-                                          const newGallery = [...prev.galleryUrls];
-                                          newGallery[index] = reader.result;
-                                          return { ...prev, galleryUrls: newGallery };
-                                        });
-                                      };
-                                      reader.readAsDataURL(file);
+                                      const compressed = await compressImageFile(file);
+                                      setFormData(prev => {
+                                        const newGallery = [...prev.galleryUrls];
+                                        newGallery[index] = compressed;
+                                        return { ...prev, galleryUrls: newGallery };
+                                      });
                                     }
                                   }}
                                 />
