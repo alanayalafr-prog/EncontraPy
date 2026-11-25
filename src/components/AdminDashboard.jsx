@@ -469,6 +469,22 @@ export default function AdminDashboard() {
                           <span className="text-[11px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-medium">
                             {b.cityName || b.city}
                           </span>
+                          {b.isVerified ? (
+                            <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded font-bold">
+                              ✅ Verificado
+                            </span>
+                          ) : isPaid ? (
+                            <span
+                              className="text-[10px] bg-orange-500/20 text-orange-300 border border-orange-500/40 px-2 py-0.5 rounded font-bold"
+                              title="Falta activar isVerified en Supabase para posicionar arriba"
+                            >
+                              ⏳ Pendiente (sin posicionar)
+                            </span>
+                          ) : (
+                            <span className="text-[10px] bg-slate-800/90 text-slate-400 border border-slate-700 px-2 py-0.5 rounded font-medium">
+                              ⏳ Pendiente
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -538,6 +554,7 @@ export default function AdminDashboard() {
                     <th className="px-6 py-4 font-bold">Comercio</th>
                     <th className="px-6 py-4 font-bold">Rubro</th>
                     <th className="px-6 py-4 font-bold">Plan</th>
+                    <th className="px-6 py-4 font-bold">Estado</th>
                     <th className="px-6 py-4 font-bold">Fecha Registro</th>
                     <th className="px-6 py-4 font-bold">Contacto</th>
                   </tr>
@@ -561,6 +578,17 @@ export default function AdminDashboard() {
                         <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${b.plan === 'premium' ? 'bg-amber-500/20 text-amber-400' : 'bg-blue-500/20 text-blue-400'}`}>
                           {b.plan}
                         </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        {b.isVerified ? (
+                          <span className="px-2 py-1 rounded text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 whitespace-nowrap">
+                            ✅ Verificado
+                          </span>
+                        ) : (
+                          <span className="px-2 py-1 rounded text-xs font-bold bg-orange-500/20 text-orange-300 border border-orange-500/30 whitespace-nowrap">
+                            ⏳ Pendiente
+                          </span>
+                        )}
                       </td>
                       <td className="px-6 py-4 text-slate-400 text-xs">
                         {new Date(b.created_at).toLocaleDateString('es-PY', {
