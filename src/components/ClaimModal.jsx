@@ -16,6 +16,7 @@ import {
   FilterIcon
 } from './Icons';
 import { SERVICES, CITIES } from '../data/businesses';
+import { getRepresentativeImage } from '../utils/businessUtils';
 
 export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, onAddBusiness, initialPlan = 'gratuito' }) {
   const availableServices = SERVICES.filter(s => s.id !== 'todos');
@@ -65,6 +66,16 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
     oficios: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80'
   };
 
+  const activeNicheLabel = formData.nicheSelect === 'otro'
+    ? (formData.customNiche.trim() || categoryLabelMap[formData.category] || 'Servicios')
+    : formData.nicheSelect;
+
+  const genericPreviewImage = getRepresentativeImage({
+    category: formData.category,
+    niche: activeNicheLabel,
+    name: formData.name
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const finalNiche = formData.nicheSelect === 'otro' ? formData.customNiche : formData.nicheSelect;
@@ -98,10 +109,15 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
     const cleanWhatsapp = formData.whatsapp ? formData.whatsapp.replace(/\D/g, '') : '595984043197';
     const formattedWa = cleanWhatsapp.startsWith('595') ? cleanWhatsapp : `595${cleanWhatsapp.replace(/^0/, '')}`;
 
-    // Si es Plan Gratuito, se asigna obligatoriamente la imagen genérica del rubro
+    // Si es Plan Gratuito, se asigna obligatoriamente la imagen genérica según el servicio/rubro
+    const contextualGenericImage = getRepresentativeImage({
+      category: formData.category,
+      niche: finalNiche,
+      name: formData.name
+    });
     const mainImage = formData.plan === 'gratuito'
-      ? (defaultImageMap[formData.category] || defaultImageMap.oficios)
-      : (formData.imageUrl.trim() !== '' ? formData.imageUrl : (defaultImageMap[formData.category] || defaultImageMap.oficios));
+      ? contextualGenericImage
+      : (formData.imageUrl.trim() !== '' ? formData.imageUrl : contextualGenericImage);
 
     const validGallery = formData.galleryUrls.filter(url => url.trim() !== '');
     const finalGallery = formData.plan !== 'gratuito' 
@@ -469,12 +485,12 @@ export default function ClaimModal({ isOpen, onClose, onSelectPlanForPayment, on
                       <span>Foto Estándar de Rubro Incluida (Plan Gratuito)</span>
                     </div>
                     <p className="text-xs text-slate-300 leading-relaxed">
-                      Tu publicación gratuita incluirá automáticamente la imagen representativa del rubro <strong className="text-white">"{categoryLabelMap[formData.category] || 'Servicios'}"</strong>.
+                      Tu publicación gratuita incluirá automáticamente la imagen representativa del rubro <strong className="text-white">"{activeNicheLabel}"</strong>.
                     </p>
                     <div className="relative aspect-video w-48 rounded-xl overflow-hidden border border-blue-500/40 mt-1 shadow-md">
                       <img 
-                        src={defaultImageMap[formData.category] || defaultImageMap.oficios} 
-                        alt="Muestra de foto genérica" 
+                        src={genericPreviewImage} 
+                        alt={`Muestra de foto genérica para ${activeNicheLabel}`} 
                         className="w-full h-full object-cover" 
                       />
                       <span className="absolute bottom-1.5 left-1.5 bg-black/80 text-blue-300 text-[10px] font-bold px-2 py-0.5 rounded border border-blue-700/60">

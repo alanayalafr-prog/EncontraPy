@@ -89,65 +89,73 @@ export function getRepresentativeImage(business) {
   }
 
   const cat = (business.category || '').toLowerCase();
-  const niche = (business.niche || business.name || '').toLowerCase();
+  const niche = (business.niche || business.name || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
 
-  // Oficios y Servicios
-  if (cat.includes('oficio') || cat.includes('servicio')) {
-    if (niche.includes('refrig') || niche.includes('aire') || niche.includes('split') || niche.includes('clima')) {
-      return 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80';
-    }
-    if (niche.includes('electr') || niche.includes('cable') || niche.includes('luz')) {
-      return 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80';
-    }
-    if (niche.includes('plom') || niche.includes('hidr') || niche.includes('caño') || niche.includes('grifo')) {
-      return 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80';
-    }
-    if (niche.includes('taller') || niche.includes('mecanic') || niche.includes('auto') || niche.includes('freno')) {
-      return 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80';
-    }
-    if (niche.includes('pint') || niche.includes('albañil') || niche.includes('construc')) {
-      return 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80';
-    }
-    return 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80';
+  // 1. Coincidencia específica por servicio / rubro (prioridad sobre categoría general)
+  if (niche.includes('odont') || niche.includes('dent') || niche.includes('diente')) {
+    return 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80';
   }
-
-  // Salud
-  if (cat.includes('salud') || cat.includes('medic')) {
-    if (niche.includes('odont') || niche.includes('dent') || niche.includes('diente') || niche.includes('estetica dental')) {
-      return 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80';
-    }
-    if (niche.includes('farma')) {
-      return 'https://images.unsplash.com/photo-1586015555751-63bb77f4322a?auto=format&fit=crop&w=800&q=80';
-    }
+  if (niche.includes('farma')) {
+    return 'https://images.unsplash.com/photo-1586015555751-63bb77f4322a?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('medic') || niche.includes('consultorio') || niche.includes('clinic') || niche.includes('sanatorio')) {
     return 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80';
   }
-
-  // Gastronomía
-  if (cat.includes('gastro') || cat.includes('comida') || cat.includes('restaurante')) {
-    if (niche.includes('asado') || niche.includes('parrill') || niche.includes('cater') || niche.includes('carne')) {
-      return 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80';
-    }
-    if (niche.includes('burger') || niche.includes('hamburg') || niche.includes('lomit')) {
-      return 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80';
-    }
-    if (niche.includes('pizza') || niche.includes('pasta')) {
-      return 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80';
-    }
-    if (niche.includes('cafe') || niche.includes('panad') || niche.includes('confiter')) {
-      return 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80';
-    }
-    return 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80';
+  if (niche.includes('refrig') || niche.includes('aire') || niche.includes('split') || niche.includes('clima')) {
+    return 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('electr') || niche.includes('cable') || niche.includes('luz')) {
+    return 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('plom') || niche.includes('hidr') || niche.includes('cano') || niche.includes('grifo')) {
+    return 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('taller') || niche.includes('mecanic') || niche.includes('auto') || niche.includes('freno')) {
+    return 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('pint') || niche.includes('albanil') || niche.includes('construc')) {
+    return 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('informatic') || niche.includes('programac') || niche.includes('comput') || niche.includes('software')) {
+    return 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('asado') || niche.includes('parrill') || niche.includes('cater') || niche.includes('carne')) {
+    return 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('burger') || niche.includes('hamburg') || niche.includes('lomit')) {
+    return 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('pizza') || niche.includes('pasta')) {
+    return 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('cafe') || niche.includes('panad') || niche.includes('confiter')) {
+    return 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('sanidad animal') || niche.includes('veterin') || niche.includes('granja')) {
+    return 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('insumos') || niche.includes('nutricion animal') || niche.includes('semill') || niche.includes('pastur')) {
+    return 'https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=800&q=80';
+  }
+  if (niche.includes('maquin') || niche.includes('tractor')) {
+    return 'https://images.unsplash.com/photo-1530267981375-f0de937f5f13?auto=format&fit=crop&w=800&q=80';
   }
 
-  // Agro
+  // 2. Respaldo por categoría general
+  if (cat.includes('salud') || cat.includes('medic')) {
+    return 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80';
+  }
+  if (cat.includes('gastro') || cat.includes('comida') || cat.includes('restaurante')) {
+    return 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80';
+  }
   if (cat.includes('agro') || cat.includes('ganad') || cat.includes('campo')) {
-    if (niche.includes('semill') || niche.includes('pastur') || niche.includes('granja')) {
-      return 'https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=800&q=80';
-    }
-    if (niche.includes('maquin') || niche.includes('tractor')) {
-      return 'https://images.unsplash.com/photo-1530267981375-f0de937f5f13?auto=format&fit=crop&w=800&q=80';
-    }
     return 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80';
+  }
+  if (cat.includes('oficio') || cat.includes('servicio')) {
+    return 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80';
   }
 
   return 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80';
