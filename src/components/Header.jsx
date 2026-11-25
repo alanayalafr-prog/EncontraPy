@@ -7,9 +7,9 @@ export default function Header({ theme, toggleTheme, onOpenAddModal, onOpenPrici
       <div className="container-clean h-16 sm:h-20 flex flex-row items-center justify-between gap-2 sm:gap-4">
         
         {/* Brand Logo */}
-        <div 
-          className="flex items-center gap-2 sm:gap-2.5 cursor-pointer shrink-0 min-w-0" 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        <a 
+          href="/"
+          className="flex items-center gap-2 sm:gap-2.5 cursor-pointer shrink-0 min-w-0 no-underline" 
           title="DirectorioPY - Inicio"
         >
           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-blue-600 flex items-center justify-center font-black text-white text-base sm:text-xl shadow-md shrink-0">
@@ -26,7 +26,7 @@ export default function Header({ theme, toggleTheme, onOpenAddModal, onOpenPrici
               Directorio de Comercios en Paraguay
             </span>
           </div>
-        </div>
+        </a>
 
         {/* Horizontal Action Buttons */}
         <div className="flex flex-row items-center gap-1.5 sm:gap-3 shrink-0">
