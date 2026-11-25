@@ -191,7 +191,7 @@ export default function HomePageContent({ initialBusinesses = [] }) {
         />
 
         {/* Quick Cities Pill Bar */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-1.5 overflow-x-auto sm:flex-wrap sm:overflow-visible pb-1 scrollbar-none">
           <span className="text-[11px] font-bold text-slate-400 mr-1 uppercase tracking-wider shrink-0">
             Ciudades:
           </span>
