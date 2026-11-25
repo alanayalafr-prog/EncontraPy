@@ -438,6 +438,10 @@ export default function AdminDashboard() {
               const waNumber = formatWhatsAppNumber(b.whatsappNumber || b.phone);
               const message = getMarketingMessage(b);
               const isPaid = b.plan === 'pro' || b.plan === 'premium';
+              const isExpired = Boolean(isPaid && b.expires_at && new Date() > new Date(b.expires_at));
+              const expiresLabel = b.expires_at
+                ? new Date(b.expires_at).toLocaleDateString('es-PY', { day: '2-digit', month: '2-digit', year: 'numeric' })
+                : null;
 
               return (
                 <div 
@@ -469,9 +473,16 @@ export default function AdminDashboard() {
                           <span className="text-[11px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-medium">
                             {b.cityName || b.city}
                           </span>
-                          {b.isVerified ? (
+                          {isExpired ? (
+                            <span
+                              className="text-[10px] bg-red-500/20 text-red-300 border border-red-500/40 px-2 py-0.5 rounded font-bold"
+                              title="Plan vencido: la web lo muestra como Free hasta renovar expires_at en Supabase"
+                            >
+                              ⚠️ Vencido ({expiresLabel})
+                            </span>
+                          ) : b.isVerified ? (
                             <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded font-bold">
-                              ✅ Verificado
+                              ✅ Verificado{expiresLabel ? ` (vence ${expiresLabel})` : ''}
                             </span>
                           ) : isPaid ? (
                             <span
@@ -580,7 +591,11 @@ export default function AdminDashboard() {
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        {b.isVerified ? (
+                        {b.expires_at && new Date() > new Date(b.expires_at) ? (
+                          <span className="px-2 py-1 rounded text-xs font-bold bg-red-500/20 text-red-300 border border-red-500/30 whitespace-nowrap">
+                            ⚠️ Vencido ({new Date(b.expires_at).toLocaleDateString('es-PY')})
+                          </span>
+                        ) : b.isVerified ? (
                           <span className="px-2 py-1 rounded text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 whitespace-nowrap">
                             ✅ Verificado
                           </span>
