@@ -95,15 +95,26 @@ export default function Footer({ onSelectCategory, onSelectCity }) {
             <p className="text-xs text-slate-300 leading-relaxed mb-3">
               ¿Querés registrar tu negocio o activar tu plan por transferencia SIPAP? Contactanos:
             </p>
-            <a
-              href="https://wa.me/595981747679?text=Hola%20DirectorioPY,%20quisiera%20consultar%20sobre%20el%20directorio."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-whatsapp-official w-full py-3 text-xs rounded-xl flex items-center justify-center gap-2 font-bold shadow-md hover:scale-[1.01] transition-transform mt-2"
-            >
-              <WhatsAppIcon className="w-4 h-4 shrink-0" />
-              <span>Contactar Soporte DirectorioPY</span>
-            </a>
+            <div className="space-y-2 mt-2">
+              <a
+                href="https://wa.me/595984043197?text=Hola%20DirectorioPY,%20quisiera%20consultar%20sobre%20el%20directorio."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-whatsapp-official w-full py-3 text-xs rounded-xl flex items-center justify-center gap-2 font-bold shadow-md hover:scale-[1.01] transition-transform"
+              >
+                <WhatsAppIcon className="w-4 h-4 shrink-0" />
+                <span>Soporte Principal (0984 043 197)</span>
+              </a>
+              <a
+                href="https://wa.me/595981747679?text=Hola%20soporte%20t%C3%A9cnico%20de%20DirectorioPY,%20necesito%20ayuda."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 px-3 text-xs rounded-xl bg-[#151F32] hover:bg-[#1C2942] text-slate-200 hover:text-white border border-[#27354D] flex items-center justify-center gap-2 font-semibold transition-colors"
+              >
+                <WhatsAppIcon className="w-4 h-4 shrink-0 text-emerald-400" />
+                <span>Soporte Técnico (0981 747 679)</span>
+              </a>
+            </div>
           </div>
 
         </div>

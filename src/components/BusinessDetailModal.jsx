@@ -98,7 +98,7 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
   // Función para reportar datos desactualizados a soporte de DirectorioPY
   const handleReportData = () => {
     const reportMsg = `Hola DirectorioPY, quiero reportar datos incorrectos o desactualizados sobre el comercio "${business.name}" (ID #${business.id}) en ${business.cityName || 'Paraguay'}. Los datos correctos son:`;
-    const reportUrl = `https://wa.me/595981747679?text=${encodeURIComponent(reportMsg)}`;
+    const reportUrl = `https://wa.me/595984043197?text=${encodeURIComponent(reportMsg)}`;
     window.open(reportUrl, '_blank');
   };
 

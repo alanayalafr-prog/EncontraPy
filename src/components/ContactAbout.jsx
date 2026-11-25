@@ -41,16 +41,27 @@ export default function ContactAbout() {
             
             <div className="space-y-4">
               <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Escríbenos directamente</p>
-                <a
-                  href="https://wa.me/595981747679?text=Hola%20equipo%20de%20DirectorioPY.%20Necesito%20ayuda%20con%20la%20plataforma."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white font-bold text-sm shadow-lg shadow-green-500/20 transition-all hover:scale-[1.02]"
-                >
-                  <WhatsAppIcon className="w-5 h-5" />
-                  <span>Contactar Soporte (+595 981 747679)</span>
-                </a>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Escríbenos directamente — Soporte Técnico</p>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href="https://wa.me/595984043197?text=Hola%20equipo%20de%20DirectorioPY.%20Necesito%20ayuda%20con%20la%20plataforma."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white font-bold text-sm shadow-lg shadow-green-500/20 transition-all hover:scale-[1.02]"
+                  >
+                    <WhatsAppIcon className="w-5 h-5" />
+                    <span>Soporte Principal (+595 984 043197)</span>
+                  </a>
+                  <a
+                    href="https://wa.me/595981747679?text=Hola%20equipo%20de%20soporte%20t%C3%A9cnico%20de%20DirectorioPY.%20Necesito%20ayuda%20con%20la%20plataforma."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 border border-[#27354D] font-bold text-sm transition-all hover:scale-[1.02]"
+                  >
+                    <WhatsAppIcon className="w-5 h-5 text-emerald-400" />
+                    <span>Soporte Técnico (+595 981 747679)</span>
+                  </a>
+                </div>
               </div>
 
               <div className="pt-4">
