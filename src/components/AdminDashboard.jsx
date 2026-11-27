@@ -1,31 +1,38 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
-import { ShieldCheckIcon, WhatsAppIcon, MapPinIcon, PhoneIcon, SearchIcon, FilterIcon, CheckCircleIcon, SparklesIcon } from './Icons';
+import { ShieldCheckIcon, WhatsAppIcon, MapPinIcon, PhoneIcon, SearchIcon, FilterIcon, CheckCircleIcon, SparklesIcon, GlobeIcon, CopyIcon } from './Icons';
 import { formatWhatsAppNumber } from '../utils/phoneUtils';
+import { getHumanBusinessName, getMiniWebPath, getMiniWebUrl } from '../utils/slugUtils';
 import { supabase } from '../config/supabase';
 
-const DEFAULT_MESSAGE = `Hola {nombre}, armamos una ficha básica de tu comercio en DirectorioPY (www.directoriopy.com) para que la gente te contacte más fácil por WhatsApp. ¿Confirmás si los datos son correctos?`;
+const DEFAULT_MESSAGE = `Buen día equipo de {nombre_corto}! Les armé gratis una muestra de cómo quedaría su propia mini-web para poner en su Instagram y compartir por WhatsApp (con horarios, mapa y botón directo a este WhatsApp):
+{link_muestra}
+
+Si les gusta, me avisan y la dejamos lista con su logo y fotos.`;
 
 const TEMPLATES = [
   {
-    id: 'confirmacion',
-    title: '✅ Validación de Ficha (Recomendado)',
-    text: `Hola {nombre}, armamos una ficha básica de tu comercio en DirectorioPY (www.directoriopy.com) para que la gente te contacte más fácil por WhatsApp. ¿Confirmás si los datos son correctos?`
+    id: 'miniweb_muestra',
+    title: '🚀 Muestra Mini-Web (Alternativa 4 - Recomendado)',
+    text: `Buen día equipo de {nombre_corto}! Les armé gratis una muestra de cómo quedaría su propia mini-web para poner en su Instagram y compartir por WhatsApp (con horarios, mapa y botón directo a este WhatsApp):
+{link_muestra}
+
+Si les gusta, me avisan y la dejamos lista con su logo y fotos.`
+  },
+  {
+    id: 'rompe_hielo',
+    title: '💬 Rompe-hielo corto (Llegar al dueño)',
+    text: `Hola, ¿cómo están? ¿Me comunico con el encargado de {nombre_corto}? Armamos una muestra gratis de una mini-web con sus horarios, mapa y botón de WhatsApp para poner en su Instagram. ¿Te paso el link para que lo mires?`
   },
   {
     id: 'metricas',
     title: '📊 Reporte de Visitas y Clics',
-    text: `Hola {nombre}, te escribimos de DirectorioPY (www.directoriopy.com). Tu ficha en {ciudad} registró {visitas} visitas y {clics} clics al botón de WhatsApp. ¿Confirmás si tus datos siguen vigentes para seguir derivándote consultas?`
+    text: `Hola equipo de {nombre_corto}! Su página en {ciudad} registró {visitas} visitas y {clics} clics al botón de WhatsApp ({link_miniweb}). ¿Quieren que actualicemos fotos, horarios o redes para aprovechar mejor ese tráfico?`
   },
   {
-    id: 'rubro',
-    title: '🔧 Demanda por Rubro / Oficio',
-    text: `Hola {nombre}, te escribo de DirectorioPY (www.directoriopy.com). Tenemos consultas de clientes buscando servicios de {rubro} en {ciudad} y queremos confirmar tu número para derivarte clientes directos.`
-  },
-  {
-    id: 'upsell',
-    title: '⭐ Ofrecer Plan Destacado / VIP',
-    text: `Hola {nombre}, vimos tu perfil activo de {rubro} en DirectorioPY. ¿Te gustaría destacar tu negocio para aparecer primero cuando busquen en {ciudad}? Conocé nuestros planes en www.directoriopy.com`
+    id: 'cierre',
+    title: '⭐ Seguimiento / Activación Plan Pro',
+    text: `¡Genial! Para dejar la Mini-Web de {nombre_corto} completa con su logo real, galería de fotos, redes sociales, insignia verificada y además destacada en DirectorioPY, el plan arranca en Gs. 67.000/mes (o Gs. 160.000 por 3 meses, cero comisiones). ¿Te paso los datos de transferencia SIPAP?`
   }
 ];
 
@@ -45,6 +52,7 @@ export default function AdminDashboard() {
   const [customMessage, setCustomMessage] = useState(DEFAULT_MESSAGE);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [copiedAll, setCopiedAll] = useState(false);
+  const [copiedBusinessId, setCopiedBusinessId] = useState(null);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -130,12 +138,28 @@ export default function AdminDashboard() {
 
   const getMarketingMessage = (b) => {
     let msg = customMessage;
+    const shortName = getHumanBusinessName(b?.name || '');
+    const miniWebUrl = getMiniWebUrl(b);
+    const sampleUrl = getMiniWebUrl(b, { isSample: true });
+
+    msg = msg.replaceAll('{nombre_corto}', shortName);
     msg = msg.replaceAll('{nombre}', b?.name || '');
     msg = msg.replaceAll('{rubro}', b?.niche || b?.category || 'tu rubro');
     msg = msg.replaceAll('{ciudad}', b?.cityName || b?.city || 'Paraguay');
     msg = msg.replaceAll('{visitas}', String(b?.profile_views || 0));
     msg = msg.replaceAll('{clics}', String(b?.whatsapp_clicks || 0));
+    msg = msg.replaceAll('{link_miniweb}', miniWebUrl);
+    msg = msg.replaceAll('{link_muestra}', sampleUrl);
     return msg;
+  };
+
+  const handleCopyMiniWebLink = (b) => {
+    const url = getMiniWebUrl(b);
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(url);
+      setCopiedBusinessId(b.id);
+      setTimeout(() => setCopiedBusinessId(null), 2000);
+    }
   };
 
   const handleCopyAllPhones = () => {
@@ -260,11 +284,11 @@ export default function AdminDashboard() {
 
         {/* Current active message preview */}
         <div className="p-3.5 rounded-xl bg-[#0B1120] border border-[#27354D]/80 text-sm text-slate-200">
-          <p className="italic text-slate-300">
+          <p className="italic text-slate-300 whitespace-pre-line">
             "{customMessage}"
           </p>
           <p className="text-[11px] text-slate-500 mt-2">
-            * Las etiquetas <code className="text-amber-400">{'{nombre}'}</code>, <code className="text-amber-400">{'{rubro}'}</code> y <code className="text-amber-400">{'{ciudad}'}</code> se reemplazarán automáticamente con los datos de cada comercio al hacer clic en contactar.
+            * Variables disponibles: <code className="text-amber-400">{'{nombre_corto}'}</code> (limpia el texto de Google Maps), <code className="text-amber-400">{'{link_muestra}'}</code> (Mini-Web con banner para el dueño), <code className="text-amber-400">{'{link_miniweb}'}</code> (link limpio para clientes), <code className="text-amber-400">{'{ciudad}'}</code>, <code className="text-amber-400">{'{rubro}'}</code>, <code className="text-amber-400">{'{visitas}'}</code> y <code className="text-amber-400">{'{clics}'}</code>.
           </p>
         </div>
 
@@ -520,21 +544,45 @@ export default function AdminDashboard() {
                     </div>
                   </div>
                   
-                  {waNumber ? (
-                    <a
-                      href={`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 hover:from-green-400 hover:to-emerald-400 transition-all shadow-lg shadow-green-500/20 cursor-pointer active:scale-98"
-                    >
-                      <WhatsAppIcon className="w-4 h-4" />
-                      Contactar por WhatsApp
-                    </a>
-                  ) : (
-                    <div className="w-full py-2.5 rounded-xl bg-slate-800 text-slate-500 font-bold text-xs text-center">
-                      Sin número de WhatsApp
+                  <div className="space-y-2">
+                    <div className="grid grid-cols-2 gap-2">
+                      <a
+                        href={getMiniWebPath(b, { isSample: true })}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-2 px-2.5 rounded-xl bg-[#151F32] hover:bg-[#1E293B] border border-[#27354D] text-blue-300 font-bold text-[11px] flex items-center justify-center gap-1.5 transition-colors"
+                        title="Abrir vista previa de la Mini-Web tal como la verá el dueño"
+                      >
+                        <GlobeIcon className="w-3.5 h-3.5" />
+                        <span>Ver Mini-Web</span>
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() => handleCopyMiniWebLink(b)}
+                        className="py-2 px-2.5 rounded-xl bg-[#151F32] hover:bg-[#1E293B] border border-[#27354D] text-slate-200 font-bold text-[11px] flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                        title="Copiar enlace limpio de la Mini-Web"
+                      >
+                        <CopyIcon className="w-3.5 h-3.5 text-amber-400" />
+                        <span>{copiedBusinessId === b.id ? '¡Copiado!' : 'Copiar Link'}</span>
+                      </button>
                     </div>
-                  )}
+
+                    {waNumber ? (
+                      <a
+                        href={`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full py-2.5 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 hover:from-green-400 hover:to-emerald-400 transition-all shadow-lg shadow-green-500/20 cursor-pointer active:scale-98"
+                      >
+                        <WhatsAppIcon className="w-4 h-4" />
+                        Contactar por WhatsApp
+                      </a>
+                    ) : (
+                      <div className="w-full py-2.5 rounded-xl bg-slate-800 text-slate-500 font-bold text-xs text-center">
+                        Sin número de WhatsApp
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}

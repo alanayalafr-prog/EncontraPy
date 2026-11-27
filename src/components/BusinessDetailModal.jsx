@@ -26,6 +26,7 @@ import {
 import { formatWhatsAppNumber, getBusinessWhatsAppMessage } from '../utils/phoneUtils';
 import { isOpenNow, getRepresentativeImage, formatLocalReviewsRating, getTrustStatus, canUseWhatsApp } from '../utils/businessUtils';
 import { trackWhatsAppClick, trackProfileView } from '../utils/analyticsUtils';
+import { getMiniWebPath, getMiniWebUrl } from '../utils/slugUtils';
 
 export default function BusinessDetailModal({ business, relatedBusinesses = [], reviews = [], onClose, onClaimClick }) {
   if (!business) return null;
@@ -68,12 +69,15 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
     ? business.gallery
     : [defaultPhoto];
 
-  // Función para compartir ficha
+  const miniWebPath = getMiniWebPath(business);
+  const miniWebUrl = getMiniWebUrl(business);
+
+  // Función para compartir ficha (usa el enlace limpio de Mini-Web)
   const handleShare = async () => {
     const shareData = {
       title: `${business.name} | DirectorioPY`,
-      text: `Mirá la ficha de ${business.name} en ${business.cityName || 'Paraguay'} en DirectorioPY:`,
-      url: typeof window !== 'undefined' ? window.location.href : 'https://directoriopy.com'
+      text: `Mirá la página de ${business.name} en ${business.cityName || 'Paraguay'}:`,
+      url: miniWebUrl
     };
 
     if (navigator.share) {
@@ -87,9 +91,9 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
       }
     }
 
-    // Fallback: Copiar enlace
+    // Fallback: Copiar enlace limpio de Mini-Web
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href);
+      navigator.clipboard.writeText(miniWebUrl);
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2500);
     }
@@ -213,6 +217,17 @@ export default function BusinessDetailModal({ business, relatedBusinesses = [], 
         {/* 2. BARRA DE ACCIONES RÁPIDAS */}
         <div className="p-4 sm:px-8 border-b border-[#27354D] bg-[#151F32] flex flex-wrap items-center justify-between gap-2.5">
           <div className="flex items-center gap-2 flex-wrap">
+            {/* Open Mini-Web */}
+            <Link
+              href={miniWebPath}
+              target="_blank"
+              className="px-3.5 py-2 rounded-xl bg-blue-950/80 hover:bg-blue-900 text-blue-200 hover:text-white text-xs font-semibold border border-blue-500/40 transition-colors flex items-center gap-1.5"
+              title="Abrir Mini-Web limpia lista para Instagram y WhatsApp"
+            >
+              <GlobeIcon className="w-3.5 h-3.5 text-blue-400" />
+              <span>Ver Mini-Web</span>
+            </Link>
+
             {/* Share Button */}
             <button
               onClick={handleShare}

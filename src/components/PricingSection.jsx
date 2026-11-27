@@ -87,11 +87,11 @@ export default function PricingSection({ onOpenPaymentModal }) {
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
-            Planes de Publicación para Comercios
+            Tu Mini-Web para Instagram y WhatsApp
           </h2>
 
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl mx-auto font-normal">
-            Aparecé en las primeras búsquedas de Google y recibí clientes calificados en tu WhatsApp sin pagar comisiones por venta.
+            Tené tu propia página móvil con horarios, mapa, fotos y botón directo a WhatsApp para compartir con tus clientes — y además aparecé en el buscador de DirectorioPY sin pagar comisiones.
           </p>
         </div>
 

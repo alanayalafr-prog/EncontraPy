@@ -1,14 +1,27 @@
 import { supabase } from '@/config/supabase';
+import { getBusinessSlug } from '@/utils/slugUtils';
 
 export default async function sitemap() {
-  const { data: businesses } = await supabase.from('businesses').select('id, updated_at');
+  const { data: businesses } = await supabase.from('businesses').select('id, name, updated_at');
 
-  const businessEntries = businesses?.map((b) => ({
-    url: `https://www.directoriopy.com/publicacion/${b.id}`,
-    lastModified: new Date(b.updated_at || new Date()),
-    changeFrequency: 'weekly',
-    priority: 0.8,
-  })) || [];
+  const businessEntries = businesses?.flatMap((b) => {
+    const lastModified = new Date(b.updated_at || new Date());
+    const slug = getBusinessSlug(b);
+    return [
+      {
+        url: `https://www.directoriopy.com/c/${slug}`,
+        lastModified,
+        changeFrequency: 'weekly',
+        priority: 0.9,
+      },
+      {
+        url: `https://www.directoriopy.com/publicacion/${b.id}`,
+        lastModified,
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      },
+    ];
+  }) || [];
 
   return [
     { url: 'https://www.directoriopy.com', lastModified: new Date(), changeFrequency: 'daily', priority: 1 },

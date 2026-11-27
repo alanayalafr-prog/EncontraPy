@@ -43,17 +43,47 @@ function normalizeWhatsApp(phone) {
   return `595${digits.replace(/^0+/, '')}`;
 }
 
+function getHumanBusinessName(rawName) {
+  if (!rawName || typeof rawName !== 'string') return 'su comercio';
+  let name = rawName.trim();
+  const separatorMatch = name.split(/\s*[|–—•]\s*|\s+-\s+/);
+  if (separatorMatch[0] && separatorMatch[0].trim().length >= 3) {
+    name = separatorMatch[0].trim();
+  }
+  const commaParts = name.split(',');
+  if (commaParts.length > 1 && commaParts[0].trim().length >= 3) {
+    name = commaParts[0].trim();
+  }
+  name = name
+    .replace(/\b(urgencias?\s*)?(24\s*\/?\s*7|24\s*hs\.?|24\s*horas)\b/gi, '')
+    .replace(/\s*\(\s*\)\s*/g, ' ')
+    .replace(/[.,;:\-–—]+$/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+  return name || rawName.trim();
+}
+
+function getBusinessSlug(business) {
+  const base = getHumanBusinessName(business.name || 'comercio')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 48)
+    .replace(/-+$/g, '') || 'comercio';
+  return `${base}-${business.id}`;
+}
+
 function getOutreachMessage(business) {
-  const name = business.name || 'su comercio';
-  const city = business.cityName || business.city || 'Paraguay';
-  const profileUrl = `https://www.directoriopy.com/publicacion/${business.id}`;
+  const shortName = getHumanBusinessName(business.name);
+  const slug = getBusinessSlug(business);
+  const sampleUrl = `https://www.directoriopy.com/c/${slug}?muestra=1`;
 
-  return `¡Hola ${name}! 👋 Les escribimos de DirectorioPY (directoriopy.com).
+  return `Buen día equipo de ${shortName}! Les armé gratis una muestra de cómo quedaría su propia mini-web para poner en su Instagram y compartir por WhatsApp (con horarios, mapa y botón directo a este WhatsApp):
+${sampleUrl}
 
-Registramos su perfil inicial gratuito en nuestra plataforma para que las personas de ${city} puedan encontrarlos y escribirles directo a este WhatsApp:
-👉 ${profileUrl}
-
-¿Están correctos sus datos o les gustaría que actualicemos su logo, horarios de atención o fotos de trabajos?`;
+Si les gusta, me avisan y la dejamos lista con su logo y fotos.`;
 }
 
 async function main() {
@@ -89,13 +119,15 @@ async function main() {
     const message = getOutreachMessage(b);
     const waLink = `https://wa.me/${wa}?text=${encodeURIComponent(message)}`;
 
+    const slug = getBusinessSlug(b);
     return {
       id: b.id,
-      name: b.name,
+      name: getHumanBusinessName(b.name),
       ciudad: b.cityName || b.city,
       rubro: b.niche || b.category,
       whatsapp: `+${wa}`,
-      perfil: `https://www.directoriopy.com/publicacion/${b.id}`,
+      miniWeb: `https://www.directoriopy.com/c/${slug}`,
+      muestra: `https://www.directoriopy.com/c/${slug}?muestra=1`,
       clickToChat: waLink,
     };
   });
@@ -115,7 +147,10 @@ async function main() {
       <td style="padding: 12px; color: #94a3b8;">${item.ciudad}</td>
       <td style="padding: 12px; color: #94a3b8;">${item.rubro}</td>
       <td style="padding: 12px; color: #38bdf8;">${item.whatsapp}</td>
-      <td style="padding: 12px;">
+      <td style="padding: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <a href="${item.muestra}" target="_blank" style="display: inline-block; background-color: #1e3a8a; color: #bfdbfe; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+          🌐 Ver Muestra
+        </a>
         <a href="${item.clickToChat}" target="_blank" style="display: inline-block; background-color: #22c55e; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: bold;">
           💬 Enviar WhatsApp
         </a>

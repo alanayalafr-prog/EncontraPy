@@ -137,8 +137,8 @@ export default function ClientLayout({ children }) {
   };
 
   const isAdminRoute = pathname === '/admin';
-  const isLegalRoute = ['/privacidad', '/terminos', '/contacto'].includes(pathname);
-  const showHeaderFooter = !isAdminRoute;
+  const isMiniWebRoute = pathname?.startsWith('/c/');
+  const showHeaderFooter = !isAdminRoute && !isMiniWebRoute;
 
   return (
     <div className={`min-h-screen font-sans flex flex-col ${theme === 'dark' ? 'bg-[#060B14] text-slate-200' : 'bg-slate-50 text-slate-900'}`}>

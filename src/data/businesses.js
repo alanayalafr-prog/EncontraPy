@@ -1603,69 +1603,68 @@ export const PRICING_PLANS = [
     badge: 'Inicial',
     priceGs: 'Gs. 0',
     period: 'para siempre',
-    description: 'Ideal para aparecer en las búsquedas iniciales de tu ciudad.',
+    description: 'Tu Mini-Web inicial con horarios, mapa y botón de WhatsApp para empezar hoy.',
     features: [
-      'Perfil básico con nombre y dirección',
-      'Categorización por Ciudad y Nicho',
-      'Enlace estándar a WhatsApp',
-      'Horarios de atención'
+      'Mini-Web con enlace propio para compartir',
+      'Botón directo a WhatsApp y ubicación GPS',
+      'Horarios de atención en tiempo real',
+      'Publicación incluida en DirectorioPY'
     ],
     highlighted: false,
     ctaText: 'Publicar Negocio Gratis'
   },
   {
     id: 'pro',
-    name: 'Plan Pro Mensual',
+    name: 'Mini-Web Pro Mensual',
     badge: 'Mensual',
     priceGs: 'Gs. 67.000',
     period: '/ mes',
-    description: 'Para comercios que buscan aumentar sus consultas de clientes mes a mes.',
+    description: 'Tu Mini-Web completa para poner en Instagram y WhatsApp con tu marca, fotos y redes.',
     features: [
-      'Todo lo del Plan Gratuito',
+      'Mini-Web lista para tu bio de Instagram y WhatsApp',
+      'Foto real de fachada / logo + galería (hasta 3 fotos)',
+      'Botones a Instagram, Facebook y Sitio Web',
+      'Botón "Agendar contacto" (.vcf) y GPS directo',
       'Insignia de Comercio Verificado ✔️',
-      'Posicionamiento prioritario en búsquedas',
-      'Mensaje directo de WhatsApp personalizado',
-      'Enlace a Instagram, Facebook y Sitio Web',
-      'Galería de fotos del comercio (hasta 3 fotos)'
+      'BONUS: Posicionamiento prioritario en DirectorioPY'
     ],
     highlighted: false,
-    ctaText: 'Pagar con SIPAP (Gs. 67.000)'
+    ctaText: 'Activar con SIPAP (Gs. 67.000)'
   },
   {
     id: 'pro_trimestral',
-    name: 'Plan Pro Trimestral',
+    name: 'Mini-Web Pro Trimestral',
     badge: '⚡ Tiempo Limitado',
     priceGs: 'Gs. 160.000',
     period: 'por 3 meses',
-    description: 'Mismos beneficios del Plan Pro por 3 meses completos a precio especial de lanzamiento.',
+    description: 'Tu Mini-Web completa + visibilidad destacada durante 3 meses a precio promocional.',
     features: [
-      'Todo lo del Plan Pro Mensual (por 3 meses)',
+      'Todo lo de Mini-Web Pro por 3 meses completos',
+      'Logo real, galería de fotos y enlaces a tus redes',
       'Insignia de Comercio Verificado ✔️',
-      'Posicionamiento prioritario en búsquedas',
-      'Mensaje directo de WhatsApp personalizado',
-      'Enlace a Instagram, Facebook y Sitio Web',
-      'Galería de fotos del comercio (hasta 3 fotos)',
+      'BONUS: Posicionamiento prioritario en DirectorioPY',
+      'Soporte por WhatsApp para actualizar horarios o fotos',
       '🔥 Ahorrás Gs. 41.000 respecto al pago mensual'
     ],
     highlighted: true,
-    ctaText: 'Pagar con SIPAP (Gs. 160.000)'
+    ctaText: 'Activar con SIPAP (Gs. 160.000)'
   },
   {
     id: 'premium',
-    name: 'Plan Premium Anual',
+    name: 'Mini-Web VIP Anual',
     badge: 'VIP Anual 👑',
     priceGs: 'Gs. 560.000',
     period: '/ año',
-    description: 'Visibilidad total y máxima prioridad en los motores de búsqueda y portada.',
+    description: 'Tu página profesional todo el año + máxima visibilidad en portada y Google.',
     features: [
-      'Todo lo del Plan Pro Mensual',
+      'Todo lo de Mini-Web Pro durante 12 meses',
       'Destacado en Portada Principal (Spotlight VIP ⭐️)',
-      'Soporte directo y actualización prioritaria por WhatsApp',
-      'Optimización SEO con Microdata Schema para Google',
+      'Actualizaciones ilimitadas de fotos y promos por WhatsApp',
+      'Optimización SEO local para Google (Schema.org)',
       'Ahorro del 30% respecto al pago mensual'
     ],
     highlighted: false,
-    ctaText: 'Pagar con SIPAP (Gs. 560.000)'
+    ctaText: 'Activar con SIPAP (Gs. 560.000)'
   }
 ];
 
